@@ -11,12 +11,24 @@ const pawnNamesArray = [
 	'blue-pawn-E',
 ];
 
-
+const rowsArray = [ 'one','two','three','four','five' ]
+const columnsArray = [ 'A','B','C','D','E' ]
 
 for (let i = 0; i < pawnNamesArray.length; i++) {
-    for (let j = 0; j < columnArray.length; j++) {
-        const element = array[j];
-        
-    }
-    
+        newPawn = Pawn;
+        newPawn.id = pawnNamesArray[i];
 }
+    
+    const pinkPawnA = document.querySelector(`#${pawnNamesArray[0]}`)
+    const pinkPawnB = document.querySelector(`#${pawnNamesArray[1]}`)
+    const pinkPawnC = document.querySelector(`#${pawnNamesArray[2]}`)
+    const pinkPawnD = document.querySelector(`#${pawnNamesArray[3]}`)
+    const pinkPawnE = document.querySelector(`#${pawnNamesArray[4]}`)
+
+    const bluePawnA = document.querySelector(`#${pawnNamesArray[5]}`)
+    const bluePawnB = document.querySelector(`#${pawnNamesArray[6]}`)
+    const bluePawnC = document.querySelector(`#${pawnNamesArray[7]}`)
+    const bluePawnD = document.querySelector(`#${pawnNamesArray[8]}`)
+    const bluePawnE = document.querySelector(`#${pawnNamesArray[9]}`)
+
+console.log(pinkPawnA);
