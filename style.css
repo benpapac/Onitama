@@ -1,0 +1,34 @@
+.board {
+	display: flex;
+	flex-direction: column;
+}
+.row {
+	background-color: lightcoral;
+
+	display: flex;
+	justify-content: center;
+}
+
+.col-4 {
+	flex-basis: 33%;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+.square {
+	height: 150px;
+	max-width: 150px;
+	border: solid black 1px;
+
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+
+.blue-pawn {
+	flex-grow: 0.75;
+	flex-basis: 100%;
+	background-color: lightblue;
+	border: solid black 1px;
+	border-radius: 36px;
+}
