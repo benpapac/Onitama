@@ -10,13 +10,17 @@ function checkMove() {
 	if (
 		opponent === player2 &&
 		(parseInt(oldRow) - parseInt(newRow) !== -1 ||
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) !== 0)
+			Math.abs(
+				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+			) > 1)
 	)
 		return;
 	if (
 		opponent === player1 &&
 		(parseInt(oldRow) - parseInt(newRow) !== 1 ||
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) !== 0)
+			Math.abs(
+				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+			) > 1)
 	)
 		return;
 	return true;
@@ -36,13 +40,11 @@ function getNewSquare(event) {
 	newColumn = newSquare.dataset.column;
 }
 
-
 function handleMove(event) {
 	getNewSquare(event);
 	canMove = checkMove();
 	if (!canMove) return;
-	console.log(`canMove: ${canMove}`);
-	checkWinner(event);
+    getWinner();
 	render();
 	newTurn();
 }
