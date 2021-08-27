@@ -10,12 +10,15 @@ const player2 = {
 //cached DOM references
 
 const board = document.querySelector(`#board`);
+const message = document.querySelector('#message'); 
 //message = the place where I'll display player messages
 //resetButton = the button that appears to reset the game.
 
 //State Variables
 let winner;
+let gameOver;
 let turn;
+let currentPlayer;
 let opponent;
 let canMove;
 let pickMode;
@@ -36,6 +39,7 @@ function startGame() {
 	//update State Variables and render()
 	winner = false;
 	turn = 1;
+	currentPlayer = player1;
 	opponent = player2;
 	canMove = false;
 	pickMode = true;
@@ -47,36 +51,32 @@ function startGame() {
 function render() {
 	//update the DOM
 
-	//update h2#turnMessage on DOM
-	//message.textContent =
-	//      `Player (is winner greater than 0? print 1 otherwise, print 2)  wins!`
-	//      `Player ${ winner > 0 ? 1: 2}
-
-	//      `Player ${ turn > 0 ? 1: 2}`
+    //  `Player (is winner greater than 0? print 1 otherwise, print 2)  wins!`,
+    if (gameOver)  message.textContent =`Player ${ winner > 0 ? 1: 2} wins!`;
+	  else message.textContent = `Player ${ opponent.number > 0 ? 1: 2}'s turn.`
 
 	oldSquare.removeChild(activePawn);
 	newSquare.append(activePawn);
 }
 function newTurn() {
 	resetMovementStates();
-
 	turn *= -1;
-	if (turn === 1) opponent = player2;
-	else opponent = player1;
+
+	if (turn === 1) {
+		currentPlayer = player1;
+		opponent = player2;
+	} else {
+		currentPlayer = player2;
+		opponent = player1;
+	}
 }
-
-
-
 function handleClick(event) {
 	console.log(event);
 	if (pickMode) handlePick(event);
 	else handleMove(event);
 
-	// if square isn't valid, get out.
-	// if there's a winner, get out.
-
-	// winner = checkWinner() && turn;
-	//turn += -1
+	// checkWinner(event);
+	// newTurn();
 }
 
 function handlePick(event) {
@@ -85,14 +85,32 @@ function handlePick(event) {
 	if (event.target.classList.contains(`${opponent.class}`)) return;
 
 	updateMovementStates(event);
-	console.log(`active Pawn id: ${activePawn.id}`);
-	console.log(`pickMode is: ${pickMode}`);
 }
 
+function getWinner() {
+	// if either sage is gone, end game.
 
-function checkWinner() {
-	// if BKing is on PTemple || PKing is on BTemple
-	// return true;
-	//If BKing is gone || if PKing is gone
-	//return true;
+    console.log(newSquare.id);
+    console.log(activePawn.id)
+    console.log(pawnsList.bluePawnSage.id);
+    console.log(winner);
+    console.log(player1);
+
+	if (
+		activePawn.id === pawnsList.bluePawnSage.id &&
+		newSquare.id === 'pink-temple'
+	) {
+		winner = player1;
+        gameOver = true;
+    }
+
+	else if (
+		activePawn.id === pawnsList.pinkPawnSage.id &&
+		newSquare.id === 'blue-temple'
+	) {
+		winner = player2;
+        gameOver = true;
+    }
+
+	else winner = null;
 }
