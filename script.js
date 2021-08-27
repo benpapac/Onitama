@@ -77,6 +77,12 @@ function resetMovementStates() {
 	pickMode = !pickMode;
 }
 
+function getNewSquare(event) {
+	newSquare = event.target;
+	newRow = newSquare.dataset.row;
+	newColumn = newSquare.dataset.column;
+}
+
 function handleClick(event) {
 	console.log(event);
 	if (pickMode) handlePick(event);
@@ -100,21 +106,17 @@ function handlePick(event) {
 }
 
 function handleMove(event) {
-	newSquare = event.target;
-	newRow = newSquare.dataset.row;
-	newColumn = newSquare.dataset.column;
+	getNewSquare(event);
 
 	if (
-		(opponent =
-			player2 &&
-			parseInt(oldRow) - parseInt(newRow) !== -1 &&
+		opponent === player2 &&
+		(parseInt(oldRow) - parseInt(newRow) !== -1 ||
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) !== 0)
 	)
 		return;
 	if (
-		(opponent =
-			player1 &&
-			parseInt(oldRow) - parseInt(newRow) !== 1 &&
+		opponent === player1 &&
+		(parseInt(oldRow) - parseInt(newRow) !== 1 ||
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) !== 0)
 	)
 		return;
