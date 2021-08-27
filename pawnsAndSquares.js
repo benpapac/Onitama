@@ -15,19 +15,19 @@ const rowsArray = ['one', 'two', 'three', 'four', 'five'];
 const columnsArray = ['A', 'B', 'C', 'D', 'E'];
 
 makePawns();
+const pawnsList = {
+	pinkPawnA: document.querySelector(`#${pawnNamesArray[0]}`),
+	pinkPawnB: document.querySelector(`#${pawnNamesArray[1]}`),
+	pinkPawnC: document.querySelector(`#${pawnNamesArray[2]}`),
+	pinkPawnD: document.querySelector(`#${pawnNamesArray[3]}`),
+	pinkPawnE: document.querySelector(`#${pawnNamesArray[4]}`),
 
-const pinkPawnA = document.querySelector(`#${pawnNamesArray[0]}`);
-const pinkPawnB = document.querySelector(`#${pawnNamesArray[1]}`);
-const pinkPawnC = document.querySelector(`#${pawnNamesArray[2]}`);
-const pinkPawnD = document.querySelector(`#${pawnNamesArray[3]}`);
-const pinkPawnE = document.querySelector(`#${pawnNamesArray[4]}`);
-
-const bluePawnA = document.querySelector(`#${pawnNamesArray[5]}`);
-const bluePawnB = document.querySelector(`#${pawnNamesArray[6]}`);
-const bluePawnC = document.querySelector(`#${pawnNamesArray[7]}`);
-const bluePawnD = document.querySelector(`#${pawnNamesArray[8]}`);
-const bluePawnE = document.querySelector(`#${pawnNamesArray[9]}`);
-
+	bluePawnA: document.querySelector(`#${pawnNamesArray[5]}`),
+	bluePawnB: document.querySelector(`#${pawnNamesArray[6]}`),
+	bluePawnC: document.querySelector(`#${pawnNamesArray[7]}`),
+	bluePawnD: document.querySelector(`#${pawnNamesArray[8]}`),
+	bluePawnE: document.querySelector(`#${pawnNamesArray[9]}`),
+};
 function makePawns() {
 	for (let column = 0; column < columnsArray.length; column++) {
 		let pinkSquare = document.querySelector(
