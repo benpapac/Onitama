@@ -17,6 +17,7 @@ const board = document.querySelector(`#board`);
 let winner;
 let turn;
 let opponent;
+let canMove;
 let pickMode;
 let activePawn;
 let newSquare;
@@ -27,7 +28,6 @@ let oldColumn;
 //start the game!
 startGame();
 // EVENT LISTENER //
-
 board.addEventListener('click', handleClick);
 
 // FUNCTIONS //
@@ -37,22 +37,26 @@ function startGame() {
 	winner = false;
 	turn = 1;
 	opponent = player2;
+	canMove = false;
 	pickMode = true;
 	newSquare = null;
 	oldSquare = null;
 	// render();
 }
 
-function render() {}
-//update the DOM
+function render() {
+	//update the DOM
 
-//update h2#turnMessage on DOM
-//message.textContent =
-//      `Player (is winner greater than 0? print 1 otherwise, print 2)  wins!`
-//      `Player ${ winner > 0 ? 1: 2}
+	//update h2#turnMessage on DOM
+	//message.textContent =
+	//      `Player (is winner greater than 0? print 1 otherwise, print 2)  wins!`
+	//      `Player ${ winner > 0 ? 1: 2}
 
-//      `Player ${ turn > 0 ? 1: 2}`
+	//      `Player ${ turn > 0 ? 1: 2}`
 
+	oldSquare.removeChild(activePawn);
+	newSquare.append(activePawn);
+}
 function newTurn() {
 	resetMovementStates();
 
@@ -67,6 +71,22 @@ function updateMovementStates(event) {
 	oldColumn = oldSquare.dataset.column;
 	activePawn = document.querySelector(`#${event.target.id}`);
 	pickMode = !pickMode;
+}
+
+function checkMove() {
+	if (
+		opponent === player2 &&
+		(parseInt(oldRow) - parseInt(newRow) !== -1 ||
+			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) !== 0)
+	)
+		return;
+	if (
+		opponent === player1 &&
+		(parseInt(oldRow) - parseInt(newRow) !== 1 ||
+			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) !== 0)
+	)
+		return;
+	return true;
 }
 
 function resetMovementStates() {
@@ -107,28 +127,12 @@ function handlePick(event) {
 
 function handleMove(event) {
 	getNewSquare(event);
-
-	if (
-		opponent === player2 &&
-		(parseInt(oldRow) - parseInt(newRow) !== -1 ||
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) !== 0)
-	)
-		return;
-	if (
-		opponent === player1 &&
-		(parseInt(oldRow) - parseInt(newRow) !== 1 ||
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) !== 0)
-	)
-		return;
-
-	console.log(parseInt(oldSquare.dataset.row));
-	console.log(`Old Square is: ${oldSquare.id}`);
-	console.log(`New Square is: ${newSquare.id}`);
-	oldSquare.removeChild(activePawn);
-	newSquare.append(activePawn);
-
-	newTurn();
+	canMove = checkMove();
+	if (!canMove) return;
+	console.log(`canMove: ${canMove}`);
+	checkWinner(event);
 	render();
+	newTurn();
 }
 
 function checkWinner() {
