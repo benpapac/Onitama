@@ -51,9 +51,21 @@ function render() {}
 
 //      `Player ${ turn > 0 ? 1: 2}`
 
+function newTurn() {
+	turn *= -1;
+	if (turn === 1) opponent = player2;
+	else opponent = player1;
+}
+
 function updateMovementStates(event) {
 	oldSquare = event.path[1];
 	activePawn = document.querySelector(`#${event.target.id}`);
+	pickMode = !pickMode;
+}
+
+function resetMovementStates() {
+	oldSquare = null;
+	activePawn = null;
 	pickMode = !pickMode;
 }
 
@@ -70,6 +82,7 @@ function handleClick(event) {
 }
 
 function handlePick(event) {
+	// if it's not a pawn, or if it's my opponent's pawn, I can't pick it.
 	if (!pawnNamesArray.includes(`${event.target.id}`)) return;
 	if (event.target.classList.contains(`${opponent.class}`)) return;
 
@@ -84,8 +97,8 @@ function handleMove(event) {
 	console.log(`New Square is: ${newSquare.id}`);
 	oldSquare.removeChild(activePawn);
 	newSquare.append(activePawn);
-	pickMode = true;
-	turn *= -1;
+	resetMovementStates();
+	newTurn();
 
 	render();
 }
