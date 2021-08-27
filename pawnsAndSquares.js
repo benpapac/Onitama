@@ -40,10 +40,12 @@ function makePawns() {
 
 		let pinkPawn = document.createElement('a');
 		pinkPawn.classList.add('pink-pawn');
+        pinkPawn.classList.add('pawn');
 		pinkPawn.id = pawnNamesArray[column];
 
 		let bluePawn = document.createElement('a');
 		bluePawn.classList.add('blue-pawn');
+        bluePawn.classList.add('pawn');
 		bluePawn.id = pawnNamesArray[column + 5];
 
 		pinkSquare.appendChild(pinkPawn);
