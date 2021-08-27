@@ -7,6 +7,8 @@ function updateMovementStates(event) {
 }
 
 function checkMove() {
+	if (newSquare.classList.contains(`${opponent.class}`)) return true;
+
 	if (
 		opponent === player2 &&
 		(parseInt(oldRow) - parseInt(newRow) !== -1 ||
@@ -40,11 +42,19 @@ function getNewSquare(event) {
 	newColumn = newSquare.dataset.column;
 }
 
+function takePawn() {
+	if (!newSquare.classList.contains('pawn')) return;
+	if (!newSquare.classList.contains(`${opponent.class}`)) return;
+	targetPawn = document.querySelector(`#${newSquare.id}`);
+	newSquare.remove();
+}
+
 function handleMove(event) {
 	getNewSquare(event);
 	canMove = checkMove();
 	if (!canMove) return;
-    getWinner();
+	takePawn();
+	getWinner();
 	render();
 	newTurn();
 }

@@ -10,7 +10,7 @@ const player2 = {
 //cached DOM references
 
 const board = document.querySelector(`#board`);
-const message = document.querySelector('#message'); 
+const message = document.querySelector('#message');
 //message = the place where I'll display player messages
 //resetButton = the button that appears to reset the game.
 
@@ -23,6 +23,7 @@ let opponent;
 let canMove;
 let pickMode;
 let activePawn;
+let targetPawn;
 let newSquare;
 let oldSquare;
 let oldRow;
@@ -51,12 +52,12 @@ function startGame() {
 function render() {
 	//update the DOM
 
-    //  `Player (is winner greater than 0? print 1 otherwise, print 2)  wins!`,
-    if (gameOver)  message.textContent =`Player ${ winner > 0 ? 1: 2} wins!`;
-	  else message.textContent = `Player ${ opponent.number > 0 ? 1: 2}'s turn.`
+	//  `Player (is winner greater than 0? print 1 otherwise, print 2)  wins!`,
+	if (gameOver) message.textContent = `Player ${winner > 0 ? 1 : 2} wins!`;
+	else message.textContent = `Player ${opponent.number > 0 ? 1 : 2}'s turn.`;
 
 	oldSquare.removeChild(activePawn);
-	newSquare.append(activePawn);
+	newSquare.appendChild(activePawn);
 }
 function newTurn() {
 	resetMovementStates();
@@ -90,27 +91,17 @@ function handlePick(event) {
 function getWinner() {
 	// if either sage is gone, end game.
 
-    console.log(newSquare.id);
-    console.log(activePawn.id)
-    console.log(pawnsList.bluePawnSage.id);
-    console.log(winner);
-    console.log(player1);
-
 	if (
 		activePawn.id === pawnsList.bluePawnSage.id &&
 		newSquare.id === 'pink-temple'
 	) {
 		winner = player1;
-        gameOver = true;
-    }
-
-	else if (
+		gameOver = true;
+	} else if (
 		activePawn.id === pawnsList.pinkPawnSage.id &&
 		newSquare.id === 'blue-temple'
 	) {
 		winner = player2;
-        gameOver = true;
-    }
-
-	else winner = null;
+		gameOver = true;
+	} else winner = null;
 }
