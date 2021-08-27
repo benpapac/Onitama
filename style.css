@@ -1,4 +1,4 @@
-.board {
+#board {
 	display: flex;
 	flex-direction: column;
 }
@@ -29,6 +29,14 @@
 	flex-grow: 0.75;
 	flex-basis: 100%;
 	background-color: lightblue;
+	border: solid black 1px;
+	border-radius: 36px;
+}
+
+.pink-pawn {
+	flex-grow: 0.75;
+	flex-basis: 100%;
+	background-color: lightpink;
 	border: solid black 1px;
 	border-radius: 36px;
 }
