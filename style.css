@@ -9,13 +9,11 @@
 	justify-content: center;
 }
 
-.col-4 {
+.square {
 	flex-basis: 33%;
 	flex-grow: 1;
 	flex-shrink: 1;
-}
 
-.square {
 	height: 150px;
 	max-width: 150px;
 	border: solid black 1px;

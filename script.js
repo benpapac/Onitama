@@ -21,6 +21,8 @@ let pickMode;
 let activePawn;
 let newSquare;
 let oldSquare;
+let oldRow;
+let oldColumn;
 
 //start the game!
 startGame();
@@ -52,6 +54,8 @@ function render() {}
 //      `Player ${ turn > 0 ? 1: 2}`
 
 function newTurn() {
+	resetMovementStates();
+
 	turn *= -1;
 	if (turn === 1) opponent = player2;
 	else opponent = player1;
@@ -59,12 +63,16 @@ function newTurn() {
 
 function updateMovementStates(event) {
 	oldSquare = event.path[1];
+	oldRow = oldSquare.dataset.row;
+	oldColumn = oldSquare.dataset.column;
 	activePawn = document.querySelector(`#${event.target.id}`);
 	pickMode = !pickMode;
 }
 
 function resetMovementStates() {
 	oldSquare = null;
+	oldRow = null;
+	oldColumn = null;
 	activePawn = null;
 	pickMode = !pickMode;
 }
@@ -93,13 +101,31 @@ function handlePick(event) {
 
 function handleMove(event) {
 	newSquare = event.target;
+	newRow = newSquare.dataset.row;
+	newColumn = newSquare.dataset.column;
+
+	if (
+		(opponent =
+			player2 &&
+			parseInt(oldRow) - parseInt(newRow) !== -1 &&
+			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) !== 0)
+	)
+		return;
+	if (
+		(opponent =
+			player1 &&
+			parseInt(oldRow) - parseInt(newRow) !== 1 &&
+			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) !== 0)
+	)
+		return;
+
+	console.log(parseInt(oldSquare.dataset.row));
 	console.log(`Old Square is: ${oldSquare.id}`);
 	console.log(`New Square is: ${newSquare.id}`);
 	oldSquare.removeChild(activePawn);
 	newSquare.append(activePawn);
-	resetMovementStates();
-	newTurn();
 
+	newTurn();
 	render();
 }
 
