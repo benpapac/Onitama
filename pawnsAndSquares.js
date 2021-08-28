@@ -12,16 +12,6 @@ const pawnsList = {
 	bluePawnE: document.querySelector(`#${pawnNamesArray[9]}`),
 };
 
-function checkForPawn(event) {
-	if (!event.target.dataset.color) return;
-	newPawn = event.target;
-	return (pawnHere = true);
-}
-
-function getPawnColor(event) {
-	newPawn = event.target;
-	newPawnColor = event.target.dataset.color;
-}
 
 function doPawnsMatch(newPawnColor) {
 	if (newPawnColor !== thisPawn.dataset.color) {

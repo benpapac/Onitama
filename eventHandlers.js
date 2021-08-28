@@ -16,8 +16,12 @@ function handlePick(event) {
 
 function handleMove(event) {
 	getNewSquare(event);
+	targetPawn = document.querySelector(`#${event.target.id}`);
+	console.log(targetPawn);
+	if (!checkTargetPawn()) return;
 	//UPDATE TO MOVMENT CARD STATE VARIABLE
-	canMove = movementCards.boar(event);
+	// canMove = movementCards.boar(event);
+	canMove = checkMove();
 	if (!canMove) return;
 	canAttack = checkPawn();
 	if (canAttack) takePawn();
