@@ -26,7 +26,8 @@ const pawnNamesArray = [
 	'blue-pawn-E',
 ];
 
-const movementCardsArray = ['boar','mantis','ox','eel','cobra','horse'];
+const movementCardsArray = ['boar', 'mantis', 'ox', 'eel', 'cobra', 'horse'];
+
 //cached DOM references
 
 const board = document.querySelector(`#board`);
@@ -64,39 +65,38 @@ resetButton.addEventListener('click', startGame);
 function startGame() {
 	//update State Variables and render()
 
-    winner = false;
-    gameOver = false;
+	winner = false;
+	gameOver = false;
 	turn = 1;
 	currentPlayer = player1;
 	opponent = player2;
-    
+
 	canMove = false;
-    canAttack= false;
+	canAttack = false;
 	pickMode = true;
-    activePawn = null;
-    targetPawn = null;
-    
+	activePawn = null;
+	targetPawn = null;
+
 	newSquare = null;
 	oldSquare = null;
-    oldRow = null;
-    oldColumn = null;
+	oldRow = null;
+	oldColumn = null;
 	render();
 }
 
 function render() {
 	//update the DOM
 
-    if(!activePawn) return;
-    oldSquare.removeChild(activePawn);
-    newSquare.appendChild(activePawn);
+	if (!activePawn) return;
+	oldSquare.removeChild(activePawn);
+	newSquare.appendChild(activePawn);
 	//  `Player (is winner greater than 0? print 1 otherwise, print 2)  wins!`,
 	if (gameOver) {
-        deletePawns();
-        makePawns();
+		deletePawns();
+		makePawns();
 		message.textContent = `Player ${winner.number > 0 ? 1 : 2} wins!`;
 		resetButton.style.display = 'block';
 	} else message.textContent = `Player ${opponent.number > 0 ? 1 : 2}'s turn.`;
-
 }
 function newTurn() {
 	resetMovementStates();
@@ -111,33 +111,33 @@ function newTurn() {
 	}
 }
 function getWinner(targetPawn) {
-    // if either sage is gone, end game.
-    if (targetPawn.id === pawnsList.pinkPawnSage.id) {
-        winner = player1;
-        return (gameOver = true);
-    }
+	// if either sage is gone, end game.
+	if (targetPawn.id === pawnsList.pinkPawnSage.id) {
+		winner = player1;
+		return (gameOver = true);
+	}
 
-    if (targetPawn.id === pawnsList.bluePawnSage.id) {
-        winner = player2;
-        return (gameOver = true);
-    }
+	if (targetPawn.id === pawnsList.bluePawnSage.id) {
+		winner = player2;
+		return (gameOver = true);
+	}
 
-    if (
-        activePawn.id === pawnsList.bluePawnSage.id &&
-        newSquare.id === 'pink-temple'
-    ) {
-        winner = player1;
-        return (gameOver = true);
-    }
+	if (
+		activePawn.id === pawnsList.bluePawnSage.id &&
+		newSquare.id === 'pink-temple'
+	) {
+		winner = player1;
+		return (gameOver = true);
+	}
 
-    if (
-        activePawn.id === pawnsList.pinkPawnSage.id &&
-        newSquare.id === 'blue-temple'
-    ) {
-        winner = player2;
-        return (gameOver = true);
-    }
-    return (winner = null);
+	if (
+		activePawn.id === pawnsList.pinkPawnSage.id &&
+		newSquare.id === 'blue-temple'
+	) {
+		winner = player2;
+		return (gameOver = true);
+	}
+	return (winner = null);
 }
 
 // ALL CALLBACK HANDLERS ON eventHandlers.js //
@@ -151,16 +151,16 @@ function handleClick(event) {
 }
 
 function deletePawns() {
-    let deadArray= [];
+	let deadArray = [];
 	for (let i = 0; i < pawnNamesArray.length; i++) {
 		let deadPawn = document.querySelector(`#${pawnNamesArray[i]}`);
-        deadArray.push(deadPawn);
-    }
-    deadArray.forEach(element => {
-        ghostPawn = element;
-        if (ghostPawn === null) return;
-        ghostPawn.remove();
-});
+		deadArray.push(deadPawn);
+	}
+	deadArray.forEach((element) => {
+		ghostPawn = element;
+		if (ghostPawn === null) return;
+		ghostPawn.remove();
+	});
 }
 
 function makePawns() {
@@ -186,3 +186,5 @@ function makePawns() {
 		blueSquare.appendChild(bluePawn);
 	}
 }
+
+// MOVEMENT CARDS //

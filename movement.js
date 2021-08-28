@@ -6,9 +6,7 @@ function updateMovementStates(event) {
 	pickMode = !pickMode;
 }
 
-function checkMove(event) {
-	targetPawn = document.querySelector(`#${event.target.id}`);
-	console.log(targetPawn);
+function checkMove() {
 	if (targetPawn.classList.contains(currentPlayer.class)) return;
 
 	if (
@@ -33,6 +31,11 @@ function checkMove(event) {
 
 function checkPawn() {
 	if (!targetPawn.classList.contains(`${opponent.class}`)) return;
+	return true;
+}
+
+function checkTargetPawn() {
+	if (targetPawn.classList.contains(currentPlayer.class)) return;
 	return true;
 }
 
