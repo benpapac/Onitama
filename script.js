@@ -76,6 +76,8 @@ function newTurn() {
 		opponent = player1;
 	}
 }
+
+////// ALL CALLBACK HANDLERS ON eventHandlers.js //////
 function handleClick(event) {
 	console.log(event);
 	if (pickMode) handlePick(event);
@@ -83,14 +85,6 @@ function handleClick(event) {
 
 	// checkWinner(event);
 	// newTurn();
-}
-
-function handlePick(event) {
-	// if it's not a pawn, or if it's my opponent's pawn, I can't pick it.
-	if (!pawnNamesArray.includes(`${event.target.id}`)) return;
-	if (event.target.classList.contains(`${opponent.class}`)) return;
-
-	updateMovementStates(event);
 }
 
 function getWinner(targetPawn) {

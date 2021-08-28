@@ -1,3 +1,8 @@
+
+
+
+
+
 function updateMovementStates(event) {
 	oldSquare = event.path[1];
 	oldRow = oldSquare.dataset.row;
@@ -66,13 +71,4 @@ function takePawn() {
 	getWinner(targetPawn);
 }
 
-function handleMove(event) {
-	getNewSquare(event);
-	canMove = checkMove(event);
-	if (!canMove) return;
-	canAttack = checkPawn();
-	if (canAttack) takePawn();
-	getWinner(targetPawn);
-	render();
-	newTurn();
-}
+
