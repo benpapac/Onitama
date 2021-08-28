@@ -33,6 +33,7 @@ const movementCardsArray = ['boar', 'mantis', 'ox', 'eel', 'cobra', 'horse'];
 const board = document.querySelector(`#board`);
 const message = document.querySelector('#message');
 const resetButton = document.querySelector('#reset-button');
+const moveMenu = document.querySelector('#move-menu');
 
 //State Variables
 let winner;
@@ -56,7 +57,7 @@ let oldColumn;
 //start the game!
 startGame();
 makePawns();
-// EVENT LISTENER //
+// EVENT LISTENERS //
 board.addEventListener('click', handleClick);
 resetButton.addEventListener('click', startGame);
 

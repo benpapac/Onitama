@@ -8,6 +8,19 @@ body {
 	gap: 2em;
 }
 
+main {
+	display: flex;
+	flex-direction: row;
+}
+
+menu {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+
 h1 {
 	font-size: 50px;
 }
@@ -48,6 +61,19 @@ h1 {
 	align-content: center;
 }
 
+.card {
+	margin: 10%;
+	height: 100px;
+	width: 175px;
+	border: solid black 10px;
+	background-color: linen;
+	flex-basis: 50%;
+	flex-grow: 1;
+	flex-shrink: 1;
+
+	
+}
+
 .blue-pawn {
 	margin: 20%;
 	flex-basis: 100%;
@@ -70,10 +96,6 @@ h1 {
 
 #blue-temple {
 	background-color: lightseagreen;
-}
-
-footer {
-	display: flex;
 }
 
 #reset-button {

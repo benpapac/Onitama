@@ -11,4 +11,3 @@ const pawnsList = {
 	bluePawnD: document.querySelector(`#${pawnNamesArray[8]}`),
 	bluePawnE: document.querySelector(`#${pawnNamesArray[9]}`),
 };
-
