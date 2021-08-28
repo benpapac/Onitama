@@ -93,8 +93,17 @@ function handlePick(event) {
 	updateMovementStates(event);
 }
 
-function getWinner() {
+function getWinner(targetPawn) {
 	// if either sage is gone, end game.
+	if (targetPawn.id === pawnsList.pinkPawnSage.id) {
+		winner = player1;
+		gameOver = true;
+	}
+
+	if (targetPawn.id === pawnsList.bluePawnSage.id) {
+		winner = player2;
+		gameOver = true;
+	}
 
 	if (
 		activePawn.id === pawnsList.bluePawnSage.id &&
@@ -102,7 +111,9 @@ function getWinner() {
 	) {
 		winner = player1;
 		gameOver = true;
-	} else if (
+	}
+
+	if (
 		activePawn.id === pawnsList.pinkPawnSage.id &&
 		newSquare.id === 'blue-temple'
 	) {

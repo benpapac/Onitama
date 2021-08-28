@@ -6,8 +6,9 @@ function updateMovementStates(event) {
 	pickMode = !pickMode;
 }
 
-function checkMove() {
-	if (newSquare.classList.contains(`${currentPlayer.class}`)) return;
+function checkMove(event) {
+	targetPawn = document.querySelector(`#${event.target.id}`);
+	if (targetPawn.classList.contains(currentPlayer.class)) return;
 
 	if (
 		opponent === player2 &&
@@ -38,8 +39,7 @@ function checkMove() {
 	return true;
 }
 
-function checkPawn(event) {
-	targetPawn = document.querySelector(`#${event.target.id}`);
+function checkPawn() {
 	if (!targetPawn.classList.contains(`${opponent.class}`)) return;
 	return true;
 }
@@ -63,15 +63,16 @@ function takePawn() {
 	if (!targetPawn.classList.contains('pawn')) return;
 	if (!targetPawn.classList.contains(`${opponent.class}`)) return;
 	targetPawn.remove();
+	getWinner(targetPawn);
 }
 
 function handleMove(event) {
 	getNewSquare(event);
-	canMove = checkMove();
+	canMove = checkMove(event);
 	if (!canMove) return;
-	canAttack = checkPawn(event);
+	canAttack = checkPawn();
 	if (canAttack) takePawn();
-	getWinner();
+	getWinner(targetPawn);
 	render();
 	newTurn();
 }
