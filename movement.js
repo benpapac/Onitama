@@ -7,7 +7,7 @@ function updateMovementStates(event) {
 }
 
 function checkMove() {
-	if (newSquare.classList.contains(`${opponent.class}`)) return true;
+	if (newSquare.classList.contains(`${currentPlayer.class}`)) return;
 
 	if (
 		opponent === player2 &&
@@ -17,6 +17,13 @@ function checkMove() {
 			) > 1)
 	)
 		return;
+
+	console.log(`opponent is: ${opponent.name}`);
+	console.log(`old row is: ${parseInt(oldRow)}`);
+	console.log(`new row is: ${parseInt(newRow)}`);
+	console.log(`parent of new Square is ${newSquare.parentElemet}`);
+	// console.log(parseInt(oldRow) - parseInt(newRow));
+
 	if (
 		opponent === player1 &&
 		(parseInt(oldRow) - parseInt(newRow) !== 1 ||
@@ -25,6 +32,15 @@ function checkMove() {
 			) > 1)
 	)
 		return;
+	console.log(`current player: ${currentPlayer.class}`);
+	console.log(`new square classes: ${newSquare.classList}`);
+	console.log(`can attack: ${canAttack}`);
+	return true;
+}
+
+function checkPawn(event) {
+	targetPawn = document.querySelector(`#${event.target.id}`);
+	if (!targetPawn.classList.contains(`${opponent.class}`)) return;
 	return true;
 }
 
@@ -37,23 +53,24 @@ function resetMovementStates() {
 }
 
 function getNewSquare(event) {
-	newSquare = event.target;
+	if (event.target.classList.contains('square')) newSquare = event.target;
+	if (event.target.classList.contains('pawn')) newSquare = event.path[1];
 	newRow = newSquare.dataset.row;
 	newColumn = newSquare.dataset.column;
 }
 
 function takePawn() {
-	if (!newSquare.classList.contains('pawn')) return;
-	if (!newSquare.classList.contains(`${opponent.class}`)) return;
-	targetPawn = document.querySelector(`#${newSquare.id}`);
-	newSquare.remove();
+	if (!targetPawn.classList.contains('pawn')) return;
+	if (!targetPawn.classList.contains(`${opponent.class}`)) return;
+	targetPawn.remove();
 }
 
 function handleMove(event) {
 	getNewSquare(event);
 	canMove = checkMove();
 	if (!canMove) return;
-	takePawn();
+	canAttack = checkPawn(event);
+	if (canAttack) takePawn();
 	getWinner();
 	render();
 	newTurn();

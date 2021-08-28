@@ -1,9 +1,11 @@
 //Constants
 const player1 = {
+	name: 'player1',
 	class: 'blue-pawn',
 	number: 1,
 };
 const player2 = {
+	name: 'player2',
 	class: 'pink-pawn',
 	number: -1,
 };
@@ -20,7 +22,10 @@ let gameOver;
 let turn;
 let currentPlayer;
 let opponent;
+
+let movementCard;
 let canMove;
+let canAttack;
 let pickMode;
 let activePawn;
 let targetPawn;
