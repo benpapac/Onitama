@@ -10,6 +10,7 @@ const player2 = {
 	number: -1,
 };
 
+// ARRAYS //
 const rowsArray = ['one', 'two', 'three', 'four', 'five'];
 const columnsArray = ['A', 'B', 'C', 'D', 'E'];
 
@@ -25,8 +26,79 @@ const pawnNamesArray = [
 	'blue-pawn-D',
 	'blue-pawn-E',
 ];
-
 const movementCardsArray = ['boar', 'mantis', 'ox', 'eel', 'cobra', 'horse'];
+
+// MOVEMENT CARDS //
+const movementCards = {
+	boar: () => {
+		if (targetPawn.classList.contains(currentPlayer.class)) return;
+
+		console.log(pinkCoreCards.pinkForwardOne());
+
+		if (blueCoreCards.blueForwardOne() || blueCoreCards.blueLateralOne())
+			return true;
+		else if (pinkCoreCards.pinkForwardOne() || pinkCoreCards.pinkLateralOne())
+			return true;
+		else false;
+	},
+
+	eel: () => {
+		if (targetPawn.classList.contains(currentPlayer.class)) return;
+
+		if (
+			blueCoreCards.blueRightOne ||
+			blueCoreCards.blueLeftOneForwardOne ||
+			blueCoreCards.blueLeftOneBackwardOne ||
+			pinkCoreCards.pinkRightOne ||
+			pinkCoreCards.pinkLeftOneForwardOne ||
+			pinkCoreCards.pinkLeftOneBackwardOne
+		)
+			return true;
+		else {
+			return false;
+		}
+	},
+
+	mantis: () => {
+		if (blueCoreCards.blueBackwardOne) return true;
+		if (blueCoreCards.blueLeftOneForwardOne) return true;
+		if (blueCoreCards.blueRightOneForwardOne) return true;
+
+		if (pinkCoreCards.pinkBackwardOne) return true;
+		if (pinkCoreCards.pinkLeftOneForwardOne) return true;
+		if (pinkCoreCards.pinkRightOneForwardOne) return true;
+	},
+
+	ox: () => {
+		if (blueCoreCards.blueForwardOne) return true;
+		if (blueCoreCards.blueRightOne) return true;
+		if (blueCoreCards.blueBackwardOne) return true;
+
+		if (pinkCoreCards.pinkForwardOne) return true;
+		if (pinkCoreCards.pinkRightOne) return true;
+		if (pinkCoreCards.pinkBackwardOne) return true;
+	},
+
+	cobra: () => {
+		if (blueCoreCards.blueLeftOne) return true;
+		if (blueCoreCards.blueRightOneForwardOne) return true;
+		if (blueCoreCards.blueRightOneBackwardOne) return true;
+
+		if (pinkCoreCards.pinkLeftOne) return true;
+		if (pinkCoreCards.pinkRightOneForwardOne) return true;
+		if (pinkCoreCards.pinkRightOneBackwardOne) return true;
+	},
+
+	horse: () => {
+		if (blueCoreCards.blueForwardOne) return true;
+		if (blueCoreCards.blueLeftOne) return true;
+		if (blueCoreCards.blueBackwardOne) return true;
+
+		if (pinkCoreCards.pinkForwardOne) return true;
+		if (pinkCoreCards.pinkLeftOne) return true;
+		if (pinkCoreCards.pinkLeftOneBackwardOne) return true;
+	},
+};
 
 //cached DOM references
 
@@ -34,6 +106,8 @@ const board = document.querySelector(`#board`);
 const message = document.querySelector('#message');
 const resetButton = document.querySelector('#reset-button');
 const moveMenu = document.querySelector('#move-menu');
+const cardOne = document.querySelector('#move-card-1');
+const cardTwo = document.querySelector('#move-card-2');
 
 //State Variables
 let winner;
@@ -42,7 +116,12 @@ let turn;
 let currentPlayer;
 let opponent;
 
-let movementCard; //not currently in use.
+let playCardsArray = [];
+let pinkCardsArray = [];
+let blueCardsArray = [];
+let chosenCard;
+let currentCards; //not currently in use.
+
 let canMove;
 let canAttack;
 let pickMode;
@@ -60,8 +139,9 @@ makePawns();
 // EVENT LISTENERS //
 board.addEventListener('click', handleClick);
 resetButton.addEventListener('click', startGame);
+moveMenu.addEventListener('click', handleMenu);
 
-// CORE FUNCTIONS //
+// CORE FUNCTIONS /
 
 function startGame() {
 	//update State Variables and render()
@@ -82,6 +162,8 @@ function startGame() {
 	oldSquare = null;
 	oldRow = null;
 	oldColumn = null;
+	getPlayCards();
+	assignPlayCards();
 	render();
 }
 
@@ -98,7 +180,10 @@ function render() {
 		makePawns();
 		message.textContent = `Player ${winner.number > 0 ? 1 : 2} wins!`;
 		resetButton.style.display = 'block';
-	} else message.textContent = `Player ${opponent.number > 0 ? 1 : 2}'s turn.`;
+	} else {
+		message.textContent = `Player ${opponent.number > 0 ? 1 : 2}'s turn.`;
+		updateCards();
+	}
 }
 function newTurn() {
 	resetMovementStates();
@@ -142,15 +227,51 @@ function getWinner(targetPawn) {
 	return (winner = null);
 }
 
+function randomCard() {
+	let randomCardIndex = Math.floor(Math.random() * movementCardsArray.length);
+
+	return movementCards[`${movementCardsArray[randomCardIndex]}`];
+}
+
+function getPlayCards() {
+	let cardArray = [];
+	for (let i = 0; i < 5; i++) {
+		let newCard = randomCard();
+		if (!cardArray.includes(newCard)) {
+			playCardsArray.push(newCard);
+			cardArray.push(newCard);
+		} else {
+			i--;
+		}
+	}
+}
+
+function assignPlayCards() {
+	for (let i = 0; i < 2; i++) {
+		pinkCardsArray.push(playCardsArray.pop());
+		blueCardsArray.push(playCardsArray.pop());
+		console.log(pinkCardsArray);
+		console.log(blueCardsArray);
+	}
+}
+
 // ALL CALLBACK HANDLERS ON eventHandlers.js //
 function handleClick(event) {
 	console.log(event);
 	if (pickMode) handlePick(event);
 	else handleMove(event);
+
+	///SCOPE ISSUE WITH BELOW FUNCTIONS///
 	// render();
 
 	// checkWinner(event);
 	// newTurn();
+}
+
+function handleMenu(event) {
+	let cardChoice = event.target.id;
+	console.log(event.target.id);
+	currentCard = event.target.id;
 }
 
 function deletePawns() {

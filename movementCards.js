@@ -1,73 +1,6 @@
-const movementCards = {
-	boar: () => {
-		if (targetPawn.classList.contains(currentPlayer.class)) return;
 
-		console.log(pinkCoreCards.pinkForwardOne());
 
-		if (blueCoreCards.blueForwardOne() || blueCoreCards.blueLateralOne())
-			return true;
-		else if (pinkCoreCards.pinkForwardOne() || pinkCoreCards.pinkLateralOne())
-			return true;
-		else false;
-	},
 
-	eel: () => {
-		if (targetPawn.classList.contains(currentPlayer.class)) return;
-
-		if (
-			blueCoreCards.blueRightOne ||
-			blueCoreCards.blueLeftOneForwardOne ||
-			blueCoreCards.blueLeftOneBackwardOne ||
-			pinkCoreCards.pinkRightOne ||
-			pinkCoreCards.pinkLeftOneForwardOne ||
-			pinkCoreCards.pinkLeftOneBackwardOne
-		)
-			return true;
-		else {
-			return false;
-		}
-	},
-
-	mantis: () => {
-		if (blueCoreCards.blueBackwardOne) return true;
-		if (blueCoreCards.blueLeftOneForwardOne) return true;
-		if (blueCoreCards.blueRightOneForwardOne) return true;
-
-		if (pinkCoreCards.pinkBackwardOne) return true;
-		if (pinkCoreCards.pinkLeftOneForwardOne) return true;
-		if (pinkCoreCards.pinkRightOneForwardOne) return true;
-	},
-
-	ox: () => {
-		if (blueCoreCards.blueForwardOne) return true;
-		if (blueCoreCards.blueRightOne) return true;
-		if (blueCoreCards.blueBackwardOne) return true;
-
-		if (pinkCoreCards.pinkForwardOne) return true;
-		if (pinkCoreCards.pinkRightOne) return true;
-		if (pinkCoreCards.pinkBackwardOne) return true;
-	},
-
-	cobra: () => {
-		if (blueCoreCards.blueLeftOne) return true;
-		if (blueCoreCards.blueRightOneForwardOne) return true;
-		if (blueCoreCards.blueRightOneBackwardOne) return true;
-
-		if (pinkCoreCards.pinkLeftOne) return true;
-		if (pinkCoreCards.pinkRightOneForwardOne) return true;
-		if (pinkCoreCards.pinkRightOneBackwardOne) return true;
-	},
-
-	horse: () => {
-		if (blueCoreCards.blueForwardOne) return true;
-		if (blueCoreCards.blueLeftOne) return true;
-		if (blueCoreCards.blueBackwardOne) return true;
-
-		if (pinkCoreCards.pinkForwardOne) return true;
-		if (pinkCoreCards.pinkLeftOne) return true;
-		if (pinkCoreCards.pinkLeftOneBackwardOne) return true;
-	},
-};
 
 const blueCoreCards = {
 	blueForwardOne: () => {
@@ -338,3 +271,23 @@ const pinkCoreCards = {
 			return true;
 	},
 };
+
+
+function switchCards() {
+	if (currentPlayer.number === 1) {
+		currentCards = blueCardsArray
+	} else {
+		currentCards = pinkCardsArray;
+	}
+}
+
+function showCards() {
+	cardOne.innerText = currentCards[0].name;
+	cardTwo.innerText = currentCards[1].name;
+	
+}
+
+function updateCards() {
+	switchCards();
+	showCards();
+}
