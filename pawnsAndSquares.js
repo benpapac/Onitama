@@ -12,11 +12,3 @@ const pawnsList = {
 	bluePawnE: document.querySelector(`#${pawnNamesArray[9]}`),
 };
 
-
-function doPawnsMatch(newPawnColor) {
-	if (newPawnColor !== thisPawn.dataset.color) {
-		return (pawnsMatch = false);
-	} else {
-		return (pawnsMatch = true);
-	}
-}
