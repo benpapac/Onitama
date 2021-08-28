@@ -1,20 +1,31 @@
 const movementCards = {
 	boar: () => {
-		if (blueCoreCards.blueForwardOne) return true;
-		if (blueCoreCards.blueLateralOne) return true;
+		if (targetPawn.classList.contains(currentPlayer.class)) return;
 
-		if (pinkCoreCards.pinkForwardOne) return true;
-		if (pinkCoreCards.pinkLateralOne) return true;
+		console.log(pinkCoreCards.pinkForwardOne());
+
+		if (blueCoreCards.blueForwardOne() || blueCoreCards.blueLateralOne())
+			return true;
+		else if (pinkCoreCards.pinkForwardOne() || pinkCoreCards.pinkLateralOne())
+			return true;
+		else false;
 	},
 
 	eel: () => {
-		if (blueCoreCards.blueRightOne) return true;
-		if (blueCoreCards.blueLeftOneForwardOne) return true;
-		if (blueCoreCards.blueLeftOneBackwardOne) return true;
+		if (targetPawn.classList.contains(currentPlayer.class)) return;
 
-		if (pinkCoreCards.pinkRightOne) return true;
-		if (pinkCoreCards.pinkLeftOneForwardOne) return true;
-		if (pinkCoreCards.pinkLeftOneBackwardOne) return true;
+		if (
+			blueCoreCards.blueRightOne ||
+			blueCoreCards.blueLeftOneForwardOne ||
+			blueCoreCards.blueLeftOneBackwardOne ||
+			pinkCoreCards.pinkRightOne ||
+			pinkCoreCards.pinkLeftOneForwardOne ||
+			pinkCoreCards.pinkLeftOneBackwardOne
+		)
+			return true;
+		else {
+			return false;
+		}
 	},
 
 	mantis: () => {
@@ -196,7 +207,7 @@ const blueCoreCards = {
 const pinkCoreCards = {
 	pinkForwardOne: () => {
 		if (
-			opponent === player2 &&
+			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			Math.abs(
 				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
@@ -207,7 +218,7 @@ const pinkCoreCards = {
 
 	pinkBackwardOne: () => {
 		if (
-			opponent === player2 &&
+			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === -1 &&
 			Math.abs(
 				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
@@ -218,7 +229,7 @@ const pinkCoreCards = {
 
 	pinkLateralOne: () => {
 		if (
-			opponent === player2 &&
+			opponent === player1 &&
 			Math.abs(
 				parseInt(oldRow) - parseInt(newRow) === 0 &&
 					Math.abs(
@@ -231,7 +242,7 @@ const pinkCoreCards = {
 
 	pinkLeftOne: () => {
 		if (
-			opponent === player2 &&
+			opponent === player1 &&
 			Math.abs(
 				parseInt(oldRow) - parseInt(newRow) === 0 &&
 					columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) ===
@@ -243,7 +254,7 @@ const pinkCoreCards = {
 
 	pinkRightOne: () => {
 		if (
-			opponent === player2 &&
+			opponent === player1 &&
 			Math.abs(
 				parseInt(oldRow) - parseInt(newRow) === 0 &&
 					columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) ===
@@ -255,7 +266,7 @@ const pinkCoreCards = {
 
 	pinkLeftOneForwardOne: () => {
 		if (
-			opponent === player2 &&
+			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 1
 		)
@@ -264,7 +275,7 @@ const pinkCoreCards = {
 
 	pinkRightOneForwardOne: () => {
 		if (
-			opponent === player2 &&
+			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -1
 		)
@@ -272,7 +283,7 @@ const pinkCoreCards = {
 	},
 	pinkLeftOneBackwardOne: () => {
 		if (
-			opponent === player2 &&
+			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 1
 		)
@@ -280,7 +291,7 @@ const pinkCoreCards = {
 	},
 	pinkRightOneBackwardOne: () => {
 		if (
-			opponent === player2 &&
+			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -1
 		)
@@ -289,7 +300,7 @@ const pinkCoreCards = {
 
 	pinkForwardTwo: () => {
 		if (
-			opponent === player2 &&
+			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 2 &&
 			Math.abs(
 				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
@@ -299,7 +310,7 @@ const pinkCoreCards = {
 	},
 	pinkLateralTwo: () => {
 		if (
-			opponent === player2 &&
+			opponent === player1 &&
 			Math.abs(
 				parseInt(oldRow) - parseInt(newRow) === 0 &&
 					Math.abs(
@@ -312,7 +323,7 @@ const pinkCoreCards = {
 
 	pinkRightTwoForwardOne: () => {
 		if (
-			opponent === player2 &&
+			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -2
 		)
@@ -320,7 +331,7 @@ const pinkCoreCards = {
 	},
 	pinkLeftTwoForwardOne: () => {
 		if (
-			opponent === player2 &&
+			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 2
 		)
