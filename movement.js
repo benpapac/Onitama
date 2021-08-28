@@ -34,8 +34,15 @@ function checkPawn() {
 	return true;
 }
 
-function checkTargetPawn() {
-	if (targetPawn.classList.contains(currentPlayer.class)) return;
+function checkTargetPawn(event) {
+	if (targetPawn.classList.contains(currentPlayer.class)) {
+		pickMode = !pickMode;
+		handlePick(event);
+		console.log(
+			` after checkTargetPawn(), the new active pawn is: ${activePawn.id}`
+		);
+		return true;
+	}
 	return true;
 }
 

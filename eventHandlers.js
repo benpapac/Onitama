@@ -8,6 +8,7 @@ function handleClick(event) {
 }
 
 function handlePick(event) {
+	console.log(`we're in handlePick.`);
 	// if it's not a pawn, or if it's my opponent's pawn, I can't pick it.
 	if (!pawnNamesArray.includes(`${event.target.id}`)) return;
 	if (event.target.classList.contains(`${opponent.class}`)) return;
@@ -15,10 +16,11 @@ function handlePick(event) {
 }
 
 function handleMove(event) {
+	console.log(`we're in handleMove`);
 	getNewSquare(event);
 	targetPawn = document.querySelector(`#${event.target.id}`);
-	console.log(targetPawn);
-	if (!checkTargetPawn()) return;
+	console.log(`Target pawn is: ${targetPawn.id}`);
+	checkTargetPawn(event);
 	//UPDATE TO MOVMENT CARD STATE VARIABLE
 	// canMove = movementCards.boar(event);
 	canMove = checkMove();
@@ -26,7 +28,6 @@ function handleMove(event) {
 	canAttack = checkPawn();
 	if (canAttack) takePawn();
 	getWinner(targetPawn);
-	console.log(winner);
 	render();
 	newTurn();
 }

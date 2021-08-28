@@ -88,6 +88,7 @@ function render() {
 	//update the DOM
 
 	if (!activePawn) return;
+	if (!targetPawn) return;
 	oldSquare.removeChild(activePawn);
 	newSquare.appendChild(activePawn);
 	//  `Player (is winner greater than 0? print 1 otherwise, print 2)  wins!`,
@@ -145,6 +146,7 @@ function handleClick(event) {
 	console.log(event);
 	if (pickMode) handlePick(event);
 	else handleMove(event);
+	// render();
 
 	// checkWinner(event);
 	// newTurn();
