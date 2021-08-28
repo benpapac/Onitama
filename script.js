@@ -58,7 +58,8 @@ function render() {
 	//update the DOM
 
 	//  `Player (is winner greater than 0? print 1 otherwise, print 2)  wins!`,
-	if (gameOver) message.textContent = `Player ${winner > 0 ? 1 : 2} wins!`;
+	if (gameOver)
+		message.textContent = `Player ${winner.number > 0 ? 1 : 2} wins!`;
 	else message.textContent = `Player ${opponent.number > 0 ? 1 : 2}'s turn.`;
 
 	oldSquare.removeChild(activePawn);
@@ -77,7 +78,7 @@ function newTurn() {
 	}
 }
 
-////// ALL CALLBACK HANDLERS ON eventHandlers.js //////
+// ALL CALLBACK HANDLERS ON eventHandlers.js //
 function handleClick(event) {
 	console.log(event);
 	if (pickMode) handlePick(event);
@@ -91,12 +92,12 @@ function getWinner(targetPawn) {
 	// if either sage is gone, end game.
 	if (targetPawn.id === pawnsList.pinkPawnSage.id) {
 		winner = player1;
-		gameOver = true;
+		return (gameOver = true);
 	}
 
 	if (targetPawn.id === pawnsList.bluePawnSage.id) {
 		winner = player2;
-		gameOver = true;
+		return (gameOver = true);
 	}
 
 	if (
@@ -104,7 +105,7 @@ function getWinner(targetPawn) {
 		newSquare.id === 'pink-temple'
 	) {
 		winner = player1;
-		gameOver = true;
+		return (gameOver = true);
 	}
 
 	if (
@@ -112,6 +113,7 @@ function getWinner(targetPawn) {
 		newSquare.id === 'blue-temple'
 	) {
 		winner = player2;
-		gameOver = true;
-	} else winner = null;
+		return (gameOver = true);
+	}
+	return (winner = null);
 }

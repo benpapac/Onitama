@@ -1,4 +1,3 @@
-
 function handleClick(event) {
 	console.log(event);
 	if (pickMode) handlePick(event);
@@ -23,6 +22,7 @@ function handleMove(event) {
 	canAttack = checkPawn();
 	if (canAttack) takePawn();
 	getWinner(targetPawn);
+	console.log(winner);
 	render();
 	newTurn();
 }
