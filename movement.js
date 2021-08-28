@@ -8,7 +8,7 @@ function updateMovementStates(event) {
 
 function checkMove(event) {
 	targetPawn = document.querySelector(`#${event.target.id}`);
-    console.log(targetPawn);
+	console.log(targetPawn);
 	if (targetPawn.classList.contains(currentPlayer.class)) return;
 
 	if (

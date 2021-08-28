@@ -1,7 +1,3 @@
-
-
-
-
 const pawnsList = {
 	pinkPawnA: document.querySelector(`#${pawnNamesArray[0]}`),
 	pinkPawnB: document.querySelector(`#${pawnNamesArray[1]}`),
@@ -15,7 +11,6 @@ const pawnsList = {
 	bluePawnD: document.querySelector(`#${pawnNamesArray[8]}`),
 	bluePawnE: document.querySelector(`#${pawnNamesArray[9]}`),
 };
-
 
 function checkForPawn(event) {
 	if (!event.target.dataset.color) return;
