@@ -1,7 +1,3 @@
-
-
-
-
 const blueCoreCards = {
 	blueForwardOne: () => {
 		if (
@@ -10,8 +6,9 @@ const blueCoreCards = {
 			Math.abs(
 				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
 			) === 0
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	blueBackwardOne: () => {
@@ -21,8 +18,9 @@ const blueCoreCards = {
 			Math.abs(
 				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
 			) === 0
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	blueLateralOne: () => {
@@ -34,8 +32,9 @@ const blueCoreCards = {
 						columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
 					) === 1
 			)
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	blueLeftOne: () => {
@@ -46,8 +45,9 @@ const blueCoreCards = {
 					columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) ===
 						1
 			)
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	blueRightOne: () => {
@@ -58,8 +58,9 @@ const blueCoreCards = {
 					columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) ===
 						-1
 			)
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	blueLeftOneForwardOne: () => {
@@ -67,8 +68,9 @@ const blueCoreCards = {
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === -1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 1
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	blueRightOneForwardOne: () => {
@@ -76,24 +78,27 @@ const blueCoreCards = {
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === -1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -1
-		)
+		) {
 			return true;
+		} else return false;
 	},
 	blueLeftOneBackwardOne: () => {
 		if (
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 1
-		)
+		) {
 			return true;
+		} else return false;
 	},
 	blueRightOneBackwardOne: () => {
 		if (
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -1
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	blueForwardTwo: () => {
@@ -103,8 +108,9 @@ const blueCoreCards = {
 			Math.abs(
 				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
 			) === 0
-		)
+		) {
 			return true;
+		} else return false;
 	},
 	blueLateralTwo: () => {
 		if (
@@ -115,8 +121,9 @@ const blueCoreCards = {
 						columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
 					) === 2
 			)
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	blueRightTwoForwardOne: () => {
@@ -124,16 +131,18 @@ const blueCoreCards = {
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === -1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -2
-		)
+		) {
 			return true;
+		} else return false;
 	},
 	blueLeftTwoForwardOne: () => {
 		if (
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === -1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 2
-		)
+		) {
 			return true;
+		} else return false;
 	},
 };
 
@@ -145,8 +154,9 @@ const pinkCoreCards = {
 			Math.abs(
 				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
 			) === 0
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	pinkBackwardOne: () => {
@@ -156,8 +166,9 @@ const pinkCoreCards = {
 			Math.abs(
 				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
 			) === 0
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	pinkLateralOne: () => {
@@ -169,8 +180,9 @@ const pinkCoreCards = {
 						columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
 					) === 1
 			)
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	pinkLeftOne: () => {
@@ -181,8 +193,9 @@ const pinkCoreCards = {
 					columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) ===
 						1
 			)
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	pinkRightOne: () => {
@@ -193,8 +206,9 @@ const pinkCoreCards = {
 					columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) ===
 						-1
 			)
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	pinkLeftOneForwardOne: () => {
@@ -202,8 +216,9 @@ const pinkCoreCards = {
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 1
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	pinkRightOneForwardOne: () => {
@@ -213,22 +228,25 @@ const pinkCoreCards = {
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -1
 		)
 			return true;
+		else return false;
 	},
 	pinkLeftOneBackwardOne: () => {
 		if (
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 1
-		)
+		) {
 			return true;
+		} else return false;
 	},
 	pinkRightOneBackwardOne: () => {
 		if (
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -1
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	pinkForwardTwo: () => {
@@ -238,8 +256,9 @@ const pinkCoreCards = {
 			Math.abs(
 				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
 			) === 0
-		)
+		) {
 			return true;
+		} else return false;
 	},
 	pinkLateralTwo: () => {
 		if (
@@ -250,8 +269,9 @@ const pinkCoreCards = {
 						columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
 					) === 2
 			)
-		)
+		) {
 			return true;
+		} else return false;
 	},
 
 	pinkRightTwoForwardOne: () => {
@@ -259,23 +279,24 @@ const pinkCoreCards = {
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -2
-		)
+		) {
 			return true;
+		} else return false;
 	},
 	pinkLeftTwoForwardOne: () => {
 		if (
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 2
-		)
+		) {
 			return true;
+		} else return false;
 	},
 };
 
-
 function switchCards() {
-	if (currentPlayer.number === 1) {
-		currentCards = blueCardsArray
+	if (opponent.number === 1) {
+		currentCards = blueCardsArray;
 	} else {
 		currentCards = pinkCardsArray;
 	}
@@ -284,10 +305,4 @@ function switchCards() {
 function showCards() {
 	cardOne.innerText = currentCards[0].name;
 	cardTwo.innerText = currentCards[1].name;
-	
-}
-
-function updateCards() {
-	switchCards();
-	showCards();
 }
