@@ -18,6 +18,11 @@ menu {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	flex-grow: 1.5;
+
+	text-align: center;
+	text-justify: center;
+	font-size: 30px;
 }
 
 
@@ -63,15 +68,13 @@ h1 {
 
 .card {
 	margin: 10%;
-	height: 100px;
+	max-height: 100px;
 	width: 175px;
 	border: solid black 10px;
 	background-color: linen;
-	flex-basis: 50%;
+
 	flex-grow: 1;
 	flex-shrink: 1;
-
-	
 }
 
 .blue-pawn {
