@@ -16,7 +16,8 @@ function handlePick(event) {
 
 function handleMove(event) {
 	getNewSquare(event);
-	canMove = checkMove(event);
+	//UPDATE TO MOVMENT CARD STATE VARIABLE
+	canMove = movementCards.boar(event);
 	if (!canMove) return;
 	canAttack = checkPawn();
 	if (canAttack) takePawn();

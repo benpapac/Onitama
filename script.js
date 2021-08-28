@@ -25,6 +25,8 @@ const pawnNamesArray = [
 	'blue-pawn-D',
 	'blue-pawn-E',
 ];
+
+const movementCardsArray = ['boar','mantis','ox','eel','cobra','horse'];
 //cached DOM references
 
 const board = document.querySelector(`#board`);
