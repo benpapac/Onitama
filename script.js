@@ -33,70 +33,111 @@ const movementCards = {
 	boar: () => {
 		if (targetPawn.classList.contains(currentPlayer.class)) return;
 
-		console.log(pinkCoreCards.pinkForwardOne());
-
-		if (blueCoreCards.blueForwardOne() || blueCoreCards.blueLateralOne())
+		if (blueCoreCards.blueForwardOne() || blueCoreCards.blueLateralOne()) {
 			return true;
-		else if (pinkCoreCards.pinkForwardOne() || pinkCoreCards.pinkLateralOne())
+		} else if (
+			pinkCoreCards.pinkForwardOne() ||
+			pinkCoreCards.pinkLateralOne()
+		) {
 			return true;
-		else false;
+		} else {
+			false;
+		}
 	},
 
 	eel: () => {
 		if (targetPawn.classList.contains(currentPlayer.class)) return;
 
 		if (
-			blueCoreCards.blueRightOne ||
-			blueCoreCards.blueLeftOneForwardOne ||
-			blueCoreCards.blueLeftOneBackwardOne ||
-			pinkCoreCards.pinkRightOne ||
-			pinkCoreCards.pinkLeftOneForwardOne ||
-			pinkCoreCards.pinkLeftOneBackwardOne
-		)
+			blueCoreCards.blueRightOne() ||
+			blueCoreCards.blueLeftOneForwardOne() ||
+			blueCoreCards.blueLeftOneBackwardOne() ||
+			pinkCoreCards.pinkRightOne() ||
+			pinkCoreCards.pinkLeftOneForwardOne() ||
+			pinkCoreCards.pinkLeftOneBackwardOne()
+		) {
 			return true;
-		else {
+		} else {
 			return false;
 		}
 	},
 
 	mantis: () => {
-		if (blueCoreCards.blueBackwardOne) return true;
-		if (blueCoreCards.blueLeftOneForwardOne) return true;
-		if (blueCoreCards.blueRightOneForwardOne) return true;
+		if (targetPawn.classList.contains(currentPlayer.class)) return;
 
-		if (pinkCoreCards.pinkBackwardOne) return true;
-		if (pinkCoreCards.pinkLeftOneForwardOne) return true;
-		if (pinkCoreCards.pinkRightOneForwardOne) return true;
+		if (
+			blueCoreCards.blueBackwardOne() ||
+			blueCoreCards.blueLeftOneForwardOne() ||
+			blueCoreCards.blueRightOneForwardOne()
+		) {
+			return true;
+		} else if (
+			pinkCoreCards.pinkBackwardOne() ||
+			pinkCoreCards.pinkLeftOneForwardOne() ||
+			pinkCoreCards.pinkRightOneForwardOne()
+		) {
+			return true;
+		} else {
+			return false;
+		}
 	},
 
 	ox: () => {
-		if (blueCoreCards.blueForwardOne) return true;
-		if (blueCoreCards.blueRightOne) return true;
-		if (blueCoreCards.blueBackwardOne) return true;
+		if (targetPawn.classList.contains(currentPlayer.class)) return;
 
-		if (pinkCoreCards.pinkForwardOne) return true;
-		if (pinkCoreCards.pinkRightOne) return true;
-		if (pinkCoreCards.pinkBackwardOne) return true;
+		if (
+			blueCoreCards.blueForwardOne() ||
+			blueCoreCards.blueRightOne() ||
+			blueCoreCards.blueBackwardOne()
+		) {
+			return true;
+		} else if (
+			pinkCoreCards.pinkForwardOne() ||
+			pinkCoreCards.pinkRightOne() ||
+			pinkCoreCards.pinkBackwardOne()
+		) {
+			return true;
+		} else return false;
 	},
 
 	cobra: () => {
-		if (blueCoreCards.blueLeftOne) return true;
-		if (blueCoreCards.blueRightOneForwardOne) return true;
-		if (blueCoreCards.blueRightOneBackwardOne) return true;
+		if (targetPawn.classList.contains(currentPlayer.class)) return;
 
-		if (pinkCoreCards.pinkLeftOne) return true;
-		if (pinkCoreCards.pinkRightOneForwardOne) return true;
-		if (pinkCoreCards.pinkRightOneBackwardOne) return true;
+		if (
+			blueCoreCards.blueLeftOne() ||
+			blueCoreCards.blueRightOneForwardOne() ||
+			blueCoreCards.blueRightOneBackwardOne()
+		) {
+			return true;
+		} else if (
+			pinkCoreCards.pinkLeftOne() ||
+			pinkCoreCards.pinkRightOneForwardOne() ||
+			pinkCoreCards.pinkRightOneBackwardOne()
+		) {
+			return true;
+		} else {
+			return false;
+		}
 	},
 
 	horse: () => {
-		if (blueCoreCards.blueForwardOne) return true;
-		if (blueCoreCards.blueLeftOne) return true;
-		if (blueCoreCards.blueBackwardOne) return true;
+		if (targetPawn.classList.contains(currentPlayer.class)) return;
 
-		if (pinkCoreCards.pinkForwardOne) return true;
-		if (pinkCoreCards.pinkLeftOne) return true;
-		if (pinkCoreCards.pinkLeftOneBackwardOne) return true;
+		if (
+			blueCoreCards.blueForwardOne() ||
+			blueCoreCards.blueLeftOne() ||
+			blueCoreCards.blueBackwardOne()
+		) {
+			return true;
+		} else if (
+			pinkCoreCards.pinkForwardOne() ||
+			pinkCoreCards.pinkLeftOne() ||
+			pinkCoreCards.pinkLeftOneBackwardOne()
+		) {
+			return true;
+		} else {
+			return false;
+		}
 	},
 };
 
@@ -120,7 +161,7 @@ let playCardsArray = [];
 let pinkCardsArray = [];
 let blueCardsArray = [];
 let chosenCard;
-let currentCards; //not currently in use.
+let currentCards = []; //not currently in use.
 
 let canMove;
 let canAttack;
@@ -164,6 +205,7 @@ function startGame() {
 	oldColumn = null;
 	getPlayCards();
 	assignPlayCards();
+	showCards();
 	render();
 }
 
@@ -182,7 +224,8 @@ function render() {
 		resetButton.style.display = 'block';
 	} else {
 		message.textContent = `Player ${opponent.number > 0 ? 1 : 2}'s turn.`;
-		updateCards();
+		switchCards();
+		showCards();
 	}
 }
 function newTurn() {
@@ -250,8 +293,9 @@ function assignPlayCards() {
 	for (let i = 0; i < 2; i++) {
 		pinkCardsArray.push(playCardsArray.pop());
 		blueCardsArray.push(playCardsArray.pop());
-		console.log(pinkCardsArray);
-		console.log(blueCardsArray);
+		//remember, blue = player 1. Probably a better way to label some of these variables.
+		currentCards = blueCardsArray;
+		console.log(`Current cards are: ${currentCards}`);
 	}
 }
 
@@ -259,7 +303,9 @@ function assignPlayCards() {
 function handleClick(event) {
 	console.log(event);
 	if (pickMode) handlePick(event);
-	else handleMove(event);
+	else {
+		handleMove(event);
+	}
 
 	///SCOPE ISSUE WITH BELOW FUNCTIONS///
 	// render();
@@ -269,9 +315,14 @@ function handleClick(event) {
 }
 
 function handleMenu(event) {
-	let cardChoice = event.target.id;
-	console.log(event.target.id);
-	currentCard = event.target.id;
+	let cardChoice = event.target.dataset.number;
+	chosenCard = currentCards[parseInt(cardChoice)];
+	console.log(`Current card: ${chosenCard.name}`);
+}
+
+function showCards() {
+	cardOne.innerText = currentCards[0].name;
+	cardTwo.innerText = currentCards[1].name;
 }
 
 function deletePawns() {

@@ -21,12 +21,14 @@ function handleMove(event) {
 	targetPawn = document.querySelector(`#${event.target.id}`);
 	console.log(`Target pawn is: ${targetPawn.id}`);
 	checkTargetPawn(event);
-	//UPDATE TO MOVMENT CARD STATE VARIABLE
-	// canMove = movementCards.boar(event);
-	canMove = movementCards.boar();
+
+	console.log(`${chosenCard.name} returns: ${chosenCard()}`);
+	canMove = chosenCard();
 	if (!canMove) return;
+
 	canAttack = checkPawn();
 	if (canAttack) takePawn();
+
 	getWinner(targetPawn);
 	render();
 	newTurn();
