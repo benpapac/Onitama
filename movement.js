@@ -78,13 +78,8 @@ function glowShadowSquares() {
 			shadowSquare = document.querySelector(
 				`[data-row= ${rowsArray[i]}] [data-column= ${columnsArray[j]}]`
 			);
-			console.log(`Shadow square: ${shadowSquare.id}`);
 			getShadowSquare(shadowSquare);
-			console.log(`New Square is: ${newSquare.id}`);
 			goodShadow = chosenCard();
-
-			console.log(`Good Shadow: ${goodShadow}`);
-
 			if (goodShadow) shadowSquare.dataset.type = 'shadow';
 		}
 	}
@@ -96,7 +91,6 @@ function removeShadows() {
 			shadowSquare = document.querySelector(
 				`[data-row= ${rowsArray[i]}] [data-column= ${columnsArray[j]}]`
 			);
-			console.log(shadowSquare.id);
 			if (shadowSquare.dataset.type === 'shadow') {
 				shadowSquare.dataset.type = '';
 			}
