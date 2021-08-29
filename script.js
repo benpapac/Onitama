@@ -146,7 +146,7 @@ const movementCards = {
 		} else if (
 			pinkCoreCards.pinkForwardOne() ||
 			pinkCoreCards.pinkLeftOne() ||
-			pinkCoreCards.pinkLeftOneBackwardOne()
+			pinkCoreCards.pinkBackwardOne()
 		) {
 			return true;
 		} else {
