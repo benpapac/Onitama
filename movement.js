@@ -3,7 +3,6 @@ function updateMovementStates(event) {
 	oldRow = oldSquare.dataset.row;
 	oldColumn = oldSquare.dataset.column;
 	activePawn = document.querySelector(`#${event.target.id}`);
-	pickMode = !pickMode;
 }
 
 function checkMove() {
@@ -48,6 +47,7 @@ function checkTargetPawn(event) {
 
 function resetMovementStates() {
 	oldSquare = null;
+	shadowSquare = null;
 	oldRow = null;
 	oldColumn = null;
 	activePawn = null;
@@ -59,6 +59,45 @@ function getNewSquare(event) {
 	if (event.target.classList.contains('pawn')) newSquare = event.path[1];
 	newRow = newSquare.dataset.row;
 	newColumn = newSquare.dataset.column;
+}
+
+function getShadowSquare() {
+	if (shadowSquare.classList.contains('square')) newSquare = shadowSquare;
+	if (shadowSquare.classList.contains('pawn')) newSquare = shadowSquare.path[1];
+	newRow = newSquare.dataset.row;
+	newColumn = newSquare.dataset.column;
+}
+
+function glowShadowSquares() {
+	console.log(`we're in glowShadowSquares.`);
+	let goodShadow = false;
+
+	for (let i = 0; i < rowsArray.length; i++) {
+		for (let j = 0; j < columnsArray.length; j++) {
+			shadowSquare = document.querySelector(
+				`[data-row= ${rowsArray[i]}] [data-column= ${columnsArray[j]}]`
+			);
+			console.log(`Shadow square: ${shadowSquare.id}`);
+			getShadowSquare(shadowSquare);
+			console.log(`New Square is: ${newSquare.id}`);
+			goodShadow = chosenCard();
+
+			console.log(`Good Shadow: ${goodShadow}`);
+
+			if (goodShadow) shadowSquare.style.background = 'paleturquoise';
+		}
+	}
+}
+
+function removeShadows() {
+	for (let i = 0; i < rowsArray.length; i++) {
+		for (let j = 0; j < columnsArray.length; j++) {
+			shadowSquare = document.querySelector(
+				`[data-row= ${rowsArray[i]}] [data-column= ${columnsArray[j]}]`
+			);
+			shadowSquare.classList.remove('shadow');
+		}
+	}
 }
 
 function takePawn() {

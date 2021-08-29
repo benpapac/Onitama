@@ -31,7 +31,9 @@ const movementCardsArray = ['boar', 'mantis', 'ox', 'eel', 'cobra', 'horse'];
 // MOVEMENT CARDS //
 const movementCards = {
 	boar: () => {
-		if (targetPawn.classList.contains(currentPlayer.class)) return;
+		if (!pickMode) {
+			if (targetPawn.classList.contains(currentPlayer.class)) return;
+		}
 
 		if (blueCoreCards.blueForwardOne() || blueCoreCards.blueLateralOne()) {
 			return true;
@@ -46,7 +48,9 @@ const movementCards = {
 	},
 
 	eel: () => {
-		if (targetPawn.classList.contains(currentPlayer.class)) return;
+		if (!pickMode) {
+			if (targetPawn.classList.contains(currentPlayer.class)) return;
+		}
 
 		if (
 			blueCoreCards.blueRightOne() ||
@@ -63,7 +67,9 @@ const movementCards = {
 	},
 
 	mantis: () => {
-		if (targetPawn.classList.contains(currentPlayer.class)) return;
+		if (!pickMode) {
+			if (targetPawn.classList.contains(currentPlayer.class)) return;
+		}
 
 		if (
 			blueCoreCards.blueBackwardOne() ||
@@ -83,7 +89,9 @@ const movementCards = {
 	},
 
 	ox: () => {
-		if (targetPawn.classList.contains(currentPlayer.class)) return;
+		if (!pickMode) {
+			if (targetPawn.classList.contains(currentPlayer.class)) return;
+		}
 
 		if (
 			blueCoreCards.blueForwardOne() ||
@@ -101,7 +109,9 @@ const movementCards = {
 	},
 
 	cobra: () => {
-		if (targetPawn.classList.contains(currentPlayer.class)) return;
+		if (!pickMode) {
+			if (targetPawn.classList.contains(currentPlayer.class)) return;
+		}
 
 		if (
 			blueCoreCards.blueLeftOne() ||
@@ -121,7 +131,9 @@ const movementCards = {
 	},
 
 	horse: () => {
-		if (targetPawn.classList.contains(currentPlayer.class)) return;
+		if (!pickMode) {
+			if (targetPawn.classList.contains(currentPlayer.class)) return;
+		}
 
 		if (
 			blueCoreCards.blueForwardOne() ||
@@ -171,6 +183,7 @@ let targetPawn;
 
 let newSquare;
 let oldSquare;
+let shadowSquare;
 let oldRow;
 let oldColumn;
 
@@ -225,6 +238,7 @@ function render() {
 	} else {
 		message.textContent = `Player ${opponent.number > 0 ? 1 : 2}'s turn.`;
 		switchCards();
+		removeShadows();
 		showCards();
 	}
 }
@@ -295,7 +309,6 @@ function assignPlayCards() {
 		blueCardsArray.push(playCardsArray.pop());
 		//remember, blue = player 1. Probably a better way to label some of these variables.
 		currentCards = blueCardsArray;
-		console.log(`Current cards are: ${currentCards}`);
 	}
 }
 
@@ -316,6 +329,7 @@ function handleClick(event) {
 
 function handleMenu(event) {
 	let cardChoice = event.target.dataset.number;
+
 	chosenCard = currentCards[parseInt(cardChoice)];
 	console.log(`Current card: ${chosenCard.name}`);
 }
