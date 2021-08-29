@@ -3,11 +3,13 @@ const player1 = {
 	name: 'player1',
 	class: 'blue-pawn',
 	number: 1,
+	cards: [],
 };
 const player2 = {
 	name: 'player2',
 	class: 'pink-pawn',
 	number: -1,
+	cards: [],
 };
 
 // ARRAYS //
@@ -170,8 +172,6 @@ let currentPlayer;
 let opponent;
 
 let playCardsArray = [];
-let pinkCardsArray = [];
-let blueCardsArray = [];
 let chosenCard;
 let currentCards = []; //not currently in use.
 
@@ -231,15 +231,18 @@ function render() {
 	newSquare.appendChild(activePawn);
 	//  `Player (is winner greater than 0? print 1 otherwise, print 2)  wins!`,
 	if (gameOver) {
+		removeShadows();
 		deletePawns();
 		makePawns();
 		message.textContent = `Player ${winner.number > 0 ? 1 : 2} wins!`;
 		resetButton.style.display = 'block';
 	} else {
 		message.textContent = `Player ${opponent.number > 0 ? 1 : 2}'s turn.`;
+		rotateCards();
 		switchCards();
 		removeShadows();
 		showCards();
+		console.log(`Current cards has ${currentCards.length} cards.`);
 	}
 }
 function newTurn() {
@@ -305,10 +308,10 @@ function getPlayCards() {
 
 function assignPlayCards() {
 	for (let i = 0; i < 2; i++) {
-		pinkCardsArray.push(playCardsArray.pop());
-		blueCardsArray.push(playCardsArray.pop());
+		player1.cards.push(playCardsArray.pop());
+		player2.cards.push(playCardsArray.pop());
 		//remember, blue = player 1. Probably a better way to label some of these variables.
-		currentCards = blueCardsArray;
+		currentCards = player1.cards;
 	}
 }
 

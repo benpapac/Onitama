@@ -294,15 +294,43 @@ const pinkCoreCards = {
 	},
 };
 
+function rotateCards() {
+	console.log(`We're in rotateCards()`);
+	let rotatedCardIndex = currentPlayer.cards.indexOf(chosenCard);
+	console.log(`rotating card Index: ${rotatedCardIndex}`);
+
+	console.log(`play card at index 1 is: ${playCardsArray[1]}`);
+
+	if (currentPlayer.number === 1) {
+		playCardsArray.unshift(
+			player1.cards.splice(player1.cards[rotatedCardIndex], 1)[0]
+		);
+		player1.cards.push(playCardsArray.pop());
+	} else {
+		playCardsArray.unshift(
+			player2.cards.splice(player2.cards[rotatedCardIndex], 1)[0]
+		);
+		player2.cards.push(playCardsArray.pop());
+	}
+
+	// console.log(`Play Cards Array has ${playCardsArray.length} cards.`);
+	// console.log(playCardsArray);
+	// console.log(`Player 1 has ${player1.cards.length} cards.`);
+	// console.log(`Player 2 has ${player2.cards.length} cards.`);
+
+	console.log(currentCards);
+}
+
 function switchCards() {
 	if (opponent.number === 1) {
-		currentCards = blueCardsArray;
+		currentCards = player1.cards;
 	} else {
-		currentCards = pinkCardsArray;
+		currentCards = player2.cards;
 	}
 }
 
 function showCards() {
+	console.log(`Current card indexed 1: ${currentCards[1].name}`);
 	cardOne.innerText = currentCards[0].name;
 	cardTwo.innerText = currentCards[1].name;
 }
