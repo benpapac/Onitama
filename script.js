@@ -242,7 +242,7 @@ function render() {
 		switchCards();
 		removeShadows();
 		showCards();
-		console.log(`Current cards has ${currentCards.length} cards.`);
+		chosenCard = null;
 	}
 }
 function newTurn() {
@@ -378,5 +378,3 @@ function makePawns() {
 		blueSquare.appendChild(bluePawn);
 	}
 }
-
-// MOVEMENT CARDS //

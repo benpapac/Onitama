@@ -1,3 +1,22 @@
+/* //// MENU ////
+MOVEMENT: 21-61
+	line 22: updateMovementStates()
+	line 29: checkMove()
+	line 52: resetMovementStates()
+
+PAWNS:  62 - 102
+	line 63: pawnsList{}
+	line 77: checkPawn()
+	line 82: checkTargetPawn()
+	line 95: takePawn()
+
+SQUARES: 103 - 145
+	line 104: getNewSquare()
+	line 111: getShadowSquare()
+	line 118: glowShadowSquares()
+	line 134: removeShadows()
+*/
+
 function updateMovementStates(event) {
 	oldSquare = event.path[1];
 	oldRow = oldSquare.dataset.row;
@@ -28,6 +47,31 @@ function checkMove() {
 	return true;
 }
 
+function resetMovementStates() {
+	oldSquare = null;
+	shadowSquare = null;
+	oldRow = null;
+	oldColumn = null;
+	activePawn = null;
+	pickMode = !pickMode;
+}
+
+//// PAWNS ////
+
+const pawnsList = {
+	pinkPawnA: document.querySelector(`#${pawnNamesArray[0]}`),
+	pinkPawnB: document.querySelector(`#${pawnNamesArray[1]}`),
+	pinkPawnSage: document.querySelector(`#${pawnNamesArray[2]}`),
+	pinkPawnD: document.querySelector(`#${pawnNamesArray[3]}`),
+	pinkPawnE: document.querySelector(`#${pawnNamesArray[4]}`),
+
+	bluePawnA: document.querySelector(`#${pawnNamesArray[5]}`),
+	bluePawnB: document.querySelector(`#${pawnNamesArray[6]}`),
+	bluePawnSage: document.querySelector(`#${pawnNamesArray[7]}`),
+	bluePawnD: document.querySelector(`#${pawnNamesArray[8]}`),
+	bluePawnE: document.querySelector(`#${pawnNamesArray[9]}`),
+};
+
 function checkPawn() {
 	if (!targetPawn.classList.contains(`${opponent.class}`)) return;
 	return true;
@@ -46,14 +90,14 @@ function checkTargetPawn(event) {
 	return true;
 }
 
-function resetMovementStates() {
-	oldSquare = null;
-	shadowSquare = null;
-	oldRow = null;
-	oldColumn = null;
-	activePawn = null;
-	pickMode = !pickMode;
+function takePawn() {
+	if (!targetPawn.classList.contains('pawn')) return;
+	if (!targetPawn.classList.contains(`${opponent.class}`)) return;
+	targetPawn.remove();
+	getWinner(targetPawn);
 }
+
+//// SQUARES ////
 
 function getNewSquare(event) {
 	if (event.target.classList.contains('square')) newSquare = event.target;
@@ -96,11 +140,4 @@ function removeShadows() {
 			}
 		}
 	}
-}
-
-function takePawn() {
-	if (!targetPawn.classList.contains('pawn')) return;
-	if (!targetPawn.classList.contains(`${opponent.class}`)) return;
-	targetPawn.remove();
-	getWinner(targetPawn);
 }
