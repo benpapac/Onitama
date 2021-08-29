@@ -12,7 +12,13 @@ function handlePick(event) {
 	// if it's not a pawn, or if it's my opponent's pawn, I can't pick it.
 	if (!pawnNamesArray.includes(`${event.target.id}`)) return;
 	if (event.target.classList.contains(`${opponent.class}`)) return;
+	targetPawn = document.querySelector(`#${event.target.id}`);
+	console.log(`Target Pawn: ${targetPawn.id}`);
+	if(!chosenCard) return;
 	updateMovementStates(event);
+	console.log(`pick mode is: ${pickMode}`);
+	glowShadowSquares();
+	pickMode = !pickMode;
 }
 
 function handleMove(event) {
