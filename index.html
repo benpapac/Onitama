@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Onitama?</title>
+</head>
+
+<body>
+    <header>
+        <h1>Onitama</h1>
+        <h2 id="message"></h2>
+        <button class="button">About the Game</button>
+    </header>
+    <main>
+        <button class="button" id="reset-button">Play Again</button>
+        <div>
+            <!-- modal goes here -->
+        </div>
+        <div id="board">
+            <div class="row five" data-row="five">
+                <div class="square" id="five-A" data-row="5" data-column="A"></div>
+                <div class="square" id="five-B" data-row="5" data-column="B"></div>
+                <div class="square" id="pink-temple" data-row="5" data-column="C"></div>
+                <div class="square" id="five-D" data-row="5" data-column="D"></div>
+                <div class="square" id="five-E" data-row="5" data-column="E"></div>
+            </div>
+            <div class="row four" data-row="four">
+                <div class="square" id="four-A" data-row="4" data-column="A"></div>
+                <div class="square" id="four-B" data-row="4" data-column="B"></div>
+                <div class="square" id="four-C" data-row="4" data-column="C"></div>
+                <div class="square" id="four-D" data-row="4" data-column="D"></div>
+                <div class="square" id="four-E" data-row="4" data-column="E"></div>
+            </div>
+            <div class="row three" data-row="three">
+                <div class="square" id="three-A" data-row="3" data-column="A"></div>
+                <div class="square" id="three-B" data-row="3" data-column="B"></div>
+                <div class="square" id="three-C" data-row="3" data-column="C"></div>
+                <div class="square" id="three-D" data-row="3" data-column="D"></div>
+                <div class="square" id="three-E" data-row="3" data-column="E"></div>
+            </div>
+
+            <div class="row two" data-row="two">
+                <div class="square" id="two-A" data-row="2" data-column="A"></div>
+                <div class="square" id="two-B" data-row="2" data-column="B"></div>
+                <div class="square" id="two-C" data-row="2" data-column="C"></div>
+                <div class="square" id="two-D" data-row="2" data-column="D"></div>
+                <div class="square" id="two-E" data-row="2" data-column="E"></div>
+            </div>
+
+            <div class="row one" data-row="one">
+                <div class="square" id="one-A" data-row="1" data-column="A"></div>
+                <div class="square" id="one-B" data-row="1" data-column="B"></div>
+                <div class="square" id="blue-temple" data-row="1" data-column="C"></div>
+                <div class="square" id="one-D" data-row="1" data-column="D"></div>
+                <div class="square" id="one-E" data-row="1" data-column="E"></div>
+            </div>
+        </div>
+
+        <menu id="move-menu">
+            <div class="card" id="move-card-1" data-number="0">MOVE CARD 1</div>
+            <div class="card" id="move-card-2" data-number="1"> MOVE CARD 2</div>
+        </menu>
+    </main>
+    
+
+
+
+    <script src="./script.js"></script>
+    <script src="./pawnsAndSquares.js"></script>
+    <script src="./movement.js"></script>
+    <script src="./movementCards.js"></script>
+    <script src="./eventHandlers.js"></script>
+</body>
+</body>
+
+</html>

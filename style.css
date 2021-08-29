@@ -1,0 +1,115 @@
+body {
+	background-color: lightslategray;
+
+	display: flex;
+	flex-direction: column;
+	justify-items: center;
+	align-items: center;
+	gap: 2em;
+}
+
+main {
+	display: flex;
+	flex-direction: row;
+}
+
+menu {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-grow: 1.5;
+
+	text-align: center;
+	text-justify: center;
+	font-size: 30px;
+}
+
+h1 {
+	font-size: 50px;
+}
+
+.button {
+	height: 75px;
+	width: 200px;
+	font-size: 30px;
+}
+
+#board {
+	position: center;
+	border: solid 10px darkslategrey;
+	width: fit-content;
+	height: fit-content;
+
+	display: flex;
+	flex-direction: column;
+}
+.row {
+	width: fit-content;
+	display: flex;
+	justify-content: center;
+}
+
+.square {
+	background-color: linen;
+	flex-basis: 33%;
+	flex-grow: 1;
+	flex-shrink: 1;
+
+	height: 150px;
+	width: 150px;
+	border: solid black 1px;
+
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+
+.shadow {
+	opacity: 80%;
+	background-color: palegoldenrod;
+}
+
+.card {
+	margin: 10%;
+	max-height: 100px;
+	width: 175px;
+	border: solid black 10px;
+	background-color: linen;
+
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+.blue-pawn {
+	margin: 20%;
+	flex-basis: 100%;
+	background-color: lightblue;
+	border: solid black 1px;
+	border-radius: 36px;
+}
+
+.pink-pawn {
+	margin: 20%;
+	flex-basis: 100%;
+	background-color: lightpink;
+	border: solid black 1px;
+	border-radius: 36px;
+}
+
+#pink-temple {
+	background-color: lightsalmon;
+}
+
+#blue-temple {
+	background-color: lightseagreen;
+}
+
+#reset-button {
+	display: none;
+}
+
+
+div[data-type= 'shadow'] {
+background-color: paleturquoise;
+}
