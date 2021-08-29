@@ -36,6 +36,7 @@ function checkPawn() {
 function checkTargetPawn(event) {
 	if (targetPawn.classList.contains(currentPlayer.class)) {
 		pickMode = !pickMode;
+		removeShadows();
 		handlePick(event);
 		console.log(
 			` after checkTargetPawn(), the new active pawn is: ${activePawn.id}`
@@ -84,7 +85,7 @@ function glowShadowSquares() {
 
 			console.log(`Good Shadow: ${goodShadow}`);
 
-			if (goodShadow) shadowSquare.style.background = 'paleturquoise';
+			if (goodShadow) shadowSquare.dataset.type = 'shadow';
 		}
 	}
 }
@@ -95,7 +96,10 @@ function removeShadows() {
 			shadowSquare = document.querySelector(
 				`[data-row= ${rowsArray[i]}] [data-column= ${columnsArray[j]}]`
 			);
-			shadowSquare.classList.remove('shadow');
+			console.log(shadowSquare.id);
+			if (shadowSquare.dataset.type === 'shadow') {
+				shadowSquare.dataset.type = '';
+			}
 		}
 	}
 }

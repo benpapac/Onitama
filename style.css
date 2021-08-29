@@ -108,3 +108,8 @@ h1 {
 #reset-button {
 	display: none;
 }
+
+
+div[data-type= 'shadow'] {
+background-color: paleturquoise;
+}

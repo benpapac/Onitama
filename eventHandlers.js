@@ -14,9 +14,10 @@ function handlePick(event) {
 	if (event.target.classList.contains(`${opponent.class}`)) return;
 	targetPawn = document.querySelector(`#${event.target.id}`);
 	console.log(`Target Pawn: ${targetPawn.id}`);
-	if(!chosenCard) return;
+	if (!chosenCard) return;
 	updateMovementStates(event);
 	console.log(`pick mode is: ${pickMode}`);
+
 	glowShadowSquares();
 	pickMode = !pickMode;
 }
