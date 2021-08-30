@@ -2,16 +2,7 @@ body {
 	max-height: 80%;
 	max-width: 60%;
 	background-color: lightslategray;
-
-	display: flex;
-	flex-direction: column;
-	justify-items: center;
-	justify-content: center;
 	/* gap: 2em; */
-}
-
-main {
-	
 }
 
 menu {
@@ -38,7 +29,7 @@ h1 {
 	font-size: 25px;
 }
 
-#board {
+.board {
 	position: center;
 	border: solid 10px darkslategrey;
 	width: fit-content;
@@ -55,10 +46,12 @@ h1 {
 	display: flex;
 	justify-content: center;
 	gap: 0;
+	background-image: url("./assets/AdobeStock_278267569.jpeg");
+	background-size: cover;
 }
 
 .square {
-	background-color: linen;
+
 	flex-basis: 20%;
 	flex-grow: 1;
 	flex-shrink: 1;
@@ -88,37 +81,48 @@ h1 {
 	flex-shrink: 1;
 }
 
-#opponent-menu{
-	display: none;
-}
-
-#move-menu{
-	flex-direction: column;
-	margin-top: 10px;
-}
-
 .blue-pawn {
 	margin: 20%;
 	flex-basis: 100%;
-	background-color: lightblue;
-	border: solid black 1px;
-	border-radius: 1px;
+	background-image: url("./assets/blue-pawn-token.png");
+	background-size: cover;
 }
 
 .pink-pawn {
 	margin: 20%;
 	flex-basis: 100%;
-	background-color: lightpink;
-	border: solid black 1px;
-	border-radius: 1px;
+	/* background-color: lightpink; */
+	background-image: url("./assets/pink-pawn-token.png");
+	background-size: cover;
+}
+
+#pink-pawn-Sage {
+background-image: url("./assets/pink-sage-token.png");
+	background-size: cover;
+}
+
+#blue-pawn-Sage {
+background-image: url("./assets/blue-sage-token.png");
+	background-size: cover;
+}
+
+#opponent-menu {
+	display: none;
+}
+
+#move-menu {
+	flex-direction: column;
+	margin: 0;
 }
 
 #pink-temple {
-	background-color: lightsalmon;
+	background-image: url("./assets/pink-temple.png");
+	background-size: cover;
 }
 
 #blue-temple {
-	background-color: lightseagreen;
+	background-image: url("./assets/blue-temple.png");
+	background-size: cover;
 }
 
 #reset-button {
@@ -130,7 +134,7 @@ div[data-type='shadow'] {
 }
 
 /* FROM MODALS INTRO */
-#modal {
+.about {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -179,135 +183,39 @@ div[data-type='shadow'] {
 
 @media (min-width: 800px) {
 	body {
-		max-height: 80%;
-		max-width: 60%;
+		height: 100vh;
+		width: 100vw;
 		background-color: lightslategray;
 
 		display: flex;
 		flex-direction: row;
 		gap: 2em;
 	}
+	header {
+		height: 100%;
+		max-width: 260px;
+	}
 
 	main {
-		max-height: 50%;
-		max-width: 50%;
+		height: fit-content;
+
 		display: flex;
 		flex-direction: row;
 	}
 
-	menu {
-		margin: 05%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex-grow: 1.5;
-
-		text-align: center;
-		text-justify: center;
-		font-size: 30px;
-	}
-
-	h1 {
-		font-size: 50px;
-	}
-
-	.button {
-		margin: 20px;
-		height: 75px;
-		width: 200px;
-		font-size: 30px;
-	}
-
-	#board {
+	.board {
 		position: center;
 		border: solid 10px darkslategrey;
 		width: fit-content;
 		height: fit-content;
-
-		display: flex;
-		flex-direction: column;
-	}
-	.row {
-		width: fit-content;
-		display: flex;
-		justify-content: center;
-	}
-
-	.square {
-		background-color: linen;
-		flex-basis: 33%;
-		flex-grow: 1;
-		flex-shrink: 1;
-
-		height: 100px;
-		width: 100px;
-		border: solid black 1px;
-
-		display: flex;
-		justify-content: center;
-		align-content: center;
-	}
-
-	.shadow {
-		opacity: 80%;
-		background-color: gray;
-	}
-
-	.card {
-		margin: 10%;
-		max-height: 100px;
-		width: 175px;
-		border: solid black 10px;
-		background-color: linen;
-
-		flex-grow: 1;
-		flex-shrink: 1;
-	}
-
-	.blue-pawn {
-		margin: 20%;
-		flex-basis: 100%;
-		/* background-color: lightblue; */
-		background-image: url(./assets/blue-pawn-token.png);
-		border: solid black 1px;
-		border-radius: 36px;
-	}
-
-	.pink-pawn {
-		margin: 20%;
-		flex-basis: 100%;
-		/* background-color: lightpink; */
-		background-image: url('./assets/pink-pawn-clear.png');
-		border: solid black 1px;
-		border-radius: 36px;
-	}
-
-	#pink-pawn-Sage {
-		background-color: palevioletred;
-	}
-	#blue-pawn-Sage {
-		background-color: lightseagreen;
-	}
-
-	#pink-temple {
-		background-color: lightpink;
-	}
-
-	#blue-temple {
-		background-color: lightblue;
 	}
 
 	#reset-button {
 		display: none;
 	}
 
-	div[data-type='shadow'] {
-		background-color: paleturquoise;
-	}
-
 	/* FROM MODALS INTRO */
-	.modal {
+	.about {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
@@ -316,11 +224,12 @@ div[data-type='shadow'] {
 		margin: auto;
 		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 		background-color: rgba(0, 0, 0, 0.4);
-		position: center;
+		/* position: center;
 		top: 0;
-		left: 0;
+		left: 0; */
 
-		padding: 05%;
+		overflow: scroll;
+		padding: 5%;
 		height: 100%;
 		width: 100%;
 	}
@@ -330,8 +239,8 @@ div[data-type='shadow'] {
 	}
 
 	#modal-textbox {
+		width: 100%;
 		display: none;
-		flex-direction: column;
 
 		/* align-self: center; */
 		justify-content: center;
@@ -340,13 +249,19 @@ div[data-type='shadow'] {
 		background-color: seashell;
 
 		padding: 05%;
-		height: 75%;
+		height: 100%;
+		width: 100%;
 		border-radius: 2px;
 		margin: 150px auto;
 		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
 		z-index: 1;
-		overflow: auto;
+		overflow: scroll;
+	}
+
+	p {
+		font-size: 0.7rem;
+		word-break: break-all;
 	}
 
 	#close {
