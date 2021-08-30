@@ -324,13 +324,9 @@ function rotateCards() {
 function switchCards() {
 	if (opponent.number === 1) {
 		currentCards = player1.cards;
+		opponentCards = player2.cards;
 	} else {
 		currentCards = player2.cards;
+		opponentCards = player2.cards;
 	}
-}
-
-function showCards() {
-	console.log(`Current card indexed 1: ${currentCards[1].name}`);
-	cardOne.innerText = currentCards[0].name;
-	cardTwo.innerText = currentCards[1].name;
 }
