@@ -167,6 +167,22 @@ div[data-type='shadow'] {
 	z-index: 1;
 }
 
+#end-modal {
+background-color: rgba(0, 0, 0, 0.4);
+position: fixed;
+left: 10vw;
+top: 15vh;
+height: 60%;
+width: 80%;
+text-align: center;
+border: solid black 1px;
+background-color: seashell;
+border-radius: 2px;
+
+box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+z-index: 1;
+}
+
 #close {
 	background-color: silver;
 }
@@ -198,9 +214,6 @@ div[data-type='shadow'] {
 
 	/* FROM MODALS INTRO */
 
-	#end-modal {
-		display: none;
-	}
 
 	#close {
 		background-color: silver;
