@@ -1,21 +1,30 @@
 body {
+	margin: 0 auto;
 	background-color: lightslategray;
+	max-width: 1000px;
 	/* gap: 2em; */
 }
 header {
-	height: 20vh;
+	height: 5vh;
 	width: 100%;
-	justify-content: center;
-	align-content: center;
-	justify-items: center;
 }
 
 menu {
+	margin: 0 auto;
 	display: flex;
 
+	padding: 0 5%;
 	text-align: center;
-	text-justify: center;
 	font-size: 30px;
+}
+
+main {
+	margin: 60px 0px 0px 0px;
+}
+
+footer {
+	margin: 20px;
+	height: 50px;
 }
 
 h1 {
@@ -23,12 +32,12 @@ h1 {
 }
 
 .about {
-	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 	margin: auto;
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 	background-color: rgba(0, 0, 0, 0.4);
-
-	padding: 5%;
 }
 
 .modal {
@@ -48,14 +57,13 @@ h1 {
 }
 
 .board {
-	position: center;
+	margin-left: 40px;
 	border: solid 10px darkslategrey;
 	width: fit-content;
 	height: fit-content;
 
 	display: flex;
 	flex-direction: column;
-	gap: 0;
 }
 .row {
 	margin: 0;
@@ -124,13 +132,18 @@ h1 {
 }
 
 #opponent-menu {
+	display: none;
 	flex-direction: column;
 	margin: 0;
 }
 
 #move-menu {
-	flex-direction: column;
-	margin: 0;
+	flex-direction: row;
+	margin: 20px 0 0 0;
+}
+
+#move-menu h3 {
+	display: none;
 }
 
 #pink-temple {
@@ -149,38 +162,37 @@ div[data-type='shadow'] {
 
 #headline {
 	justify-self: center;
+	align-self: center;
+}
+
+#about-button {
+	align-self: center;
 }
 
 #modal-textbox {
 	background-color: rgba(0, 0, 0, 0.4);
 	position: fixed;
-	left: 10vw;
-	top: 15vh;
-	height: 60%;
-	width: 80%;
+
+	max-height: 30%;
+	max-width: 864px;
+	padding: 5%;
 	text-align: center;
 	border: solid black 1px;
 	background-color: seashell;
 	border-radius: 2px;
 
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+	overflow: auto;
 	z-index: 1;
 }
 
 #end-modal {
-background-color: rgba(0, 0, 0, 0.4);
-position: fixed;
-left: 10vw;
-top: 15vh;
-height: 60%;
-width: 80%;
 text-align: center;
 border: solid black 1px;
 background-color: seashell;
 border-radius: 2px;
 
 box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-z-index: 1;
 }
 
 #close {
@@ -194,25 +206,43 @@ z-index: 1;
 		background-color: lightslategray;
 	}
 	header {
-		height: 280px;
+		height: 100px;
 	}
 
 	main {
 		display: flex;
-
-		margin: 5%;
-		height: 100%;
-		width: 100%;
+		margin: 30px 0;
+		bottom: 2vh;
+		max-width: 800px;
 	}
 
 	.board {
+		margin: 0 auto;
 		position: center;
 		border: solid 10px darkslategrey;
 		width: fit-content;
 		height: fit-content;
 	}
 
+	.square {
+	height: 80px;
+	width: 80px;
+	}
+
 	/* FROM MODALS INTRO */
+#opponent-menu {
+	display: flex;
+	justify-content: space-between;
+}
+
+#move-menu {
+	flex-direction: column;
+	justify-content: space-between;
+	margin: 0;
+}
+#move-menu h3 {
+	display: block;
+}
 
 
 	#close {

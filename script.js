@@ -197,7 +197,7 @@ const aboutModal = document.querySelector('.modal');
 const endModal = document.querySelector('#end-modal');
 const textBox = document.querySelector('#modal-textbox');
 
-const aboutButton = document.querySelector('#about');
+const aboutButton = document.querySelector('#about-button');
 const closeButton = document.querySelector(`#close`);
 const resetButton = document.querySelector('#reset-button');
 
