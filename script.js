@@ -159,10 +159,17 @@ const movementCards = {
 
 const board = document.querySelector(`#board`);
 const message = document.querySelector('#message');
+const aboutModal = document.querySelector('#about-modal');
+const endModal = document.querySelector('#end-modal');
+const textBox = document.querySelector('#modal-textbox');
+const aboutButton = document.querySelector('#about');
+const closeButton = document.querySelector(`#close`);
 const resetButton = document.querySelector('#reset-button');
 const moveMenu = document.querySelector('#move-menu');
 const cardOne = document.querySelector('#move-card-1');
 const cardTwo = document.querySelector('#move-card-2');
+const cardThree = document.querySelector('#move-card-3');
+const cardFour = document.querySelector('#move-card-4');
 
 //State Variables
 let winner;
@@ -174,6 +181,7 @@ let opponent;
 let playCardsArray = [];
 let chosenCard;
 let currentCards = []; //not currently in use.
+let opponentCards = [];
 
 let canMove;
 let canAttack;
@@ -192,6 +200,11 @@ startGame();
 makePawns();
 // EVENT LISTENERS //
 board.addEventListener('click', handleClick);
+aboutButton.addEventListener('click', () => (textBox.style.display = 'flex'));
+closeButton.addEventListener(
+	'click',
+	() => (aboutModal.style.display = 'none')
+);
 resetButton.addEventListener('click', startGame);
 moveMenu.addEventListener('click', handleMenu);
 
@@ -235,7 +248,7 @@ function render() {
 		deletePawns();
 		makePawns();
 		message.textContent = `Player ${winner.number > 0 ? 1 : 2} wins!`;
-		resetButton.style.display = 'block';
+		endModal.style.display = 'flex';
 	} else {
 		message.textContent = `Player ${opponent.number > 0 ? 1 : 2}'s turn.`;
 		rotateCards();
@@ -310,8 +323,9 @@ function assignPlayCards() {
 	for (let i = 0; i < 2; i++) {
 		player1.cards.push(playCardsArray.pop());
 		player2.cards.push(playCardsArray.pop());
-		//remember, blue = player 1. Probably a better way to label some of these variables.
+
 		currentCards = player1.cards;
+		opponentCards = player2.cards;
 	}
 }
 
@@ -338,8 +352,11 @@ function handleMenu(event) {
 }
 
 function showCards() {
+	console.log(opponentCards);
 	cardOne.innerText = currentCards[0].name;
 	cardTwo.innerText = currentCards[1].name;
+	cardThree.innerText = opponentCards[0].name;
+	cardFour.innerText = opponentCards[1].name;
 }
 
 function deletePawns() {
