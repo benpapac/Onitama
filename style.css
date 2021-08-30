@@ -38,8 +38,6 @@ h1 {
 	width: 100%;
 	z-index: 1;
 	/*This puts our modal in front of the body (which has a default z-index setting of `0`*/
-	overflow: auto;
-	/*If overflow is clipped, a scroll-bar should be added to see the rest of the content*/
 }
 
 .button {
@@ -145,10 +143,6 @@ h1 {
 	background-size: cover;
 }
 
-#reset-button {
-	display: none;
-}
-
 div[data-type='shadow'] {
 	background-color: paleturquoise;
 }
@@ -158,17 +152,19 @@ div[data-type='shadow'] {
 }
 
 #modal-textbox {
+	background-color: rgba(0, 0, 0, 0.4);
+	position: fixed;
+	left: 10vw;
+	top: 15vh;
+	height: 60%;
+	width: 80%;
 	text-align: center;
 	border: solid black 1px;
 	background-color: seashell;
-
-	padding: 05%;
-	height: 75%;
-	min-width: 550px;
-	max-width: 700px;
 	border-radius: 2px;
-	margin: 150px auto;
+
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+	z-index: 1;
 }
 
 #close {
@@ -200,30 +196,10 @@ div[data-type='shadow'] {
 		height: fit-content;
 	}
 
-	#reset-button {
-		display: none;
-	}
-
 	/* FROM MODALS INTRO */
 
 	#end-modal {
 		display: none;
-	}
-
-	#modal-textbox {
-		width: 100%;
-		text-align: center;
-		border: solid black 1px;
-		background-color: seashell;
-
-		padding: 05%;
-		height: 100%;
-		width: 100%;
-		border-radius: 2px;
-		margin: 150px auto;
-		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-
-		z-index: 1;
 	}
 
 	#close {
