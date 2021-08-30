@@ -391,11 +391,9 @@ function handleClick(event) {
 }
 
 function handleMenu(event) {
-	console.log(event);
-	let cardChoice = event.target.dataset.number;
-
+	let cardChoice = parseInt(event.target.dataset.number) - 1;
+	console.log(`Card choice is: ${cardChoice}`);
 	chosenCard = currentCards[parseInt(cardChoice)].move;
-	console.log(`Current card: ${chosenCard.name}`);
 }
 
 function handleRules(event) {
@@ -408,6 +406,7 @@ function handleRules(event) {
 
 	blurb.innerText = ruleChoice;
 	blurb.style.fontSize = '16px';
+	blurb.dataset.number = `${cardChoice}`;
 	hoveredCard.appendChild(blurb);
 }
 
