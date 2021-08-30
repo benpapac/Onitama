@@ -1,4 +1,7 @@
 //Constants
+const body = document.body;
+const blurb = document.createElement('p');
+
 const player1 = {
 	name: 'player1',
 	class: 'blue-pawn',
@@ -51,6 +54,7 @@ const movementCards = {
 			}
 		},
 		link: './assets/boar.png',
+		rule: `Move forward, left, or right.`,
 	},
 
 	eel: {
@@ -74,6 +78,7 @@ const movementCards = {
 			}
 		},
 		link: './assets/eel.png',
+		rule: `Move to the right, or diagonally to the left.`,
 	},
 
 	mantis: {
@@ -100,6 +105,7 @@ const movementCards = {
 			}
 		},
 		link: './assets/praying-mantis.png',
+		rule: `Move back, or diagonally forward.`,
 	},
 
 	ox: {
@@ -124,6 +130,7 @@ const movementCards = {
 			} else return false;
 		},
 		link: './assets/bull.png',
+		rule: `Move forward, right or backward.`,
 	},
 
 	cobra: {
@@ -150,6 +157,7 @@ const movementCards = {
 			}
 		},
 		link: './assets/cobra.png',
+		rule: 'Move left, or diagonally to the right.',
 	},
 
 	horse: {
@@ -176,13 +184,13 @@ const movementCards = {
 			}
 		},
 		link: './assets/horse-head.png',
+		rule: `Move forward, left or backward.`,
 	},
 };
 
 //cached DOM references
 const board = document.querySelector(`.board`);
 const message = document.querySelector('#message');
-
 
 //Modals and buttons
 const aboutModal = document.querySelector('.modal');
@@ -224,15 +232,25 @@ let shadowSquare;
 let oldRow;
 let oldColumn;
 
+let hoveredCard;
+let ruleChoice;
+
 //start the game!
 startGame();
 makePawns();
 // EVENT LISTENERS //
 board.addEventListener('click', handleClick);
-aboutButton.addEventListener('click', () => (aboutModal.style.display = 'block'));
-closeButton.addEventListener('click', () => (aboutModal.style.display = 'none'));
+aboutButton.addEventListener(
+	'click',
+	() => (aboutModal.style.display = 'block')
+);
+closeButton.addEventListener(
+	'click',
+	() => (aboutModal.style.display = 'none')
+);
 resetButton.addEventListener('click', startGame);
 moveMenu.addEventListener('click', handleMenu);
+body.addEventListener('mouseover', handleRules);
 
 // CORE FUNCTIONS /
 
@@ -260,6 +278,7 @@ function startGame() {
 	showCards();
 	render();
 	aboutModal.style.display = 'flex';
+	endModal.style.display = 'none';
 }
 
 function render() {
@@ -372,10 +391,40 @@ function handleClick(event) {
 }
 
 function handleMenu(event) {
+	console.log(event);
 	let cardChoice = event.target.dataset.number;
 
 	chosenCard = currentCards[parseInt(cardChoice)].move;
 	console.log(`Current card: ${chosenCard.name}`);
+}
+
+function handleRules(event) {
+	if (!event.target.classList.contains('card')) return;
+	if (event.target.classList.contains('hovered')) return;
+
+	let cardChoice = parseInt(event.target.dataset.number);
+
+	prepBlurb(cardChoice, hoveredCard, ruleChoice);
+
+	blurb.innerText = ruleChoice;
+	blurb.style.fontSize = '16px';
+	hoveredCard.appendChild(blurb);
+}
+
+function prepBlurb(cardChoice) {
+	if (cardChoice === 1) {
+		hoveredCard = cardOne;
+		ruleChoice = currentCards[cardChoice - 1].rule;
+	} else if (cardChoice === 2) {
+		hoveredCard = cardTwo;
+		ruleChoice = currentCards[cardChoice - 1].rule;
+	} else if (cardChoice === 3) {
+		hoveredCard = cardThree;
+		ruleChoice = opponentCards[cardChoice - 3].rule;
+	} else {
+		hoveredCard = cardFour;
+		ruleChoice = opponentCards[cardChoice - 3].rule;
+	}
 }
 
 function showCards() {
