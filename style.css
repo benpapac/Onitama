@@ -1,17 +1,17 @@
 body {
-	max-height: 80%;
-	max-width: 60%;
 	background-color: lightslategray;
 	/* gap: 2em; */
 }
+header {
+	height: 20vh;
+	width: 100%;
+	justify-content: center;
+	align-content: center;
+	justify-items: center;
+}
 
 menu {
-	margin: 05%;
 	display: flex;
-	flex-direction: column;
-	/* justify-content: space-around; */
-	align-items: center;
-	flex-grow: 1.5;
 
 	text-align: center;
 	text-justify: center;
@@ -20,6 +20,26 @@ menu {
 
 h1 {
 	font-size: 50px;
+}
+
+.about {
+	justify-content: center;
+	margin: auto;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0.4);
+
+	padding: 5%;
+}
+
+.modal {
+	display: none;
+	background-color: rgba(0, 0, 0, 0.4);
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+	/*This puts our modal in front of the body (which has a default z-index setting of `0`*/
+	overflow: auto;
+	/*If overflow is clipped, a scroll-bar should be added to see the rest of the content*/
 }
 
 .button {
@@ -46,12 +66,11 @@ h1 {
 	display: flex;
 	justify-content: center;
 	gap: 0;
-	background-image: url("./assets/AdobeStock_278267569.jpeg");
+	background-image: url('./assets/AdobeStock_278267569.jpeg');
 	background-size: cover;
 }
 
 .square {
-
 	flex-basis: 20%;
 	flex-grow: 1;
 	flex-shrink: 1;
@@ -84,7 +103,7 @@ h1 {
 .blue-pawn {
 	margin: 20%;
 	flex-basis: 100%;
-	background-image: url("./assets/blue-pawn-token.png");
+	background-image: url('./assets/blue-pawn-token.png');
 	background-size: cover;
 }
 
@@ -92,22 +111,23 @@ h1 {
 	margin: 20%;
 	flex-basis: 100%;
 	/* background-color: lightpink; */
-	background-image: url("./assets/pink-pawn-token.png");
+	background-image: url('./assets/pink-pawn-token.png');
 	background-size: cover;
 }
 
 #pink-pawn-Sage {
-background-image: url("./assets/pink-sage-token.png");
+	background-image: url('./assets/pink-sage-token.png');
 	background-size: cover;
 }
 
 #blue-pawn-Sage {
-background-image: url("./assets/blue-sage-token.png");
+	background-image: url('./assets/blue-sage-token.png');
 	background-size: cover;
 }
 
 #opponent-menu {
-	display: none;
+	flex-direction: column;
+	margin: 0;
 }
 
 #move-menu {
@@ -116,12 +136,12 @@ background-image: url("./assets/blue-sage-token.png");
 }
 
 #pink-temple {
-	background-image: url("./assets/pink-temple.png");
+	background-image: url('./assets/pink-temple.png');
 	background-size: cover;
 }
 
 #blue-temple {
-	background-image: url("./assets/blue-temple.png");
+	background-image: url('./assets/blue-temple.png');
 	background-size: cover;
 }
 
@@ -133,37 +153,11 @@ div[data-type='shadow'] {
 	background-color: paleturquoise;
 }
 
-/* FROM MODALS INTRO */
-.about {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	justify-items: center;
-	align-content: center;
-	align-items: center;
-
-	margin: auto;
-	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-	background-color: rgba(0, 0, 0, 0.4);
-	position: center;
-
-	padding: 05%;
-	height: 300px;
-	width: 300px;
-}
 #headline {
-	display: block;
-	/* margin-left: 50px;
-	margin-right: 150px; */
 	justify-self: center;
 }
 
 #modal-textbox {
-	display: none;
-	flex-direction: column;
-
-	align-self: center;
-	justify-content: center;
 	text-align: center;
 	border: solid black 1px;
 	background-color: seashell;
@@ -186,21 +180,17 @@ div[data-type='shadow'] {
 		height: 100vh;
 		width: 100vw;
 		background-color: lightslategray;
-
-		display: flex;
-		flex-direction: row;
-		gap: 2em;
 	}
 	header {
-		height: 100%;
-		max-width: 260px;
+		height: 280px;
 	}
 
 	main {
-		height: fit-content;
-
 		display: flex;
-		flex-direction: row;
+
+		margin: 5%;
+		height: 100%;
+		width: 100%;
 	}
 
 	.board {
@@ -215,24 +205,6 @@ div[data-type='shadow'] {
 	}
 
 	/* FROM MODALS INTRO */
-	.about {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-
-		justify-content: center;
-		margin: auto;
-		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-		background-color: rgba(0, 0, 0, 0.4);
-		/* position: center;
-		top: 0;
-		left: 0; */
-
-		overflow: scroll;
-		padding: 5%;
-		height: 100%;
-		width: 100%;
-	}
 
 	#end-modal {
 		display: none;
@@ -240,10 +212,6 @@ div[data-type='shadow'] {
 
 	#modal-textbox {
 		width: 100%;
-		display: none;
-
-		/* align-self: center; */
-		justify-content: center;
 		text-align: center;
 		border: solid black 1px;
 		background-color: seashell;
@@ -256,12 +224,6 @@ div[data-type='shadow'] {
 		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
 		z-index: 1;
-		overflow: scroll;
-	}
-
-	p {
-		font-size: 0.7rem;
-		word-break: break-all;
 	}
 
 	#close {

@@ -73,7 +73,7 @@ const movementCards = {
 				return false;
 			}
 		},
-		link: '',
+		link: './assets/eel.png',
 	},
 
 	mantis: {
@@ -99,7 +99,7 @@ const movementCards = {
 				return false;
 			}
 		},
-		link: '',
+		link: './assets/praying-mantis.png',
 	},
 
 	ox: {
@@ -123,7 +123,7 @@ const movementCards = {
 				return true;
 			} else return false;
 		},
-		link: '',
+		link: './assets/bull.png',
 	},
 
 	cobra: {
@@ -149,7 +149,7 @@ const movementCards = {
 				return false;
 			}
 		},
-		link: '',
+		link: './assets/cobra.png',
 	},
 
 	horse: {
@@ -175,20 +175,25 @@ const movementCards = {
 				return false;
 			}
 		},
-		link: '',
+		link: './assets/horse-head.png',
 	},
 };
 
 //cached DOM references
-
 const board = document.querySelector(`.board`);
 const message = document.querySelector('#message');
-const aboutModal = document.querySelector('.about');
+
+
+//Modals and buttons
+const aboutModal = document.querySelector('.modal');
 const endModal = document.querySelector('#end-modal');
 const textBox = document.querySelector('#modal-textbox');
+
 const aboutButton = document.querySelector('#about');
 const closeButton = document.querySelector(`#close`);
 const resetButton = document.querySelector('#reset-button');
+
+// CARD Constants
 const moveMenu = document.querySelector('#move-menu');
 const cardOne = document.querySelector('#move-card-1');
 const cardTwo = document.querySelector('#move-card-2');
@@ -224,8 +229,8 @@ startGame();
 makePawns();
 // EVENT LISTENERS //
 board.addEventListener('click', handleClick);
-aboutButton.addEventListener('click', () => (textBox.style.display = 'block'));
-closeButton.addEventListener('click', () => (textBox.style.display = 'none'));
+aboutButton.addEventListener('click', () => (aboutModal.style.display = 'block'));
+closeButton.addEventListener('click', () => (aboutModal.style.display = 'none'));
 resetButton.addEventListener('click', startGame);
 moveMenu.addEventListener('click', handleMenu);
 
@@ -270,7 +275,7 @@ function render() {
 		deletePawns();
 		makePawns();
 		message.textContent = `Player ${winner.number > 0 ? 1 : 2} wins!`;
-		endModal.style.display = 'flex';
+		endModal.style.display = 'block';
 	} else {
 		message.textContent = `Player ${opponent.number > 0 ? 1 : 2}'s turn.`;
 		rotateCards();
@@ -374,16 +379,23 @@ function handleMenu(event) {
 }
 
 function showCards() {
-	console.log(opponentCards);
-	console.log(currentCards[0].name);
+	console.log(currentCards[0].link);
+	console.log(currentCards[1].link);
 	cardOne.innerText = currentCards[0].name;
-	// cardOne.style.backgroundImage= url(currentCards[0].name.link);
+	cardOne.style.backgroundImage = `url(${currentCards[0].link})`;
+	cardOne.style.backgroundImageSize = 'fit';
+
 	cardTwo.innerText = currentCards[1].name;
-	// cardOne.style.backgroundImage= url(currentCards[1].link});
+	cardTwo.style.backgroundImage = `url(${currentCards[1].link})`;
+	cardTwo.style.backgroundImageSize = 'cover';
+
 	cardThree.innerText = opponentCards[0].name;
-	// cardOne.style.backgroundImage= url(${opponentCards[0].link});
+	cardThree.style.backgroundImage = `url(${opponentCards[0].link})`;
+	cardThree.style.backgroundImageSize = 'cover';
+
 	cardFour.innerText = opponentCards[1].name;
-	// cardOne.style.backgroundImage= url(${opponentCards[1].link});
+	cardFour.style.backgroundImage = `url(${opponentCards[1].link})`;
+	cardFour.style.backgroundImageSize = 'cover';
 }
 
 function deletePawns() {
