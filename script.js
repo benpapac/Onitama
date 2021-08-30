@@ -32,134 +32,158 @@ const movementCardsArray = ['boar', 'mantis', 'ox', 'eel', 'cobra', 'horse'];
 
 // MOVEMENT CARDS //
 const movementCards = {
-	boar: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
+	boar: {
+		name: 'boar',
+		move: () => {
+			if (!pickMode) {
+				if (targetPawn.classList.contains(currentPlayer.class)) return;
+			}
 
-		if (blueCoreCards.blueForwardOne() || blueCoreCards.blueLateralOne()) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkForwardOne() ||
-			pinkCoreCards.pinkLateralOne()
-		) {
-			return true;
-		} else {
-			false;
-		}
+			if (blueCoreCards.blueForwardOne() || blueCoreCards.blueLateralOne()) {
+				return true;
+			} else if (
+				pinkCoreCards.pinkForwardOne() ||
+				pinkCoreCards.pinkLateralOne()
+			) {
+				return true;
+			} else {
+				false;
+			}
+		},
+		link: './assets/boar.png',
 	},
 
-	eel: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
+	eel: {
+		name: 'eel',
+		move: () => {
+			if (!pickMode) {
+				if (targetPawn.classList.contains(currentPlayer.class)) return;
+			}
 
-		if (
-			blueCoreCards.blueRightOne() ||
-			blueCoreCards.blueLeftOneForwardOne() ||
-			blueCoreCards.blueLeftOneBackwardOne() ||
-			pinkCoreCards.pinkRightOne() ||
-			pinkCoreCards.pinkLeftOneForwardOne() ||
-			pinkCoreCards.pinkLeftOneBackwardOne()
-		) {
-			return true;
-		} else {
-			return false;
-		}
+			if (
+				blueCoreCards.blueRightOne() ||
+				blueCoreCards.blueLeftOneForwardOne() ||
+				blueCoreCards.blueLeftOneBackwardOne() ||
+				pinkCoreCards.pinkRightOne() ||
+				pinkCoreCards.pinkLeftOneForwardOne() ||
+				pinkCoreCards.pinkLeftOneBackwardOne()
+			) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		link: '',
 	},
 
-	mantis: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
+	mantis: {
+		name: 'mantis',
+		move: () => {
+			if (!pickMode) {
+				if (targetPawn.classList.contains(currentPlayer.class)) return;
+			}
 
-		if (
-			blueCoreCards.blueBackwardOne() ||
-			blueCoreCards.blueLeftOneForwardOne() ||
-			blueCoreCards.blueRightOneForwardOne()
-		) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkBackwardOne() ||
-			pinkCoreCards.pinkLeftOneForwardOne() ||
-			pinkCoreCards.pinkRightOneForwardOne()
-		) {
-			return true;
-		} else {
-			return false;
-		}
+			if (
+				blueCoreCards.blueBackwardOne() ||
+				blueCoreCards.blueLeftOneForwardOne() ||
+				blueCoreCards.blueRightOneForwardOne()
+			) {
+				return true;
+			} else if (
+				pinkCoreCards.pinkBackwardOne() ||
+				pinkCoreCards.pinkLeftOneForwardOne() ||
+				pinkCoreCards.pinkRightOneForwardOne()
+			) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		link: '',
 	},
 
-	ox: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
+	ox: {
+		name: 'ox',
+		move: () => {
+			if (!pickMode) {
+				if (targetPawn.classList.contains(currentPlayer.class)) return;
+			}
 
-		if (
-			blueCoreCards.blueForwardOne() ||
-			blueCoreCards.blueRightOne() ||
-			blueCoreCards.blueBackwardOne()
-		) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkForwardOne() ||
-			pinkCoreCards.pinkRightOne() ||
-			pinkCoreCards.pinkBackwardOne()
-		) {
-			return true;
-		} else return false;
+			if (
+				blueCoreCards.blueForwardOne() ||
+				blueCoreCards.blueRightOne() ||
+				blueCoreCards.blueBackwardOne()
+			) {
+				return true;
+			} else if (
+				pinkCoreCards.pinkForwardOne() ||
+				pinkCoreCards.pinkRightOne() ||
+				pinkCoreCards.pinkBackwardOne()
+			) {
+				return true;
+			} else return false;
+		},
+		link: '',
 	},
 
-	cobra: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
+	cobra: {
+		name: 'cobra',
+		move: () => {
+			if (!pickMode) {
+				if (targetPawn.classList.contains(currentPlayer.class)) return;
+			}
 
-		if (
-			blueCoreCards.blueLeftOne() ||
-			blueCoreCards.blueRightOneForwardOne() ||
-			blueCoreCards.blueRightOneBackwardOne()
-		) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkLeftOne() ||
-			pinkCoreCards.pinkRightOneForwardOne() ||
-			pinkCoreCards.pinkRightOneBackwardOne()
-		) {
-			return true;
-		} else {
-			return false;
-		}
+			if (
+				blueCoreCards.blueLeftOne() ||
+				blueCoreCards.blueRightOneForwardOne() ||
+				blueCoreCards.blueRightOneBackwardOne()
+			) {
+				return true;
+			} else if (
+				pinkCoreCards.pinkLeftOne() ||
+				pinkCoreCards.pinkRightOneForwardOne() ||
+				pinkCoreCards.pinkRightOneBackwardOne()
+			) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		link: '',
 	},
 
-	horse: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
+	horse: {
+		name: 'horse',
+		move: () => {
+			if (!pickMode) {
+				if (targetPawn.classList.contains(currentPlayer.class)) return;
+			}
 
-		if (
-			blueCoreCards.blueForwardOne() ||
-			blueCoreCards.blueLeftOne() ||
-			blueCoreCards.blueBackwardOne()
-		) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkForwardOne() ||
-			pinkCoreCards.pinkLeftOne() ||
-			pinkCoreCards.pinkBackwardOne()
-		) {
-			return true;
-		} else {
-			return false;
-		}
+			if (
+				blueCoreCards.blueForwardOne() ||
+				blueCoreCards.blueLeftOne() ||
+				blueCoreCards.blueBackwardOne()
+			) {
+				return true;
+			} else if (
+				pinkCoreCards.pinkForwardOne() ||
+				pinkCoreCards.pinkLeftOne() ||
+				pinkCoreCards.pinkBackwardOne()
+			) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		link: '',
 	},
 };
 
 //cached DOM references
 
-const board = document.querySelector(`#board`);
+const board = document.querySelector(`.board`);
 const message = document.querySelector('#message');
-const aboutModal = document.querySelector('#about-modal');
+const aboutModal = document.querySelector('.about');
 const endModal = document.querySelector('#end-modal');
 const textBox = document.querySelector('#modal-textbox');
 const aboutButton = document.querySelector('#about');
@@ -200,8 +224,8 @@ startGame();
 makePawns();
 // EVENT LISTENERS //
 board.addEventListener('click', handleClick);
-aboutButton.addEventListener('click', () => (textBox.style.display = 'flex'));
-closeButton.addEventListener('click',() => (aboutModal.style.display = 'none'));
+aboutButton.addEventListener('click', () => (textBox.style.display = 'block'));
+closeButton.addEventListener('click', () => (textBox.style.display = 'none'));
 resetButton.addEventListener('click', startGame);
 moveMenu.addEventListener('click', handleMenu);
 
@@ -230,7 +254,7 @@ function startGame() {
 	assignPlayCards();
 	showCards();
 	render();
-	aboutModal.style.display= "flex";
+	aboutModal.style.display = 'flex';
 }
 
 function render() {
@@ -345,16 +369,21 @@ function handleClick(event) {
 function handleMenu(event) {
 	let cardChoice = event.target.dataset.number;
 
-	chosenCard = currentCards[parseInt(cardChoice)];
+	chosenCard = currentCards[parseInt(cardChoice)].move;
 	console.log(`Current card: ${chosenCard.name}`);
 }
 
 function showCards() {
 	console.log(opponentCards);
+	console.log(currentCards[0].name);
 	cardOne.innerText = currentCards[0].name;
+	// cardOne.style.backgroundImage= url(currentCards[0].name.link);
 	cardTwo.innerText = currentCards[1].name;
+	// cardOne.style.backgroundImage= url(currentCards[1].link});
 	cardThree.innerText = opponentCards[0].name;
+	// cardOne.style.backgroundImage= url(${opponentCards[0].link});
 	cardFour.innerText = opponentCards[1].name;
+	// cardOne.style.backgroundImage= url(${opponentCards[1].link});
 }
 
 function deletePawns() {
