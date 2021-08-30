@@ -201,10 +201,7 @@ makePawns();
 // EVENT LISTENERS //
 board.addEventListener('click', handleClick);
 aboutButton.addEventListener('click', () => (textBox.style.display = 'flex'));
-closeButton.addEventListener(
-	'click',
-	() => (aboutModal.style.display = 'none')
-);
+closeButton.addEventListener('click',() => (aboutModal.style.display = 'none'));
 resetButton.addEventListener('click', startGame);
 moveMenu.addEventListener('click', handleMenu);
 
@@ -233,6 +230,7 @@ function startGame() {
 	assignPlayCards();
 	showCards();
 	render();
+	aboutModal.style.display= "flex";
 }
 
 function render() {
