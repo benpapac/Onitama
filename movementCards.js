@@ -313,10 +313,10 @@ function rotateCards() {
 		player2.cards.push(playCardsArray.pop());
 	}
 
-	// console.log(`Play Cards Array has ${playCardsArray.length} cards.`);
-	// console.log(playCardsArray);
-	// console.log(`Player 1 has ${player1.cards.length} cards.`);
-	// console.log(`Player 2 has ${player2.cards.length} cards.`);
+	console.log(`Play Cards Array has ${playCardsArray.length} cards.`);
+	console.log(playCardsArray);
+	console.log(`Player 1 has ${player1.cards.length} cards.`);
+	console.log(`Player 2 has ${player2.cards.length} cards.`);
 
 	console.log(currentCards);
 }
