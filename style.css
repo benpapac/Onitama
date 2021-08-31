@@ -10,7 +10,7 @@ body {
 }
 header {
 	height: 5vh;
-	width: 100%;
+	margin: 0 auto;
 }
 header h1 {
 	font-size: 60px;
@@ -56,6 +56,7 @@ h1 {
 h1,
 h3,
 button {
+	margin-top: 10px;
 	font-family: 'Dancing Script', cursive;
 }
 
@@ -93,7 +94,7 @@ img {
 	position: fixed;
 
 	max-height: 50%;
-	max-width: 726px;
+	max-width: 700px;
 	padding: 2% 10%;
 	text-align: center;
 	border: solid black 1px;
@@ -252,8 +253,9 @@ div[data-type='shadow'] {
 	}
 	header {
 		height: fit-content;
-		width: 800px;
-		margin: 0 auto; 
+		margin: 0 70px 0 0;
+		max-width: 1100px;
+		padding-right: 50px;
 	}
 
 	main {
@@ -274,10 +276,23 @@ div[data-type='shadow'] {
 	}
 
 	.about {
-		width: 100%;
+		margin-top: 10px;
+		margin-left: 60px;
+		height: 30vh;
+		width: 80%;
 		padding: 5%;
+		overflow: visible;
 	}
 
+	.about h1 {
+		margin-top: 50px;
+		margin-bottom: -60px;
+		font-size: 300px;
+		z-index: -1;
+	}
+	.about p {
+		font-weight: 600;
+	}
 	.board {
 		margin-top: 15px;
 	}
@@ -287,7 +302,9 @@ div[data-type='shadow'] {
 		width: 80px;
 	}
 
-	/* FROM MODALS INTRO */
+	#about-button {
+		margin-top: 30px;
+	}
 	#opponent-menu {
 		display: flex;
 		justify-content: space-between;
