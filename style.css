@@ -16,7 +16,7 @@ header {
 }
 header h1 {
 	font-size: 60px;
-	color:rgb(206, 189, 173);
+	color: rgb(206, 189, 173);
 }
 
 header h3 {
@@ -31,6 +31,10 @@ menu {
 	padding: 0 5%;
 	text-align: center;
 	font-size: 30px;
+}
+
+menu h3 {
+	color: rgb(206, 189, 173);
 }
 
 main {
@@ -51,11 +55,14 @@ h1 {
 	margin: 0px;
 }
 
-h1, h3, button {
+h1,
+h3,
+button {
 	font-family: 'Dancing Script', cursive;
 }
 
-p, li {
+p,
+li {
 	font-family: 'Lato', sans-serif;
 }
 
@@ -133,7 +140,7 @@ img {
 }
 
 .board {
-	border:solid 4px rgba(0, 0, 0, 0.8);
+	border: solid 4px rgba(0, 0, 0, 0.8);
 	/* border-image: url("./assets/marble.jpeg") 30 round; */
 	width: fit-content;
 	height: fit-content;
