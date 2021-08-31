@@ -19,7 +19,7 @@ menu {
 }
 
 main {
-	margin: 60px 0px 0px 0px;
+	margin: 200px 0px 0px 0px;
 }
 
 footer {
@@ -177,14 +177,14 @@ div[data-type='shadow'] {
 
 #modal-textbox {
 	background-color: rgba(255, 255, 255, 0.7);
-	background-image: url("./assets/blue-sage-clear.png");
+	background-image: url('./assets/blue-sage-clear.png');
 	background-size: fill;
 	position: fixed;
 
-	max-height: 30%;
-	max-width: 864px;
-	padding: 5%;
-	text-align: left;
+	max-height: 50%;
+	max-width: 726px;
+	padding: 2% 10%;
+	text-align: center;
 	border: solid black 1px;
 	/* background-color: seashell; */
 	border-radius: 2px;
@@ -203,19 +203,18 @@ div[data-type='shadow'] {
 #modal-textbox p {
 	font-size: 18px;
 	font-weight: 900;
-	max-width: 60%;
 }
 #end-modal {
-text-align: center;
-border: solid black 1px;
-background-color: seashell;
-border-radius: 2px;
+	text-align: center;
+	border: solid black 1px;
+	background-color: seashell;
+	border-radius: 2px;
 
-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 #close {
-	background-image: url("./assets/pink-temple.png");
+	background-image: url('./assets/pink-temple.png');
 	background-size: cover;
 	height: 60px;
 	width: 120px;
@@ -236,9 +235,13 @@ box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
 	main {
 		display: flex;
-		margin: 30px 0;
+		margin: 140px 0;
 		bottom: 2vh;
 		max-width: 800px;
+	}
+
+	.about {
+		padding: 2%;
 	}
 
 	.board {
@@ -250,25 +253,24 @@ box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 	}
 
 	.square {
-	height: 80px;
-	width: 80px;
+		height: 80px;
+		width: 80px;
 	}
 
 	/* FROM MODALS INTRO */
-#opponent-menu {
-	display: flex;
-	justify-content: space-between;
-}
+	#opponent-menu {
+		display: flex;
+		justify-content: space-between;
+	}
 
-#move-menu {
-	flex-direction: column;
-	justify-content: space-between;
-	margin: 0;
-}
-#move-menu h3 {
-	display: block;
-}
-
+	#move-menu {
+		flex-direction: column;
+		justify-content: space-between;
+		margin: 0;
+	}
+	#move-menu h3 {
+		display: block;
+	}
 
 	#close {
 		background-color: silver;
