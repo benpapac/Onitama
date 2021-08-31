@@ -82,9 +82,6 @@ function checkTargetPawn(event) {
 		pickMode = !pickMode;
 		removeShadows();
 		handlePick(event);
-		console.log(
-			` after checkTargetPawn(), the new active pawn is: ${activePawn.id}`
-		);
 		return true;
 	}
 	return true;
@@ -114,7 +111,6 @@ function getShadowSquare() {
 }
 
 function glowShadowSquares() {
-	console.log(`we're in glowShadowSquares.`);
 	let goodShadow = false;
 
 	for (let i = 0; i < rowsArray.length; i++) {

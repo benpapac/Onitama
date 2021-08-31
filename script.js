@@ -1,3 +1,18 @@
+///MENU///
+/*
+Constants: Lines 10-213.
+	Core Constants: line 16
+	Arrays: Line 33
+	Movement Cards: Line 51
+	Cashed Dome References: Line 206
+	State Variables: Line 225
+	Event Listeners: Line 255
+	Core Functions: Line 269
+	Core Card Mechanics: Line 371
+	Core Event Handlers: Line 395
+	Card Art & Info: Line 407
+	Make & Delete Pawns: Line 464
+*/
 //Constants
 const body = document.body;
 const blurb = document.createElement('p');
@@ -251,7 +266,7 @@ resetButton.addEventListener('click', startGame);
 moveMenu.addEventListener('click', handleMenu);
 body.addEventListener('mouseover', handleRules);
 
-// CORE FUNCTIONS /
+// CORE FUNCTIONS //
 
 function startGame() {
 	//update State Variables and render()
@@ -280,14 +295,13 @@ function startGame() {
 	endModal.style.display = 'none';
 }
 
+//update the DOM
 function render() {
-	//update the DOM
-
 	if (!activePawn) return;
 	if (!targetPawn) return;
 	oldSquare.removeChild(activePawn);
 	newSquare.appendChild(activePawn);
-	//  `Player (is winner greater than 0? print 1 otherwise, print 2)  wins!`,
+
 	if (gameOver) {
 		removeShadows();
 		deletePawns();
@@ -353,6 +367,7 @@ function randomCard() {
 	return movementCards[`${movementCardsArray[randomCardIndex]}`];
 }
 
+// Core Card Mechanics //
 function getPlayCards() {
 	let cardArray = [];
 	for (let i = 0; i < 5; i++) {
@@ -378,29 +393,21 @@ function assignPlayCards() {
 
 // ALL CALLBACK HANDLERS ON eventHandlers.js //
 function handleClick(event) {
-	console.log(event);
 	if (pickMode) handlePick(event);
 	else {
 		handleMove(event);
 	}
-
-	///SCOPE ISSUE WITH BELOW FUNCTIONS///
-	// render();
-
-	// checkWinner(event);
-	// newTurn();
 }
 
 function handleMenu(event) {
 	let cardChoice = parseInt(event.target.dataset.number) - 1;
-	console.log(`Card choice is: ${cardChoice}`);
 	chosenCard = currentCards[parseInt(cardChoice)].move;
 }
 /// MAKE CARD ART & INFO
 function handleRules(event) {
 	if (!event.target.classList.contains('card')) return;
 	if (event.target.classList.contains('hovered')) return;
-	if(hoveredCard) hoveredCard.style.backgroundColor = null;
+	if (hoveredCard) hoveredCard.style.backgroundColor = null;
 
 	let cardChoice = parseInt(event.target.dataset.number);
 
@@ -436,8 +443,6 @@ function prepBlurb(cardChoice) {
 }
 
 function showCards() {
-	console.log(currentCards[0].link);
-	console.log(currentCards[1].link);
 	cardOne.innerText = currentCards[0].name;
 	cardOne.style.backgroundImage = `url(${currentCards[0].link})`;
 	cardOne.style.backgroundSize = 'cover';
