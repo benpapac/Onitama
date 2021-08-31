@@ -93,7 +93,7 @@ const movementCards = {
 			}
 		},
 		link: './assets/eel.png',
-		rule: `Move to the right, or diagonally to the left.`,
+		rule: `Move to the right, or diagonally left.`,
 	},
 
 	mantis: {
@@ -172,7 +172,7 @@ const movementCards = {
 			}
 		},
 		link: './assets/cobra.png',
-		rule: 'Move left, or diagonally to the right.',
+		rule: 'Move left, or diagonally right.',
 	},
 
 	horse: {
@@ -258,6 +258,9 @@ aboutButton.addEventListener(
 	'click',
 	() => (aboutModal.style.display = 'block')
 );
+
+///MOBILE TEST EVENT LISTENER///
+board.addEventListener('touchstart', handleClick);
 closeButton.addEventListener(
 	'click',
 	() => (aboutModal.style.display = 'none')
