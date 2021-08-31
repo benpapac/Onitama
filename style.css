@@ -46,7 +46,7 @@ main {
 footer {
 	background: rgba(0, 0, 0, 0.2);
 	margin: 20px;
-	height: 80px;
+	height: 100px;
 	padding-bottom: 50px;
 }
 
@@ -267,6 +267,10 @@ div[data-type='shadow'] {
 		background-image: url('./assets/Zen_Garden.jpeg');
 		background-size: cover;
 		padding: 3%;
+	}
+
+	footer {
+		height: 80px;
 	}
 
 	.about {
