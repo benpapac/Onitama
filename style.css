@@ -1,3 +1,9 @@
+/* MENU
+Classes @ Line 54
+IDs @ Line 186
+Media Query @234
+*/
+
 body {
 	margin: 0 auto;
 	background-color: lightslategray;
@@ -25,12 +31,14 @@ menu {
 
 main {
 	margin: 200px 0px 0px 0px;
-	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+	border: 1px solid black;
+	box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.5);
 }
 
 footer {
+	background: rgba(0, 0, 0, 0.2);
 	margin: 20px;
-	height: 50px;
+	height: 80px;
 	padding-bottom: 50px;
 }
 
@@ -100,7 +108,7 @@ img {
 .button {
 	background-image: url('./assets/pink-temple.png');
 	background-size: cover;
-	height: 90px;
+	height: 60px;
 	width: 120px;
 	border-radius: 15px;
 	font-size: 20px;
@@ -113,9 +121,11 @@ img {
 }
 
 .board {
-	border: solid 10px darkslategrey;
+	border:solid 4px rgba(0, 0, 0, 0.8);
+	/* border-image: url("./assets/marble.jpeg") 30 round; */
 	width: fit-content;
 	height: fit-content;
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
 
 	display: flex;
 	flex-direction: column;
@@ -143,11 +153,6 @@ img {
 	display: flex;
 	justify-content: center;
 	align-content: center;
-}
-
-.shadow {
-	opacity: 80%;
-	background-color: palegoldenrod;
 }
 
 .card {
@@ -212,7 +217,7 @@ img {
 }
 
 div[data-type='shadow'] {
-	background-color: paleturquoise;
+	background-color: rgb(206, 189, 173);
 }
 
 #headline {
@@ -252,10 +257,6 @@ div[data-type='shadow'] {
 
 	.board {
 		margin: 0 auto;
-		position: center;
-		border: solid 10px darkslategrey;
-		width: fit-content;
-		height: fit-content;
 	}
 
 	.square {
