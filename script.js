@@ -195,7 +195,6 @@ const message = document.querySelector('#message');
 //Modals and buttons
 const aboutModal = document.querySelector('.modal');
 const endModal = document.querySelector('#end-modal');
-const textBox = document.querySelector('#modal-textbox');
 
 const aboutButton = document.querySelector('#about-button');
 const closeButton = document.querySelector(`#close`);
@@ -277,7 +276,7 @@ function startGame() {
 	assignPlayCards();
 	showCards();
 	render();
-	aboutModal.style.display = 'flex';
+	// aboutModal.style.display = 'flex';
 	endModal.style.display = 'none';
 }
 
@@ -295,12 +294,14 @@ function render() {
 		makePawns();
 		message.textContent = `Player ${winner.number > 0 ? 1 : 2} wins!`;
 		endModal.style.display = 'block';
+		if (hoveredCard) hoveredCard.style.backgroundColor = null;
 	} else {
 		message.textContent = `Player ${opponent.number > 0 ? 1 : 2}'s turn.`;
 		rotateCards();
 		switchCards();
 		removeShadows();
 		showCards();
+		if (hoveredCard) hoveredCard.style.backgroundColor = null;
 		chosenCard = null;
 	}
 }
