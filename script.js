@@ -267,6 +267,8 @@ closeButton.addEventListener(
 );
 resetButton.addEventListener('click', startGame);
 moveMenu.addEventListener('click', handleMenu);
+///MOBILE TEST EVENT LISTENER//
+moveMenu.addEventListener('touchstart', handleMenu);
 body.addEventListener('mouseover', handleRules);
 
 // CORE FUNCTIONS //
@@ -403,6 +405,7 @@ function handleClick(event) {
 }
 
 function handleMenu(event) {
+	event.preventDefault();
 	let cardChoice = parseInt(event.target.dataset.number) - 1;
 	chosenCard = currentCards[parseInt(cardChoice)].move;
 }
