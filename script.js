@@ -395,19 +395,27 @@ function handleMenu(event) {
 	console.log(`Card choice is: ${cardChoice}`);
 	chosenCard = currentCards[parseInt(cardChoice)].move;
 }
-
+/// MAKE CARD ART & INFO
 function handleRules(event) {
 	if (!event.target.classList.contains('card')) return;
 	if (event.target.classList.contains('hovered')) return;
+	if(hoveredCard) hoveredCard.style.backgroundColor = null;
 
 	let cardChoice = parseInt(event.target.dataset.number);
 
 	prepBlurb(cardChoice, hoveredCard, ruleChoice);
 
-	blurb.innerText = ruleChoice;
-	blurb.style.fontSize = '16px';
-	blurb.dataset.number = `${cardChoice}`;
+	setBlurbStyles(cardChoice);
 	hoveredCard.appendChild(blurb);
+}
+
+function setBlurbStyles(cardChoice) {
+	blurb.innerText = ruleChoice;
+	blurb.style.fontSize = '18px';
+	blurb.style.fontWeight = '500';
+	blurb.style.color = 'rgba(255,255,255,1)';
+	hoveredCard.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+	blurb.dataset.number = `${cardChoice}`;
 }
 
 function prepBlurb(cardChoice) {
@@ -431,21 +439,22 @@ function showCards() {
 	console.log(currentCards[1].link);
 	cardOne.innerText = currentCards[0].name;
 	cardOne.style.backgroundImage = `url(${currentCards[0].link})`;
-	cardOne.style.backgroundImageSize = 'fit';
+	cardOne.style.backgroundSize = 'cover';
 
 	cardTwo.innerText = currentCards[1].name;
 	cardTwo.style.backgroundImage = `url(${currentCards[1].link})`;
-	cardTwo.style.backgroundImageSize = 'cover';
+	cardTwo.style.backgroundSize = 'cover';
 
 	cardThree.innerText = opponentCards[0].name;
 	cardThree.style.backgroundImage = `url(${opponentCards[0].link})`;
-	cardThree.style.backgroundImageSize = 'cover';
+	cardThree.style.backgroundSize = 'cover';
 
 	cardFour.innerText = opponentCards[1].name;
 	cardFour.style.backgroundImage = `url(${opponentCards[1].link})`;
-	cardFour.style.backgroundImageSize = 'cover';
+	cardFour.style.backgroundSize = 'cover';
 }
 
+/// MAKE AND DELETE PAWNS ///
 function deletePawns() {
 	let deadArray = [];
 	for (let i = 0; i < pawnNamesArray.length; i++) {
