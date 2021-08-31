@@ -7,8 +7,6 @@ Media Query @234
 body {
 	margin: 0 auto;
 	background-color: lightslategray;
-	max-width: 1000px;
-	/* gap: 2em; */
 }
 header {
 	height: 5vh;
@@ -38,7 +36,7 @@ menu h3 {
 }
 
 main {
-	margin: 200px 0px 0px 0px;
+	margin: 200px auto;
 	border: 1px solid black;
 	box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.5);
 }
@@ -76,7 +74,6 @@ img {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	margin: auto;
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 	background-color: rgba(0, 0, 0, 0.4);
 }
@@ -87,7 +84,6 @@ img {
 	height: 100%;
 	width: 100%;
 	z-index: 1;
-	/*This puts our modal in front of the body (which has a default z-index setting of `0`*/
 }
 
 .modal-textbox {
@@ -251,22 +247,26 @@ div[data-type='shadow'] {
 @media (min-width: 800px) {
 	body {
 		height: 100vh;
-		width: 100vw;
+		max-width: 1200px;
 		background-color: lightslategray;
 	}
 	header {
-		height: 100px;
-		width: 100px;
+		height: fit-content;
+		width: 100%;
+		margin: 0 auto; 
 	}
 
 	main {
 		display: flex;
-		margin: 180px 0;
-		bottom: 2vh;
-		max-width: 100%;
+		margin-top: 180px;
+		margin-bottom: 100px;
+		height: 450px;
+		width: 800px;
 		background-image: url('./assets/Zen_Garden.jpeg');
 		background-size: cover;
-		padding: 3%;
+
+		align-content: center;
+		justify-content: center;
 	}
 
 	footer {
@@ -274,12 +274,12 @@ div[data-type='shadow'] {
 	}
 
 	.about {
-		width: 1000px;
+		width: 100%;
 		padding: 5%;
 	}
 
 	.board {
-		margin: 0 auto;
+		margin-top: 15px;
 	}
 
 	.square {
