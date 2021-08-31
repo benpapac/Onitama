@@ -1,42 +1,118 @@
 body {
+	margin: 0 auto;
 	background-color: lightslategray;
-
-	display: flex;
-	flex-direction: column;
-	justify-items: center;
-	align-items: center;
-	gap: 2em;
+	max-width: 1000px;
+	/* gap: 2em; */
+}
+header {
+	height: 5vh;
+	width: 100%;
 }
 
-main {
-	display: flex;
-	flex-direction: row;
+header h3 {
+	align-self: center;
+	margin: 5px;
 }
 
 menu {
+	margin: 0 auto;
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	flex-grow: 1.5;
 
+	padding: 0 5%;
 	text-align: center;
-	text-justify: center;
 	font-size: 30px;
+}
+
+main {
+	margin: 200px 0px 0px 0px;
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+footer {
+	margin: 20px;
+	height: 50px;
+	padding-bottom: 50px;
 }
 
 h1 {
 	font-size: 50px;
+	margin: 0px;
 }
 
-.button {
-	height: 75px;
-	width: 200px;
+img {
+	size: 1em;
+	position: fixed;
+	z-index: -1;
+}
+
+.about {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	margin: auto;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+	display: none;
+	background-color: rgba(0, 0, 0, 0.4);
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+	/*This puts our modal in front of the body (which has a default z-index setting of `0`*/
+}
+
+.modal-textbox {
+	background-color: rgba(255, 255, 255, 0.8);
+	background-image: url('./assets/blue-sage-clear.png');
+	background-size: fill;
+	position: fixed;
+
+	max-height: 50%;
+	max-width: 726px;
+	padding: 2% 10%;
+	text-align: center;
+	border: solid black 1px;
+	/* background-color: seashell; */
+	border-radius: 2px;
+
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+	overflow: auto;
+	z-index: 1;
+}
+.modal-textbox h3 {
+	font-size: 40px;
+}
+.modal-textbox h4 {
 	font-size: 30px;
 }
 
-#board {
-	position: center;
+.modal-textbox p {
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.modal-textbox li {
+	font-weight: 300;
+}
+
+.button {
+	background-image: url('./assets/pink-temple.png');
+	background-size: cover;
+	height: 90px;
+	width: 120px;
+	border-radius: 15px;
+	font-size: 20px;
+	font-weight: 400;
+}
+
+.menu {
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: 1%;
+}
+
+.board {
 	border: solid 10px darkslategrey;
 	width: fit-content;
 	height: fit-content;
@@ -45,19 +121,23 @@ h1 {
 	flex-direction: column;
 }
 .row {
+	margin: 0;
+	height: fit-content;
 	width: fit-content;
 	display: flex;
 	justify-content: center;
+	gap: 0;
+	background-image: url('./assets/wood-panel.jpeg');
+	background-size: cover;
 }
 
 .square {
-	background-color: linen;
-	flex-basis: 33%;
+	flex-basis: 20%;
 	flex-grow: 1;
 	flex-shrink: 1;
 
-	height: 150px;
-	width: 150px;
+	height: 77px;
+	width: 77px;
 	border: solid black 1px;
 
 	display: flex;
@@ -71,10 +151,10 @@ h1 {
 }
 
 .card {
-	margin: 10%;
+	margin: 0%;
 	max-height: 100px;
 	width: 175px;
-	border: solid black 10px;
+	border: solid black 1px;
 	background-color: linen;
 
 	flex-grow: 1;
@@ -84,32 +164,121 @@ h1 {
 .blue-pawn {
 	margin: 20%;
 	flex-basis: 100%;
-	background-color: lightblue;
-	border: solid black 1px;
-	border-radius: 36px;
+	background-image: url('./assets/blue-pawn-token.png');
+	background-size: cover;
 }
 
 .pink-pawn {
 	margin: 20%;
 	flex-basis: 100%;
-	background-color: lightpink;
-	border: solid black 1px;
-	border-radius: 36px;
+	/* background-color: lightpink; */
+	background-image: url('./assets/pink-pawn-token.png');
+	background-size: cover;
 }
 
-#pink-temple {
-	background-color: lightsalmon;
+#pink-pawn-Sage {
+	background-image: url('./assets/pink-sage-token.png');
+	background-size: cover;
 }
 
-#blue-temple {
-	background-color: lightseagreen;
+#blue-pawn-Sage {
+	background-image: url('./assets/blue-sage-token.png');
+	background-size: cover;
 }
 
-#reset-button {
+#opponent-menu {
+	display: none;
+	flex-direction: column;
+	margin: 0;
+}
+
+#move-menu {
+	flex-direction: row;
+	margin: 20px 0 0 0;
+}
+
+#move-menu h3 {
 	display: none;
 }
 
+#pink-temple {
+	background-image: url('./assets/pink-temple.png');
+	background-size: cover;
+}
 
-div[data-type= 'shadow'] {
-background-color: paleturquoise;
+#blue-temple {
+	background-image: url('./assets/blue-temple.png');
+	background-size: cover;
+}
+
+div[data-type='shadow'] {
+	background-color: paleturquoise;
+}
+
+#headline {
+	justify-self: center;
+	align-self: center;
+}
+
+#about-button {
+	align-self: center;
+}
+
+@media (min-width: 800px) {
+	body {
+		height: 100vh;
+		width: 100vw;
+		background-color: lightslategray;
+	}
+	header {
+		height: 100px;
+		width: 100px;
+	}
+
+	main {
+		display: flex;
+		margin: 180px 0;
+		bottom: 2vh;
+		max-width: 100%;
+		background-image: url('./assets/Zen_Garden.jpeg');
+		background-size: cover;
+		padding: 3%;
+	}
+
+	.about {
+		width: 1000px;
+		padding: 5%;
+	}
+
+	.board {
+		margin: 0 auto;
+		position: center;
+		border: solid 10px darkslategrey;
+		width: fit-content;
+		height: fit-content;
+	}
+
+	.square {
+		height: 80px;
+		width: 80px;
+	}
+
+	/* FROM MODALS INTRO */
+	#opponent-menu {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	#move-menu {
+		flex-direction: column;
+		justify-content: space-between;
+		margin: 0;
+	}
+	#move-menu h3 {
+		display: block;
+	}
+
+	#close {
+		background-color: silver;
+	}
 }

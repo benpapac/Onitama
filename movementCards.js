@@ -233,7 +233,7 @@ const pinkCoreCards = {
 	pinkLeftOneBackwardOne: () => {
 		if (
 			opponent === player1 &&
-			parseInt(oldRow) - parseInt(newRow) === 1 &&
+			parseInt(oldRow) - parseInt(newRow) === -1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 1
 		) {
 			return true;
@@ -242,7 +242,7 @@ const pinkCoreCards = {
 	pinkRightOneBackwardOne: () => {
 		if (
 			opponent === player1 &&
-			parseInt(oldRow) - parseInt(newRow) === 1 &&
+			parseInt(oldRow) - parseInt(newRow) === -1 &&
 			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -1
 		) {
 			return true;
@@ -294,15 +294,28 @@ const pinkCoreCards = {
 	},
 };
 
-function switchCards() {
-	if (opponent.number === 1) {
-		currentCards = blueCardsArray;
+function rotateCards() {
+	let rotatedCardIndex = currentPlayer.cards.indexOf(chosenCard);
+
+	if (currentPlayer.number === 1) {
+		playCardsArray.unshift(
+			player1.cards.splice(player1.cards[rotatedCardIndex], 1)[0]
+		);
+		player1.cards.push(playCardsArray.pop());
 	} else {
-		currentCards = pinkCardsArray;
+		playCardsArray.unshift(
+			player2.cards.splice(player2.cards[rotatedCardIndex], 1)[0]
+		);
+		player2.cards.push(playCardsArray.pop());
 	}
 }
 
-function showCards() {
-	cardOne.innerText = currentCards[0].name;
-	cardTwo.innerText = currentCards[1].name;
+function switchCards() {
+	if (opponent.number === 1) {
+		currentCards = player1.cards;
+		opponentCards = player2.cards;
+	} else {
+		currentCards = player2.cards;
+		opponentCards = player1.cards;
+	}
 }

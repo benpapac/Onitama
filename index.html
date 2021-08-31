@@ -6,21 +6,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <title>Onitama?</title>
+    <title>Onitama!</title>
 </head>
 
 <body>
     <header>
-        <h1>Onitama</h1>
-        <h2 id="message"></h2>
-        <button class="button">About the Game</button>
+        <div class="about">
+            <h1 id="headline">Onitama</h1>
+            <h3>Programmed by <a href="https://www.linkedin.com/in/benjamin-papac-738a99217/" alt="Ben's LinkedIn Page">Benjamin Papac</a> </h3>
+            <button class="button" id="about-button">About the Game</button>
+        </div>
+        <div class="modal">
+            <div class="modal-textbox">
+                <h3>Onitama Rules:</h3>
+                <p>Onitama was designed by Shimpei Sato and published by Arcane Wonders in 2014.
+                   Related to chess, Onitama gives players a wonderfully unique experience. Any pawn can be moved, as long as it follows the rules of one of your movement cards! You rotate cards with your opponent, so be careful as you move.</p>
+                <h4>There are two ways to win:</h4>
+                <li>Way of Stone: Capture the opponent's Sage. </li>
+                 <li>Way of Water: Move your Sage to your opponent's temple. </li>
+                <p>Each turn, choose one of the movement cards available to you, then select a pawn. You can always choose a new pawn, or switch movement cards and consider your pawns again, before choosing a
+                    highlighted square to move.</p>
+                <p>Capture an enemy by moving one of your pawns, or your Sage, onto its square.</p>
+                <p>This game is free to play, but if you love it, you can buy a copy of the game on the 
+                    <a href="https://www.arcanewonders.com/product/onitama/">Arcane Wonders Website</a> or anywhere online. I don't get a commission,
+                    I just love this game! Enjoy.
+                </p>
+                <button class="button" id="close">Let's play!</button>
+            </div>
+        </div>
+        <div class="modal" id="end-modal">
+            <div class="modal-textbox">
+                <h3 id="message">DISPLAY WINNER HERE</h3>
+                <p>Congratulations! If you had fun, you can buy a copy of Onitama on the 
+                    <a href="https://www.arcanewonders.com/product/onitama/">Arcane Wonders Website.</a> or anywhere online. Again, I don't get a commission. Please play as much as you like. There are tons of variations, so each game will feel unique!
+                </p>
+                <button class="button" id="reset-button">Play Again</button>
+            </div>
+        </div>
     </header>
     <main>
-        <button class="button" id="reset-button">Play Again</button>
-        <div>
-            <!-- modal goes here -->
-        </div>
-        <div id="board">
+
+        <menu class="menu" id="opponent-menu">
+            <h3>Opponent's<br />Cards</h3>
+            <div class="card" id="move-card-3" data-number="3">MOVE CARD 3</div>
+            <div class="card" id="move-card-4" data-number="4"> MOVE CARD 4</div>
+        </menu>
+        <div class="board">
             <div class="row five" data-row="five">
                 <div class="square" id="five-A" data-row="5" data-column="A"></div>
                 <div class="square" id="five-B" data-row="5" data-column="B"></div>
@@ -60,17 +91,26 @@
             </div>
         </div>
 
-        <menu id="move-menu">
-            <div class="card" id="move-card-1" data-number="0">MOVE CARD 1</div>
-            <div class="card" id="move-card-2" data-number="1"> MOVE CARD 2</div>
+        <menu class="menu" id="move-menu">
+            <h3>Your Cards</h3>
+            <div class="card" id="move-card-1" data-number="1"> MOVE CARD 1</div>
+            <div class="card" id="move-card-2" data-number="2"> MOVE CARD 2</div>
         </menu>
     </main>
+
+    <footer>
+        <p>Onitama &copy; Arcane Wonders, Shimpei Sato, 2014<br />
+            Board and Background photos: Adobe Stock Images</p>
+        <p>Game Icons licensed by CC 3.0 from: <a href="https://game-icons.net/" alt="link to Game Icons">GameIcons.Net</a><br />
+            Cobra, Eel, Mantis, Horse, and Sage icons by:  <a href="https://delapouite.com/" alt="Delapouite link">Delapouite</a> <br />
+        Bull, Pawn, icons: <a href="https://lorcblog.blogspot.com/" alt="Lorc's link">Lorc</a> <br />
+        Boar icon: Caro Asercian </p>
+    </footer>
     
 
 
 
     <script src="./script.js"></script>
-    <script src="./pawnsAndSquares.js"></script>
     <script src="./movement.js"></script>
     <script src="./movementCards.js"></script>
     <script src="./eventHandlers.js"></script>

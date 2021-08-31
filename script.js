@@ -1,13 +1,33 @@
+///MENU///
+/*
+Constants: Lines 10-213.
+	Core Constants: line 16
+	Arrays: Line 33
+	Movement Cards: Line 51
+	Cashed Dome References: Line 206
+	State Variables: Line 225
+	Event Listeners: Line 255
+	Core Functions: Line 269
+	Core Card Mechanics: Line 371
+	Core Event Handlers: Line 395
+	Card Art & Info: Line 407
+	Make & Delete Pawns: Line 464
+*/
 //Constants
+const body = document.body;
+const blurb = document.createElement('p');
+
 const player1 = {
 	name: 'player1',
 	class: 'blue-pawn',
 	number: 1,
+	cards: [],
 };
 const player2 = {
 	name: 'player2',
 	class: 'pink-pawn',
 	number: -1,
+	cards: [],
 };
 
 // ARRAYS //
@@ -30,137 +50,177 @@ const movementCardsArray = ['boar', 'mantis', 'ox', 'eel', 'cobra', 'horse'];
 
 // MOVEMENT CARDS //
 const movementCards = {
-	boar: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
+	boar: {
+		name: 'boar',
+		move: () => {
+			if (!pickMode) {
+				if (targetPawn.classList.contains(currentPlayer.class)) return;
+			}
 
-		if (blueCoreCards.blueForwardOne() || blueCoreCards.blueLateralOne()) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkForwardOne() ||
-			pinkCoreCards.pinkLateralOne()
-		) {
-			return true;
-		} else {
-			false;
-		}
+			if (blueCoreCards.blueForwardOne() || blueCoreCards.blueLateralOne()) {
+				return true;
+			} else if (
+				pinkCoreCards.pinkForwardOne() ||
+				pinkCoreCards.pinkLateralOne()
+			) {
+				return true;
+			} else {
+				false;
+			}
+		},
+		link: './assets/boar.png',
+		rule: `Move forward, left, or right.`,
 	},
 
-	eel: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
+	eel: {
+		name: 'eel',
+		move: () => {
+			if (!pickMode) {
+				if (targetPawn.classList.contains(currentPlayer.class)) return;
+			}
 
-		if (
-			blueCoreCards.blueRightOne() ||
-			blueCoreCards.blueLeftOneForwardOne() ||
-			blueCoreCards.blueLeftOneBackwardOne() ||
-			pinkCoreCards.pinkRightOne() ||
-			pinkCoreCards.pinkLeftOneForwardOne() ||
-			pinkCoreCards.pinkLeftOneBackwardOne()
-		) {
-			return true;
-		} else {
-			return false;
-		}
+			if (
+				blueCoreCards.blueRightOne() ||
+				blueCoreCards.blueLeftOneForwardOne() ||
+				blueCoreCards.blueLeftOneBackwardOne() ||
+				pinkCoreCards.pinkRightOne() ||
+				pinkCoreCards.pinkLeftOneForwardOne() ||
+				pinkCoreCards.pinkLeftOneBackwardOne()
+			) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		link: './assets/eel.png',
+		rule: `Move to the right, or diagonally to the left.`,
 	},
 
-	mantis: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
+	mantis: {
+		name: 'mantis',
+		move: () => {
+			if (!pickMode) {
+				if (targetPawn.classList.contains(currentPlayer.class)) return;
+			}
 
-		if (
-			blueCoreCards.blueBackwardOne() ||
-			blueCoreCards.blueLeftOneForwardOne() ||
-			blueCoreCards.blueRightOneForwardOne()
-		) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkBackwardOne() ||
-			pinkCoreCards.pinkLeftOneForwardOne() ||
-			pinkCoreCards.pinkRightOneForwardOne()
-		) {
-			return true;
-		} else {
-			return false;
-		}
+			if (
+				blueCoreCards.blueBackwardOne() ||
+				blueCoreCards.blueLeftOneForwardOne() ||
+				blueCoreCards.blueRightOneForwardOne()
+			) {
+				return true;
+			} else if (
+				pinkCoreCards.pinkBackwardOne() ||
+				pinkCoreCards.pinkLeftOneForwardOne() ||
+				pinkCoreCards.pinkRightOneForwardOne()
+			) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		link: './assets/praying-mantis.png',
+		rule: `Move back, or diagonally forward.`,
 	},
 
-	ox: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
+	ox: {
+		name: 'ox',
+		move: () => {
+			if (!pickMode) {
+				if (targetPawn.classList.contains(currentPlayer.class)) return;
+			}
 
-		if (
-			blueCoreCards.blueForwardOne() ||
-			blueCoreCards.blueRightOne() ||
-			blueCoreCards.blueBackwardOne()
-		) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkForwardOne() ||
-			pinkCoreCards.pinkRightOne() ||
-			pinkCoreCards.pinkBackwardOne()
-		) {
-			return true;
-		} else return false;
+			if (
+				blueCoreCards.blueForwardOne() ||
+				blueCoreCards.blueRightOne() ||
+				blueCoreCards.blueBackwardOne()
+			) {
+				return true;
+			} else if (
+				pinkCoreCards.pinkForwardOne() ||
+				pinkCoreCards.pinkRightOne() ||
+				pinkCoreCards.pinkBackwardOne()
+			) {
+				return true;
+			} else return false;
+		},
+		link: './assets/bull.png',
+		rule: `Move forward, right or backward.`,
 	},
 
-	cobra: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
+	cobra: {
+		name: 'cobra',
+		move: () => {
+			if (!pickMode) {
+				if (targetPawn.classList.contains(currentPlayer.class)) return;
+			}
 
-		if (
-			blueCoreCards.blueLeftOne() ||
-			blueCoreCards.blueRightOneForwardOne() ||
-			blueCoreCards.blueRightOneBackwardOne()
-		) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkLeftOne() ||
-			pinkCoreCards.pinkRightOneForwardOne() ||
-			pinkCoreCards.pinkRightOneBackwardOne()
-		) {
-			return true;
-		} else {
-			return false;
-		}
+			if (
+				blueCoreCards.blueLeftOne() ||
+				blueCoreCards.blueRightOneForwardOne() ||
+				blueCoreCards.blueRightOneBackwardOne()
+			) {
+				return true;
+			} else if (
+				pinkCoreCards.pinkLeftOne() ||
+				pinkCoreCards.pinkRightOneForwardOne() ||
+				pinkCoreCards.pinkRightOneBackwardOne()
+			) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		link: './assets/cobra.png',
+		rule: 'Move left, or diagonally to the right.',
 	},
 
-	horse: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
+	horse: {
+		name: 'horse',
+		move: () => {
+			if (!pickMode) {
+				if (targetPawn.classList.contains(currentPlayer.class)) return;
+			}
 
-		if (
-			blueCoreCards.blueForwardOne() ||
-			blueCoreCards.blueLeftOne() ||
-			blueCoreCards.blueBackwardOne()
-		) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkForwardOne() ||
-			pinkCoreCards.pinkLeftOne() ||
-			pinkCoreCards.pinkLeftOneBackwardOne()
-		) {
-			return true;
-		} else {
-			return false;
-		}
+			if (
+				blueCoreCards.blueForwardOne() ||
+				blueCoreCards.blueLeftOne() ||
+				blueCoreCards.blueBackwardOne()
+			) {
+				return true;
+			} else if (
+				pinkCoreCards.pinkForwardOne() ||
+				pinkCoreCards.pinkLeftOne() ||
+				pinkCoreCards.pinkBackwardOne()
+			) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		link: './assets/horse-head.png',
+		rule: `Move forward, left or backward.`,
 	},
 };
 
 //cached DOM references
-
-const board = document.querySelector(`#board`);
+const board = document.querySelector(`.board`);
 const message = document.querySelector('#message');
+
+//Modals and buttons
+const aboutModal = document.querySelector('.modal');
+const endModal = document.querySelector('#end-modal');
+
+const aboutButton = document.querySelector('#about-button');
+const closeButton = document.querySelector(`#close`);
 const resetButton = document.querySelector('#reset-button');
+
+// CARD Constants
 const moveMenu = document.querySelector('#move-menu');
 const cardOne = document.querySelector('#move-card-1');
 const cardTwo = document.querySelector('#move-card-2');
+const cardThree = document.querySelector('#move-card-3');
+const cardFour = document.querySelector('#move-card-4');
 
 //State Variables
 let winner;
@@ -170,10 +230,9 @@ let currentPlayer;
 let opponent;
 
 let playCardsArray = [];
-let pinkCardsArray = [];
-let blueCardsArray = [];
 let chosenCard;
 let currentCards = []; //not currently in use.
+let opponentCards = [];
 
 let canMove;
 let canAttack;
@@ -187,15 +246,27 @@ let shadowSquare;
 let oldRow;
 let oldColumn;
 
+let hoveredCard;
+let ruleChoice;
+
 //start the game!
 startGame();
 makePawns();
 // EVENT LISTENERS //
 board.addEventListener('click', handleClick);
+aboutButton.addEventListener(
+	'click',
+	() => (aboutModal.style.display = 'block')
+);
+closeButton.addEventListener(
+	'click',
+	() => (aboutModal.style.display = 'none')
+);
 resetButton.addEventListener('click', startGame);
 moveMenu.addEventListener('click', handleMenu);
+body.addEventListener('mouseover', handleRules);
 
-// CORE FUNCTIONS /
+// CORE FUNCTIONS //
 
 function startGame() {
 	//update State Variables and render()
@@ -220,26 +291,32 @@ function startGame() {
 	assignPlayCards();
 	showCards();
 	render();
+	// aboutModal.style.display = 'flex';
+	endModal.style.display = 'none';
 }
 
+//update the DOM
 function render() {
-	//update the DOM
-
 	if (!activePawn) return;
 	if (!targetPawn) return;
 	oldSquare.removeChild(activePawn);
 	newSquare.appendChild(activePawn);
-	//  `Player (is winner greater than 0? print 1 otherwise, print 2)  wins!`,
+
 	if (gameOver) {
+		removeShadows();
 		deletePawns();
 		makePawns();
 		message.textContent = `Player ${winner.number > 0 ? 1 : 2} wins!`;
-		resetButton.style.display = 'block';
+		endModal.style.display = 'block';
+		if (hoveredCard) hoveredCard.style.backgroundColor = null;
 	} else {
 		message.textContent = `Player ${opponent.number > 0 ? 1 : 2}'s turn.`;
+		rotateCards();
 		switchCards();
 		removeShadows();
 		showCards();
+		if (hoveredCard) hoveredCard.style.backgroundColor = null;
+		chosenCard = null;
 	}
 }
 function newTurn() {
@@ -290,6 +367,7 @@ function randomCard() {
 	return movementCards[`${movementCardsArray[randomCardIndex]}`];
 }
 
+// Core Card Mechanics //
 function getPlayCards() {
 	let cardArray = [];
 	for (let i = 0; i < 5; i++) {
@@ -305,40 +383,84 @@ function getPlayCards() {
 
 function assignPlayCards() {
 	for (let i = 0; i < 2; i++) {
-		pinkCardsArray.push(playCardsArray.pop());
-		blueCardsArray.push(playCardsArray.pop());
-		//remember, blue = player 1. Probably a better way to label some of these variables.
-		currentCards = blueCardsArray;
+		player1.cards.push(playCardsArray.pop());
+		player2.cards.push(playCardsArray.pop());
+
+		currentCards = player1.cards;
+		opponentCards = player2.cards;
 	}
 }
 
 // ALL CALLBACK HANDLERS ON eventHandlers.js //
 function handleClick(event) {
-	console.log(event);
 	if (pickMode) handlePick(event);
 	else {
 		handleMove(event);
 	}
-
-	///SCOPE ISSUE WITH BELOW FUNCTIONS///
-	// render();
-
-	// checkWinner(event);
-	// newTurn();
 }
 
 function handleMenu(event) {
-	let cardChoice = event.target.dataset.number;
+	let cardChoice = parseInt(event.target.dataset.number) - 1;
+	chosenCard = currentCards[parseInt(cardChoice)].move;
+}
+/// MAKE CARD ART & INFO
+function handleRules(event) {
+	if (!event.target.classList.contains('card')) return;
+	if (event.target.classList.contains('hovered')) return;
+	if (hoveredCard) hoveredCard.style.backgroundColor = null;
 
-	chosenCard = currentCards[parseInt(cardChoice)];
-	console.log(`Current card: ${chosenCard.name}`);
+	let cardChoice = parseInt(event.target.dataset.number);
+
+	prepBlurb(cardChoice, hoveredCard, ruleChoice);
+
+	setBlurbStyles(cardChoice);
+	hoveredCard.appendChild(blurb);
+}
+
+function setBlurbStyles(cardChoice) {
+	blurb.innerText = ruleChoice;
+	blurb.style.fontSize = '18px';
+	blurb.style.fontWeight = '500';
+	blurb.style.color = 'rgba(255,255,255,1)';
+	hoveredCard.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+	blurb.dataset.number = `${cardChoice}`;
+}
+
+function prepBlurb(cardChoice) {
+	if (cardChoice === 1) {
+		hoveredCard = cardOne;
+		ruleChoice = currentCards[cardChoice - 1].rule;
+	} else if (cardChoice === 2) {
+		hoveredCard = cardTwo;
+		ruleChoice = currentCards[cardChoice - 1].rule;
+	} else if (cardChoice === 3) {
+		hoveredCard = cardThree;
+		ruleChoice = opponentCards[cardChoice - 3].rule;
+	} else {
+		hoveredCard = cardFour;
+		ruleChoice = opponentCards[cardChoice - 3].rule;
+	}
 }
 
 function showCards() {
 	cardOne.innerText = currentCards[0].name;
+	cardOne.style.backgroundImage = `url(${currentCards[0].link})`;
+	cardOne.style.backgroundSize = 'cover';
+
 	cardTwo.innerText = currentCards[1].name;
+	cardTwo.style.backgroundImage = `url(${currentCards[1].link})`;
+	cardTwo.style.backgroundSize = 'cover';
+
+	cardThree.innerText = opponentCards[0].name;
+	cardThree.style.backgroundImage = `url(${opponentCards[0].link})`;
+	cardThree.style.backgroundSize = 'cover';
+
+	cardFour.innerText = opponentCards[1].name;
+	cardFour.style.backgroundImage = `url(${opponentCards[1].link})`;
+	cardFour.style.backgroundSize = 'cover';
 }
 
+/// MAKE AND DELETE PAWNS ///
 function deletePawns() {
 	let deadArray = [];
 	for (let i = 0; i < pawnNamesArray.length; i++) {
@@ -375,5 +497,3 @@ function makePawns() {
 		blueSquare.appendChild(bluePawn);
 	}
 }
-
-// MOVEMENT CARDS //
