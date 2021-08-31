@@ -58,7 +58,7 @@ Finally, in the **FOOTER** of the page, players can see who created or licenses 
 
 ### Thank You!
 
-Have fun with Onitama! I had a wonderful time programming this game, and it will always hold a special place in my heart. If you're interested in collaborating, or just finding out what I'm up to these days, you can find me here on [LinkedIn](https://www.linkedin.com/in/benjamin-papac-738a99217/)
+Have fun with Onitama! I had a wonderful time programming this game, and it will always hold a special place in my heart. If you're interested in collaborating, or just finding out what I'm up to these days, you can find me here on ![LinkedIn](https://www.linkedin.com/in/benjamin-papac-738a99217/)
 
 **-Sincerely,**
 **Benjamin**
