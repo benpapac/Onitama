@@ -295,11 +295,7 @@ const pinkCoreCards = {
 };
 
 function rotateCards() {
-	console.log(`We're in rotateCards()`);
 	let rotatedCardIndex = currentPlayer.cards.indexOf(chosenCard);
-	console.log(`rotating card Index: ${rotatedCardIndex}`);
-
-	console.log(`play card at index 1 is: ${playCardsArray[1]}`);
 
 	if (currentPlayer.number === 1) {
 		playCardsArray.unshift(
@@ -312,13 +308,6 @@ function rotateCards() {
 		);
 		player2.cards.push(playCardsArray.pop());
 	}
-
-	console.log(`Play Cards Array has ${playCardsArray.length} cards.`);
-	console.log(playCardsArray);
-	console.log(`Player 1 has ${player1.cards.length} cards.`);
-	console.log(`Player 2 has ${player2.cards.length} cards.`);
-
-	console.log(currentCards);
 }
 
 function switchCards() {
@@ -327,6 +316,6 @@ function switchCards() {
 		opponentCards = player2.cards;
 	} else {
 		currentCards = player2.cards;
-		opponentCards = player2.cards;
+		opponentCards = player1.cards;
 	}
 }

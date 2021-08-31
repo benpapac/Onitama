@@ -63,6 +63,40 @@ img {
 	/*This puts our modal in front of the body (which has a default z-index setting of `0`*/
 }
 
+.modal-textbox {
+	background-color: rgba(255, 255, 255, 0.8);
+	background-image: url('./assets/blue-sage-clear.png');
+	background-size: fill;
+	position: fixed;
+
+	max-height: 50%;
+	max-width: 726px;
+	padding: 2% 10%;
+	text-align: center;
+	border: solid black 1px;
+	/* background-color: seashell; */
+	border-radius: 2px;
+
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+	overflow: auto;
+	z-index: 1;
+}
+.modal-textbox h3 {
+	font-size: 40px;
+}
+.modal-textbox h4 {
+	font-size: 30px;
+}
+
+.modal-textbox p {
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.modal-textbox li {
+	font-weight: 300;
+}
+
 .button {
 	background-image: url('./assets/pink-temple.png');
 	background-size: cover;
@@ -93,7 +127,7 @@ img {
 	display: flex;
 	justify-content: center;
 	gap: 0;
-	background-image: url('./assets/AdobeStock_278267569.jpeg');
+	background-image: url('./assets/wood-panel.jpeg');
 	background-size: cover;
 }
 
@@ -188,36 +222,6 @@ div[data-type='shadow'] {
 
 #about-button {
 	align-self: center;
-}
-
-.modal-textbox {
-	background-color: rgba(255, 255, 255, 0.8);
-	background-image: url('./assets/blue-sage-clear.png');
-	background-size: fill;
-	position: fixed;
-
-	max-height: 50%;
-	max-width: 726px;
-	padding: 2% 10%;
-	text-align: center;
-	border: solid black 1px;
-	/* background-color: seashell; */
-	border-radius: 2px;
-
-	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-	overflow: auto;
-	z-index: 1;
-}
-.modal-textbox h3 {
-	font-size: 40px;
-}
-.modal-textbox h4 {
-	font-size: 30px;
-}
-
-.modal-textbox p {
-	font-size: 18px;
-	font-weight: 900;
 }
 
 @media (min-width: 800px) {
