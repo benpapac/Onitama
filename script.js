@@ -258,17 +258,9 @@ aboutButton.addEventListener(
 	'click',
 	() => (aboutModal.style.display = 'block')
 );
-
-///MOBILE TEST EVENT LISTENER///
-board.addEventListener('touchstart', handleClick);
-closeButton.addEventListener(
-	'click',
-	() => (aboutModal.style.display = 'none')
-);
+closeButton.addEventListener('click', () => {aboutModal.style.display = 'none'});
 resetButton.addEventListener('click', startGame);
 moveMenu.addEventListener('click', handleMenu);
-///MOBILE TEST EVENT LISTENER//
-moveMenu.addEventListener('touchstart', handleMenu);
 body.addEventListener('mouseover', handleRules);
 
 // CORE FUNCTIONS //

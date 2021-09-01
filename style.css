@@ -9,10 +9,11 @@ body {
 	background-color: lightslategray;
 }
 header {
-	height: 5vh;
-	margin: 0 auto;
+	height: 20vh;
+	margin: 0px auto;
 }
 header h1 {
+	margin-top: 25px;
 	font-size: 60px;
 	color: rgb(206, 189, 173);
 }
@@ -36,7 +37,7 @@ menu h3 {
 }
 
 main {
-	margin: 200px auto;
+	margin: 50px auto;
 	border: 1px solid black;
 	box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.5);
 }
@@ -44,7 +45,7 @@ main {
 footer {
 	background: rgba(0, 0, 0, 0.2);
 	margin: 20px;
-	height: 100px;
+	height: 160px;
 	padding-bottom: 50px;
 }
 
@@ -137,6 +138,7 @@ img {
 }
 
 .board {
+	margin: 0 auto;
 	border: solid 4px rgba(0, 0, 0, 0.8);
 	/* border-image: url("./assets/marble.jpeg") 30 round; */
 	width: fit-content;
@@ -162,8 +164,8 @@ img {
 	flex-grow: 1;
 	flex-shrink: 1;
 
-	height: 77px;
-	width: 77px;
+	height: 70px;
+	width: 70px;
 	border: solid black 1px;
 
 	display: flex;
@@ -252,15 +254,15 @@ div[data-type='shadow'] {
 		background-color: lightslategray;
 	}
 	header {
-		height: fit-content;
 		margin: 0 70px 0 0;
+		height: fit-content;
 		max-width: 1100px;
 		padding-right: 50px;
 	}
 
 	main {
 		display: flex;
-		margin-top: 180px;
+		margin-top: 150px;
 		margin-bottom: 100px;
 		height: 450px;
 		width: 800px;
@@ -276,7 +278,7 @@ div[data-type='shadow'] {
 	}
 
 	.about {
-		margin-top: 10px;
+		/* margin-top: 10px; */
 		margin-left: 60px;
 		height: 30vh;
 		width: 80%;
@@ -292,6 +294,11 @@ div[data-type='shadow'] {
 	}
 	.about p {
 		font-weight: 600;
+	}
+
+	.modal {
+		margin-top: -400px;
+		position: center;
 	}
 	.board {
 		margin-top: 15px;
