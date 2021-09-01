@@ -284,6 +284,9 @@ function startGame() {
 	oldSquare = null;
 	oldRow = null;
 	oldColumn = null;
+
+	player1.cards = [];
+	player2.cards = [];
 	getPlayCards();
 	assignPlayCards();
 	showCards();
@@ -390,6 +393,7 @@ function assignPlayCards() {
 
 // ALL CALLBACK HANDLERS ON eventHandlers.js //
 function handleClick(event) {
+	console.log(event);
 	if (pickMode) handlePick(event);
 	else {
 		handleMove(event);
