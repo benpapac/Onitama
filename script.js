@@ -285,6 +285,7 @@ function startGame() {
 	oldRow = null;
 	oldColumn = null;
 
+	playCardsArray = [];
 	player1.cards = [];
 	player2.cards = [];
 	getPlayCards();
