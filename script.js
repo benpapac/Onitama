@@ -258,9 +258,17 @@ aboutButton.addEventListener(
 	'click',
 	() => (aboutModal.style.display = 'block')
 );
-closeButton.addEventListener('click', () => {aboutModal.style.display = 'none'});
+body.addEventListener('click', (event) => {
+	if (event.target.classList.contains('about-modal')) {
+		aboutModal.style.display = 'none';
+	}
+});
+
+closeButton.addEventListener('click', () => {
+	aboutModal.style.display = 'none';
+});
 resetButton.addEventListener('click', startGame);
-moveMenu.addEventListener('click', handleMenu);
+moveMenu.addEventListener('mouseover', handleMenu);
 body.addEventListener('mouseover', handleRules);
 
 // CORE FUNCTIONS //
@@ -403,9 +411,18 @@ function handleClick(event) {
 
 function handleMenu(event) {
 	event.preventDefault();
+	if (!event.target.classList.contains('card')) return;
 	let cardChoice = parseInt(event.target.dataset.number) - 1;
 	chosenCard = currentCards[parseInt(cardChoice)].move;
+	console.log(`Active pawn: ${activePawn}`);
+	removeShadows();
+	if (activePawn) {
+		glowShadowSquares();
+	}
 }
+
+
+
 /// MAKE CARD ART & INFO
 function handleRules(event) {
 	if (!event.target.classList.contains('card')) return;
