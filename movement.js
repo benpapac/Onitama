@@ -111,6 +111,7 @@ function getShadowSquare() {
 }
 
 function glowShadowSquares() {
+	console.log(`we're in glow`);
 	let goodShadow = false;
 
 	for (let i = 0; i < rowsArray.length; i++) {
