@@ -4,7 +4,7 @@
 
 Welcome to Onitama!
 Published by **Arcane Wonders** in 2014, and designed by **Shimpei Sato**, Onitama is a delightful strategy game loosely related to Chess.
-
+[Check out the game here!](https://benpapac.github.io/Onitama/)
 Players move their pawns using cards that they pass back and forth as they play. Once someone captures their opponent's sage, or moves their own sage to their opponent's temple, they win!
 
 ### Purpose
