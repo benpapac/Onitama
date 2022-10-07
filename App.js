@@ -1,20 +1,47 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useContext, useEffect, useReducer } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import Board from './Components/Board';
+import {styles} from './StyleSheets/AppStyles.js';
+import { Context } from './Utils/context';
+import {newGameState, gameStateReducer} from './Utils/gameState';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+function Link(props) {
+  return <Text {...props} accessibilityRole="link" style={StyleSheet.compose(styles.link, props.style)} />;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+
+
+  const startGame = (e) => {
+    e.preventDefault();
+
+  }
+
+  const [gameState, updateGameState] = useReducer(gameStateReducer, newGameState);
+
+
+useEffect(()=>{
+  if(gameState.newGame){
+    setUpBoard();
+    setCards();
+    setPlayerTurn();
+  }
+},[gameState])
+
+  return (
+    <Context.Provider value={{
+      gameState: gameState,
+      updateGameState: updateGameState,
+    }
+    }>
+		<View style={styles.container}>
+			<View style={styles.header}>
+				<Text style={styles.title}>Welcome to Onitama!</Text>
+			</View>
+			<Board />
+			<Button onPress={() => {startGame}} title="Let's play." />
+		</View>
+    </Context.Provider>
+	);
+}
