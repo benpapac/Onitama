@@ -18,6 +18,13 @@ export default function App() {
 
   }
 
+  const render = (obj) => {
+    console.log('rendering');
+    console.log(obj);
+		updateGameState(obj);
+	};
+
+
   const [gameState, updateGameState] = useReducer(gameStateReducer, newGameState);
 
 
@@ -33,6 +40,7 @@ useEffect(()=>{
     <Context.Provider value={{
       gameState: gameState,
       updateGameState: updateGameState,
+      render: render,
     }
     }>
 		<View style={styles.container}>

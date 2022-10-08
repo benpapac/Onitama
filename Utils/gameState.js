@@ -50,16 +50,16 @@ export const newGameState = {
 	// board: an array of five  indeces (rows), at which will be an array (cols), each of which will hold five strings "pieces"
     cols: ['A','B','C','D','E'],
 	board: [
+		['P1', 'P2', 'PK', 'P4', 'P5'],
 		['', '', '', '', ''],
 		['', '', '', '', ''],
 		['', '', '', '', ''],
-		['', '', '', '', ''],
-		['', '', '', '', ''],
+		['B1', 'B2', 'BK', 'B4', 'B5'],
 	],
 	current: {
 		square: '',
 		piece: '',
-		player: 'pink',
+		player: 'Pink',
 	},
 	target: {
 		square: '',
