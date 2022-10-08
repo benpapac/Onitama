@@ -1,156 +1,142 @@
 import * as pinkCoreCards from './pinkMovement';
 import * as blueCoreCards from './blueMovement.js';
 
-export const deck = ['boar', 'eel', 'mantis', 'ox', 'horse','cobra']
-
-export const boar = {
-	name: 'boar',
-	move: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
-
-		if (blueCoreCards.blueForwardOne() || blueCoreCards.blueLateralOne()) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkForwardOne() ||
-			pinkCoreCards.pinkLateralOne()
-		) {
-			return true;
-		} else {
-			false;
-		}
-	},
-	link: './assets/boar.png',
-	rule: `Move forward, left, or right.`,
+export const deck = ['boar', 'eel', 'mantis', 'ox', 'horse', 'cobra'];
+export const images = {
+	boar: 'https://i.imgur.com/D0vyLD5.png',
+	eel: 'https://i.imgur.com/I1teSub.png',
+	mantis: 'https://i.imgur.com/HlbdsEj.png',
+	ox: 'https://i.imgur.com/ZWGhxru.png',
+	cobra: 'https://i.imgur.com/BvcAIxE.png',
+	horse: 'https://i.imgur.com/AFi6ZrC.png',
 };
 
-export const eel = {
-	name: 'eel',
-	move: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
+export const cards = {
+	boar: {
+		name: 'boar',
+		move: (coordinates) => {
+			if (current.player === 'Blue') {
+				if (
+					blueCoreCards.blueForwardOne(coordinates) ||
+					blueCoreCards.blueLateralOne(coordinates)
+				) {
+					return true;
+				}
+			} else if (
+				pinkCoreCards.pinkForwardOne(coordinates) ||
+				pinkCoreCards.pinkLateralOne(coordinates)
+			) {
+				return true;
+			} else {
+				false;
+			}
+		},
 
-		if (
-			blueCoreCards.blueRightOne() ||
-			blueCoreCards.blueLeftOneForwardOne() ||
-			blueCoreCards.blueLeftOneBackwardOne() ||
-			pinkCoreCards.pinkRightOne() ||
-			pinkCoreCards.pinkLeftOneForwardOne() ||
-			pinkCoreCards.pinkLeftOneBackwardOne()
-		) {
-			return true;
-		} else {
-			return false;
-		}
+		rule: `Move forward, left, or right.`,
 	},
-	link: './assets/eel.png',
-	rule: `Move to the right, or diagonally left.`,
-};
 
-export const mantis = {
-	name: 'mantis',
-	move: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
-
-		if (
-			blueCoreCards.blueBackwardOne() ||
-			blueCoreCards.blueLeftOneForwardOne() ||
-			blueCoreCards.blueRightOneForwardOne()
-		) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkBackwardOne() ||
-			pinkCoreCards.pinkLeftOneForwardOne() ||
-			pinkCoreCards.pinkRightOneForwardOne()
-		) {
-			return true;
-		} else {
-			return false;
-		}
+	eel: {
+		name: 'eel',
+		move: (coordinates) => {
+			if (current.player === 'Blue') {
+				if (
+					blueCoreCards.blueRightOne(coordinates) ||
+					blueCoreCards.blueLeftOneForwardOne(coordinates) ||
+					blueCoreCards.blueLeftOneBackwardOne(coordinates)
+				)
+					return true;
+			} else if (
+				pinkCoreCards.pinkRightOne(coordinates) ||
+				pinkCoreCards.pinkLeftOneForwardOne(coordinates) ||
+				pinkCoreCards.pinkLeftOneBackwardOne(coordinates)
+			)
+				return true;
+			else return false;
+		},
+		rule: `Move to the right, or diagonally left.`,
 	},
-	link: './assets/praying-mantis.png',
-	rule: `Move back, or diagonally forward.`,
-};
 
-export const ox = {
-	name: 'ox',
-	move: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
-
-		if (
-			blueCoreCards.blueForwardOne() ||
-			blueCoreCards.blueRightOne() ||
-			blueCoreCards.blueBackwardOne()
-		) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkForwardOne() ||
-			pinkCoreCards.pinkRightOne() ||
-			pinkCoreCards.pinkBackwardOne()
-		) {
-			return true;
-		} else return false;
+	mantis: {
+		name: 'mantis',
+		move: (coordinates) => {
+			if (current.player === 'Blue') {
+				if (
+					blueCoreCards.blueBackwardOne(coordinates) ||
+					blueCoreCards.blueLeftOneForwardOne(coordinates) ||
+					blueCoreCards.blueRightOneForwardOne(coordinates)
+				)
+					return true;
+			} else if (
+				pinkCoreCards.pinkBackwardOne(coordinates) ||
+				pinkCoreCards.pinkLeftOneForwardOne(coordinates) ||
+				pinkCoreCards.pinkRightOneForwardOne(coordinates)
+			)
+				return true;
+			else return false;
+		},
+		rule: `Move back, or diagonally forward.`,
 	},
-	link: './assets/bull.png',
-	rule: `Move forward, right or backward.`,
-};
 
-export const cobra = {
-	name: 'cobra',
-	move: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
-
-		if (
-			blueCoreCards.blueLeftOne() ||
-			blueCoreCards.blueRightOneForwardOne() ||
-			blueCoreCards.blueRightOneBackwardOne()
-		) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkLeftOne() ||
-			pinkCoreCards.pinkRightOneForwardOne() ||
-			pinkCoreCards.pinkRightOneBackwardOne()
-		) {
-			return true;
-		} else {
-			return false;
-		}
+	ox: {
+		name: 'ox',
+		move: (coordinates) => {
+			if (current.player === 'Blue') {
+				if (
+					blueCoreCards.blueForwardOne(coordinates) ||
+					blueCoreCards.blueRightOne(coordinates) ||
+					blueCoreCards.blueBackwardOne(coordinates)
+				)
+					return true;
+			} else if (
+				pinkCoreCards.pinkForwardOne(coordinates) ||
+				pinkCoreCards.pinkRightOne(coordinates) ||
+				pinkCoreCards.pinkBackwardOne(coordinates)
+			)
+				return true;
+			else return false;
+		},
+		rule: `Move forward, right or backward.`,
 	},
-	link: './assets/cobra.png',
-	rule: 'Move left, or diagonally right.',
-};
 
-export const horse = {
-	name: 'horse',
-	move: () => {
-		if (!pickMode) {
-			if (targetPawn.classList.contains(currentPlayer.class)) return;
-		}
-
-		if (
-			blueCoreCards.blueForwardOne() ||
-			blueCoreCards.blueLeftOne() ||
-			blueCoreCards.blueBackwardOne()
-		) {
-			return true;
-		} else if (
-			pinkCoreCards.pinkForwardOne() ||
-			pinkCoreCards.pinkLeftOne() ||
-			pinkCoreCards.pinkBackwardOne()
-		) {
-			return true;
-		} else {
-			return false;
-		}
+	cobra: {
+		name: 'cobra',
+		move: (coordinates) => {
+			if (current.player === 'Blue') {
+				if (
+					blueCoreCards.blueLeftOne(coordinates) ||
+					blueCoreCards.blueRightOneForwardOne(coordinates) ||
+					blueCoreCards.blueRightOneBackwardOne(coordinates)
+				)
+					return true;
+			} else if (
+				pinkCoreCards.pinkLeftOne(coordinates) ||
+				pinkCoreCards.pinkRightOneForwardOne(coordinates) ||
+				pinkCoreCards.pinkRightOneBackwardOne(coordinates)
+			)
+				return true;
+			else return false;
+		},
+		rule: 'Move left, or diagonally right.',
 	},
-	link: './assets/horse-head.png',
-	rule: `Move forward, left or backward.`,
+
+	horse: {
+		name: 'horse',
+		move: (coordinates) => {
+			if (current.player === 'Blue') {
+				if (
+					blueCoreCards.blueForwardOne(coordinates) ||
+					blueCoreCards.blueLeftOne(coordinates) ||
+					blueCoreCards.blueBackwardOne(coordinates)
+				)
+					return true;
+			} else if (
+				pinkCoreCards.pinkForwardOne(coordinates) ||
+				pinkCoreCards.pinkLeftOne(coordinates) ||
+				pinkCoreCards.pinkBackwardOne(coordinates)
+			)
+				return true;
+			else return false;
+		},
+		rule: `Move forward, left or backward.`,
+	},
 };

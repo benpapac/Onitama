@@ -1,55 +1,60 @@
 import { StatusBar } from 'expo-status-bar';
-import { useContext, useEffect, useReducer } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { useEffect, useReducer } from 'react';
+
+//components
 import Board from './Components/Board';
-import {styles} from './StyleSheets/AppStyles.js';
+import PlayerCards from './Components/PlayerCards';
+
+//styles
+import { styles } from './StyleSheets/AppStyles.js';
+
+//hooks
+import { Text, View, Button } from 'react-native';
 import { Context } from './Utils/context';
-import {newGameState, gameStateReducer} from './Utils/gameState';
+import { newGameState, gameStateReducer } from './Utils/gameState';
 
 function Link(props) {
-  return <Text {...props} accessibilityRole="link" style={StyleSheet.compose(styles.link, props.style)} />;
+	return (
+		<Text
+			{...props}
+			accessibilityRole='link'
+			style={StyleSheet.compose(styles.link, props.style)}
+		/>
+	);
 }
 
 export default function App() {
+	const [gameState, dispatch] = useReducer(gameStateReducer, newGameState);
 
-
-  const startGame = (e) => {
-    e.preventDefault();
-
-  }
-
-  const render = (obj) => {
-    console.log('rendering');
-    console.log(obj);
-		updateGameState(obj);
+	const startGame = (e) => {
+		e.preventDefault();
 	};
 
+	useEffect(() => {}, []);
 
-  const [gameState, updateGameState] = useReducer(gameStateReducer, newGameState);
+	return (
+		<Context.Provider
+			value={{
+				gameState: gameState,
+				dispatch: dispatch,
+			}}>
 
-
-useEffect(()=>{
-  if(gameState.newGame){
-    setUpBoard();
-    setCards();
-    setPlayerTurn();
-  }
-},[gameState])
-
-  return (
-    <Context.Provider value={{
-      gameState: gameState,
-      updateGameState: updateGameState,
-      render: render,
-    }
-    }>
-		<View style={styles.container}>
-			<View style={styles.header}>
-				<Text style={styles.title}>Welcome to Onitama!</Text>
+			<View style={styles.container}>
+				<View style={styles.header}>
+					<Text style={styles.title}>Welcome to Onitama!</Text>
+				</View>
+					
+					<Board />
+					
+				<Button
+					style={styles.button}
+					onPress={() => {
+						startGame;
+					}}
+					title="Let's play."
+				/>
 			</View>
-			<Board />
-			<Button onPress={() => {startGame}} title="Let's play." />
-		</View>
-    </Context.Provider>
+
+		</Context.Provider>
 	);
 }

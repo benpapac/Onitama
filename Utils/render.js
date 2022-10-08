@@ -1,4 +1,39 @@
-import { deck } from './cards';
+import { deck, cards } from './cards';
+
+export const getRandomNumber = (length) => Math.floor(Math.random() * length);
+
+const makeCoordinates = (board, currentSquare, targetSquare) => {
+	let currentRow = parseInt(currentSquare[1]);
+	console.log(currentRow);
+	let currentCol = board[currentRow].indexOf(currentSquare);
+
+	let targetRow = parseInt(targetSquare[1]);
+	let targetCol = board[targetRow].indexOf(targetSquare);
+
+	return {
+		currentRow: currentRow,
+		currentCol: currentCol,
+		targetRow: targetRow,
+		targetCol: targetCol,
+	};
+};
+
+export const moveIsValid = (board, current, target) => {
+	let newBoard = board;
+	// let a = 'a'.charCodeAt(0);
+
+	let coordinates = makeCoordinates(board, current.square, target.square);
+
+	newBoard[coordinates.targetRow][coordinates.targetCol] = current.piece;
+	newBoard[coordinates.currentRow][coordinates.currentCol] = null;
+
+	if (cards[current.card].move(coordinates))
+		return {
+			type: 'MOVE',
+			value: newBoard,
+		};
+	else return { type: 'INVALID' };
+};
 
 export const rotateCards = () => {
 	let currentPlayer = board.current.player;
@@ -28,19 +63,25 @@ export const rotateCards = () => {
 	console.log(currentCards);
 };
 
-export const getRandomNumber = (length) => Math.floor(Math.random() * length);
+export const chooseNewCard = (e, current) => {
+	e.preventDefault();
+	return {
+		...current,
+		card: e.target.id,
+	};
+};
 
 export const createHand = (deck) => {
 	let hand = [];
 	for (let i = 0; i < 2; i++) {
-		randomInt = getRandomNumber(deck.length - 1);
+		let randomInt = getRandomNumber(deck.length - 1);
 		//this side effect will change the deck arg.
-		hand.push(deck.splice(randInt, 1));
+		hand.push(deck.splice(randomInt, 1)[0]);
 	}
 	return hand;
 };
 
-export const newGame = () => {
+export const newGame = (deck) => {
 	//update the gameCards.
 	let randomInt = getRandomNumber(deck.length - 1);
 	let newGameDeck = deck;
@@ -51,24 +92,24 @@ export const newGame = () => {
 	let pink = createHand(newGameDeck);
 	let blue = createHand(newGameDeck);
 
-	updateGameState({
-		type: 'UPDATE_CARDS',
+	return {
+		type: 'NEW_GAME',
 		value: {
 			pink: pink,
 			blue: blue,
 			gameCards: gameCards,
 		},
-	});
+	};
 };
 
 //updateCurrent, or something...
-export const newTurn = () => {
+export const newTurn = (player) => {
 	updateGameState({
 		type: 'UPDATE_CURRENT',
 		value: {
 			square: '',
 			piece: '',
-			player: board.current.player === 'Pink' ? 'Blue' : 'Pink',
+			player: player === 'Pink' ? 'Blue' : 'Pink',
 		},
 	});
 };
@@ -88,12 +129,10 @@ export const chooseNewSquare = (e, current, target) => {
 		square = e.target.parentElement.id;
 	} else {
 		piece = '';
-		square = e.target.parentElement.id;
+		square = e.target.id;
 	}
 
-    console.log(e.target.id)
-
-	if (e.target.id[0] === current.player[0] ) {
+	if (e.target.id[0] === current.player[0]) {
 		type = 'UPDATE_CURRENT';
 		obj = current;
 	} else {
@@ -109,8 +148,6 @@ export const chooseNewSquare = (e, current, target) => {
 			piece: piece,
 		},
 	};
-
-	return e.target.id;
 };
 
 // export const switchCards = () => {
