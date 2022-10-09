@@ -8,13 +8,25 @@ import { chooseNewCard } from '../Utils/dispatch';
 const playerCards = ({player, color}) => {
     const { gameState, dispatch} = useContext(Context);
     const current = gameState.current;
-    let cardOne = images[player[0]];
-    let cardTwo = images[player[1]];
     const [chosenCard, setChosenCard] = useState('');
+    const [prevCard, setPrevCard] = useState('');
+
+
+    const [cardOne, setCardOne] = useState(images[player[0]]);
+    const [cardTwo, setCardTwo] = useState(images[player[1]]);
 
     useEffect(()=>{
-        dispatch( chooseNewCard(chosenCard, current));
-    }, [chosenCard]);
+        if(prevCard !== chosenCard && color === gameState.current.player.toLowerCase()){
+            dispatch( chooseNewCard(chosenCard, current) );
+            setPrevCard(chosenCard);
+        };
+
+        if(cardOne !== images[player[0]]) {
+            setCardOne(images[player[0]]);
+            setCardTwo(images[player[1]]);
+        };
+
+    }, [chosenCard, gameState]);
 
     return (
         <View style={CardPanelStyles.panel}>

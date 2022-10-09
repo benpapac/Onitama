@@ -62,35 +62,29 @@ export const moveIsValid = (board, current, target) => {
 	else return { type: 'INVALID' };
 };
 
-export const rotateCards = () => {
-	let currentPlayer = board.current.player;
-	let rotatedCardIndex = board.cards[currentPlayer].indexOf(chosenCard);
+export const rotateCards = (current, gameCards) => {
+	let currentPlayer = current.player.toLowerCase();
 
-	let gameCards = board.gameCards;
-	let playerCards = board.cards[board.current.player];
+	let rotatedCardIndex = gameCards[currentPlayer].indexOf(current.card);
 
-	const playedCard = playerCards.splice(player1.cards[rotatedCardIndex], 1)[0];
-	gameCards.splice(0, 0, playedCard);
-	playerCards.push(gameCards.pop());
+	let playerCards = gameCards[currentPlayer];
+	const playedCard = playerCards[rotatedCardIndex];    
+	gameCards.gameCards.splice(0, 0, playedCard);
+	playerCards.push(gameCards.gameCards.pop());
+	playerCards.splice(0,1);
 
-	updateGameState({
+	return {
 		type: 'UPDATE_CARDS',
 		value: {
-			...board.cards,
+			...gameCards,
 			[currentPlayer]: playerCards,
-			gameCards: gameCards,
+			gameCards: gameCards.gameCards,
 		},
-	});
-
-	console.log(`Play Cards Array has ${playCardsArray.length} cards.`);
-	console.log(playCardsArray);
-	console.log(`Player 1 has ${player1.cards.length} cards.`);
-	console.log(`Player 2 has ${player2.cards.length} cards.`);
-
-	console.log(currentCards);
+	};
 };
 
 export const chooseNewCard = (card, current) => {
+	console.log('new card');
 	return { type: 'UPDATE_CURRENT',
 	value: {
 		...current,

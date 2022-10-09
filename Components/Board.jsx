@@ -1,14 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { View, Image, Pressable } from 'react-native';
 import { Context } from '../Utils/context';
-import { chooseNewSquare, newTurn, moveIsValid, newGame, glowSquares} from '../Utils/dispatch';
+import { chooseNewSquare, newTurn, moveIsValid, newGame, glowSquares, rotateCards} from '../Utils/dispatch';
 import { cards, images } from '../Utils/cards';
 
 import PlayerCards from './CardPanel';
 import Pawn from './Pawn'
 
-import {BoardStyles, BoardStyles as styles} from '../StyleSheets/BoardStyles';
-import { newGameState } from '../Utils/gameState';
+import { BoardStyles as styles} from '../StyleSheets/BoardStyles';
 
 const Board = () => {
     const { images, gameState, dispatch} = useContext(Context);
@@ -40,7 +39,10 @@ const Board = () => {
             console.log('validating move...');
             let res = moveIsValid(gameState.board, gameState.current, gameState.target);
             dispatch(res);
-            if(res.type === 'MOVE') dispatch(newTurn(gameState.current.player));
+            if(res.type === 'MOVE') {
+                dispatch(rotateCards(gameState.current, gameState.cards))
+                dispatch(newTurn(gameState.current.player));
+            }
         }
     }, [ gameState])
     return (
