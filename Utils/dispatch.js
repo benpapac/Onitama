@@ -1,4 +1,5 @@
 import { deck, cards } from './cards';
+import { newGameState } from './gameState';
 
 export const getRandomNumber = (length) => Math.floor(Math.random() * length);
 
@@ -10,6 +11,8 @@ const makeCoordinates = (currentSquare, targetSquare) => {
 	let targetRow = parseInt(targetSquare[1]);
 	let targetCol = targetSquare.charCodeAt(0)-A;
 
+	console.log(currentSquare);
+
 	return {
 		currentRow: currentRow,
 		currentCol: currentCol,
@@ -18,10 +21,17 @@ const makeCoordinates = (currentSquare, targetSquare) => {
 	};
 };
 
-export const glowSquares = (cols, glowBoard, glowSquares) => {
+export const glowSquares = (cols, glowSquares) => {
 	console.log('glowing squares');
-	let board = glowBoard;
+	let board = [
+		['square', 'square', 'square', 'square', 'square'],
+		['square', 'square', 'square', 'square', 'square'],
+		['square', 'square', 'square', 'square', 'square'],
+		['square', 'square', 'square', 'square', 'square'],
+		['square', 'square', 'square', 'square', 'square'],
+	];
 
+	console.log(board);
 	glowSquares.forEach(el => {
 		board[ cols.indexOf( el[0] ) ][ parseInt(el[1]) ] = 'glowSquare';
 	})
@@ -37,11 +47,13 @@ export const moveIsValid = (board, current, target) => {
 	let newBoard = board;
 	let coordinates = makeCoordinates(current.square, target.square);
 
+	console.log(current);
+
 	// when being called to glow squares, target arg will carry a bool glow: true.
 	// this prevents the move validator from unwittingly changing the game board.
 	if(!target.glow){
-		newBoard[coordinates.targetRow][coordinates.targetCol] = current.piece;
-		newBoard[coordinates.currentRow][coordinates.currentCol] = null;
+		newBoard[coordinates.targetCol][coordinates.targetRow] = current.piece;
+		newBoard[coordinates.currentCol][coordinates.currentRow] = null;
 	}
 
 	if (cards[current.card].move(current.player, coordinates)){
@@ -124,14 +136,14 @@ export const newGame = (deck) => {
 //updateCurrent, or something...
 export const newTurn = (player) => {
 	console.log('new turn.')
-	updateGameState({
+	return {
 		type: 'NEW_TURN',
 		value: {
 			square: '',
 			piece: '',
 			player: player === 'Pink' ? 'Blue' : 'Pink',
 		},
-	});
+	};
 };
 
 export const chooseNewSquare = ( pawn, location, current, target) => {
@@ -153,7 +165,7 @@ export const chooseNewSquare = ( pawn, location, current, target) => {
 	}
 
 
-	if (pawn[0] === current.player[0]) {
+	if ( pawn && pawn[0] === current.player[0]) {
 		type = 'UPDATE_CURRENT';
 		obj = current;
 	} else {

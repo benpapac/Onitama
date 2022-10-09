@@ -5,8 +5,10 @@ import { chooseNewSquare, newTurn, moveIsValid, newGame, glowSquares} from '../U
 import { cards, images } from '../Utils/cards';
 
 import PlayerCards from './CardPanel';
+import Pawn from './Pawn'
 
 import {BoardStyles, BoardStyles as styles} from '../StyleSheets/BoardStyles';
+import { newGameState } from '../Utils/gameState';
 
 const Board = () => {
     const { images, gameState, dispatch} = useContext(Context);
@@ -18,8 +20,8 @@ const Board = () => {
             dispatch(newGame(deck));
         }
 
-        if(gameState.newSquare && gameState.current.card){
-            console.log('looking for glow squares...');
+        if(gameState.newSquare === 'current' && gameState.current.card){
+            console.log('getting new glowSquares...');
             let squares = [];
 
             gameState.cols.forEach(el => {
@@ -31,12 +33,11 @@ const Board = () => {
                 }
             });
 
-            console.log(squares);
-            dispatch(glowSquares(gameState.cols, gameState.glowBoard, squares));
+            dispatch(glowSquares(gameState.cols, squares));
         }
 
-        if(gameState.target.square.length ) {
-            console.log('there is a target');
+        if(gameState.target.square.length && !gameState.newTurn ) {
+            console.log('validating move...');
             let res = moveIsValid(gameState.board, gameState.current, gameState.target);
             dispatch(res);
             if(res.type === 'MOVE') dispatch(newTurn(gameState.current.player));
@@ -46,34 +47,21 @@ const Board = () => {
         <View style={styles.table}>
             <PlayerCards player={gameState.cards.pink} color='pink' />
                 <View style={styles.board}>
-                {gameState.board && gameState.board.map( (col, colIdx) => {
-
-                    return col.map( (square, rowIdx) => (
-                    <Pressable 
-                        key={rowIdx} 
-                        style={styles[gameState.glowBoard[colIdx][rowIdx]]} 
-                        nativeID={`${gameState.cols[colIdx]}${rowIdx}`}
-                        onPress={()=>{dispatch(chooseNewSquare(null, `${gameState.cols[colIdx]}${rowIdx}`, gameState.current, gameState.board))}} 
-                    >
-                        { gameState.board[colIdx][rowIdx][1] === 'K' 
-                        ?  <Pressable 
-                            style={BoardStyles.pawn} 
-                            onPress={()=>{dispatch(chooseNewSquare(gameState.board[colIdx][rowIdx], `${gameState.cols[colIdx]}${rowIdx}`, gameState.current, gameState.board))}}
-                            >
-                            <Image source={images[ gameState.board[colIdx][rowIdx] ]}  style={BoardStyles.pawn}/>
-                        </Pressable>
-
-                        : <Pressable 
-                            style={BoardStyles.pawn } 
-                            onPress={()=>{dispatch(chooseNewSquare(gameState.board[colIdx][rowIdx], `${gameState.cols[colIdx]}${rowIdx}`, gameState.current, gameState.board))}} 
-                            >
-                            <Image source={images[ gameState.board[colIdx][rowIdx][0] ]}  style={BoardStyles.pawn}/>
-                        </Pressable>
-                        }
-
-                    </Pressable>
-                    ))
-                })}
+                {
+                gameState.board 
+                    && gameState.board.map( (col, colIdx) => col.map( (square, rowIdx) =>  <Pressable 
+                                key={rowIdx} 
+                                style={styles[gameState.glowBoard[colIdx][rowIdx]]} 
+                                nativeID={`${gameState.cols[colIdx]}${rowIdx}`}
+                                onPress={()=>{dispatch(chooseNewSquare(null, `${gameState.cols[colIdx]}${rowIdx}`, gameState.current, gameState.target))}} 
+                                >
+                                    <>
+                                    {
+                                        gameState.board[colIdx][rowIdx] && <Pawn colIdx={colIdx} rowIdx={rowIdx} />
+                                    }
+                                    </>
+                                </Pressable>
+                    ))}
                 </View>
             <PlayerCards player={gameState.cards.blue} color='blue' />
         </View>

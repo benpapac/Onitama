@@ -5,13 +5,15 @@ export const gameStateReducer = (state, action) => {
 			return {
 				...state,
 				target: action.value,
+				newSquare: 'target',
 			};
 
 		case 'UPDATE_CURRENT':
 			return {
 				...state,
 				current: action.value,
-				newSquare: true,
+				newSquare: 'current',
+				newTurn: false,
 			};
 
 		case 'RESET': {
@@ -45,11 +47,24 @@ export const gameStateReducer = (state, action) => {
 				newSquare: false,
 			}
 
+		case 'RESET_GLOW':
+			return {
+				...state,
+				glowBoard: [
+					['square', 'square', 'square', 'square', 'square'],
+					['square', 'square', 'square', 'square', 'square'],
+					['square', 'square', 'square', 'square', 'square'],
+					['square', 'square', 'square', 'square', 'square'],
+					['square', 'square', 'square', 'square', 'square'],
+				],
+			};
+
 		case 'NEW_TURN':
 			return {
 				...state,
 				current: action.value,
-				glowSquares: newGameState.glowSquares,
+				glowBoard: newGameState.glowBoard,
+				newTurn: true,
 			};
 
 		default:
@@ -84,6 +99,7 @@ export const newGameState = {
 
 	newGame: true,
 	newSquare: false,
+	newTurn: false,
 	target: {
 		square: '',
 		piece: '',
