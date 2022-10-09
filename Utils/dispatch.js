@@ -2,13 +2,13 @@ import { deck, cards } from './cards';
 
 export const getRandomNumber = (length) => Math.floor(Math.random() * length);
 
-const makeCoordinates = (board, currentSquare, targetSquare) => {
+const makeCoordinates = (currentSquare, targetSquare) => {
+	let A = 'A'.charCodeAt(0);
 	let currentRow = parseInt(currentSquare[1]);
-	console.log(currentRow);
-	let currentCol = board[currentRow].indexOf(currentSquare);
+	let currentCol = currentSquare.charCodeAt(0)-A;
 
 	let targetRow = parseInt(targetSquare[1]);
-	let targetCol = board[targetRow].indexOf(targetSquare);
+	let targetCol = targetSquare.charCodeAt(0)-A;
 
 	return {
 		currentRow: currentRow,
@@ -18,20 +18,38 @@ const makeCoordinates = (board, currentSquare, targetSquare) => {
 	};
 };
 
+export const glowSquares = (cols, glowBoard, glowSquares) => {
+	console.log('glowing squares');
+	let board = glowBoard;
+
+	glowSquares.forEach(el => {
+		board[ cols.indexOf( el[0] ) ][ parseInt(el[1]) ] = 'glowSquare';
+	})
+	return {
+		type: 'UPDATE_GLOW',
+		value: board,
+	}
+}
+
+
 export const moveIsValid = (board, current, target) => {
+	console.log('checking move');
 	let newBoard = board;
-	// let a = 'a'.charCodeAt(0);
+	let coordinates = makeCoordinates(current.square, target.square);
 
-	let coordinates = makeCoordinates(board, current.square, target.square);
+	// when being called to glow squares, target arg will carry a bool glow: true.
+	// this prevents the move validator from unwittingly changing the game board.
+	if(!target.glow){
+		newBoard[coordinates.targetRow][coordinates.targetCol] = current.piece;
+		newBoard[coordinates.currentRow][coordinates.currentCol] = null;
+	}
 
-	newBoard[coordinates.targetRow][coordinates.targetCol] = current.piece;
-	newBoard[coordinates.currentRow][coordinates.currentCol] = null;
-
-	if (cards[current.card].move(coordinates))
+	if (cards[current.card].move(current.player, coordinates)){
 		return {
 			type: 'MOVE',
 			value: newBoard,
 		};
+	}
 	else return { type: 'INVALID' };
 };
 
@@ -63,11 +81,12 @@ export const rotateCards = () => {
 	console.log(currentCards);
 };
 
-export const chooseNewCard = (e, current) => {
-	e.preventDefault();
-	return {
+export const chooseNewCard = (card, current) => {
+	return { type: 'UPDATE_CURRENT',
+	value: {
 		...current,
-		card: e.target.id,
+		card: card,
+	}
 	};
 };
 
@@ -104,8 +123,9 @@ export const newGame = (deck) => {
 
 //updateCurrent, or something...
 export const newTurn = (player) => {
+	console.log('new turn.')
 	updateGameState({
-		type: 'UPDATE_CURRENT',
+		type: 'NEW_TURN',
 		value: {
 			square: '',
 			piece: '',
@@ -114,8 +134,8 @@ export const newTurn = (player) => {
 	});
 };
 
-export const chooseNewSquare = (e, current, target) => {
-	e.preventDefault();
+export const chooseNewSquare = ( pawn, location, current, target) => {
+	console.log('new square');
 	//logic to determing if we're picking new current or new target.
 
 	//logic to grab square data.
@@ -124,15 +144,16 @@ export const chooseNewSquare = (e, current, target) => {
 		type = '',
 		obj = {};
 
-	if (/P/.test(e.target.id) || /B/.test(e.target.id)) {
-		piece = e.target.id;
-		square = e.target.parentElement.id;
+	if (/P/.test(pawn) || /B/.test(pawn)) {
+		piece = pawn;
+		square = location;
 	} else {
 		piece = '';
-		square = e.target.id;
+		square = location;
 	}
 
-	if (e.target.id[0] === current.player[0]) {
+
+	if (pawn[0] === current.player[0]) {
 		type = 'UPDATE_CURRENT';
 		obj = current;
 	} else {

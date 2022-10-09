@@ -3,7 +3,6 @@ import { useEffect, useReducer } from 'react';
 
 //components
 import Board from './Components/Board';
-import PlayerCards from './Components/PlayerCards';
 
 //styles
 import { styles } from './StyleSheets/AppStyles.js';
@@ -25,10 +24,13 @@ function Link(props) {
 
 export default function App() {
 	const [gameState, dispatch] = useReducer(gameStateReducer, newGameState);
-
-	const startGame = (e) => {
-		e.preventDefault();
+	const images = {
+		PK: 'https://i.imgur.com/Wj39fNp.png',
+		BK: 'https://i.imgur.com/Bhxkard.png',
+		P: 'https://i.imgur.com/TzZmzxf.png',
+		B: 'https://i.imgur.com/6OUJdaN.png',
 	};
+
 
 	useEffect(() => {}, []);
 
@@ -37,6 +39,7 @@ export default function App() {
 			value={{
 				gameState: gameState,
 				dispatch: dispatch,
+				images: images,
 			}}>
 
 			<View style={styles.container}>
@@ -45,7 +48,7 @@ export default function App() {
 				</View>
 					
 					<Board />
-					
+
 				<Button
 					style={styles.button}
 					onPress={() => {

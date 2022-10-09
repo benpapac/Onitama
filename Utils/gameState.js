@@ -1,10 +1,5 @@
 export const gameStateReducer = (state, action) => {
 	switch (action.type) {
-		case 'UPDATE_CHOSEN_CARD':
-			return {
-				...state,
-				current: action.value,
-			};
 
 		case 'UPDATE_TARGET':
 			return {
@@ -16,6 +11,7 @@ export const gameStateReducer = (state, action) => {
 			return {
 				...state,
 				current: action.value,
+				newSquare: true,
 			};
 
 		case 'RESET': {
@@ -26,6 +22,7 @@ export const gameStateReducer = (state, action) => {
 			return {
 				...state,
 				board: action.value,
+				newSquare: false,
 			};
 
 		case 'UPDATE_CARDS':
@@ -36,9 +33,23 @@ export const gameStateReducer = (state, action) => {
 
 		case 'NEW_GAME':
 			return {
-				...state,
+				...newGameState,
 				cards: action.value,
 				newGame: false,
+			};
+
+		case 'UPDATE_GLOW':
+			return {
+				...state,
+				glowBoard: action.value,
+				newSquare: false,
+			}
+
+		case 'NEW_TURN':
+			return {
+				...state,
+				current: action.value,
+				glowSquares: newGameState.glowSquares,
 			};
 
 		default:
@@ -56,6 +67,14 @@ export const newGameState = {
 		['', '', '', '', ''],
 		['B1', 'B2', 'BK', 'B4', 'B5'],
 	],
+
+	glowBoard: [
+		['square', 'square', 'square', 'square', 'square'],
+		['square', 'square', 'square', 'square', 'square'],
+		['square', 'square', 'square', 'square', 'square'],
+		['square', 'square', 'square', 'square', 'square'],
+		['square', 'square', 'square', 'square', 'square'],
+	],
 	current: {
 		square: '',
 		piece: '',
@@ -64,6 +83,7 @@ export const newGameState = {
 	},
 
 	newGame: true,
+	newSquare: false,
 	target: {
 		square: '',
 		piece: '',

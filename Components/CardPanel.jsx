@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Image, Text, Pressable } from 'react-native';
 import { Context } from '../Utils/context';
 import { images } from '../Utils/cards';
 import {CardPanelStyles} from '../StyleSheets/CardPanels.js';
-import mantis from '../assets/praying-mantis.png'
+import { chooseNewCard } from '../Utils/dispatch';
 
 const playerCards = ({player, color}) => {
+    const { gameState, dispatch} = useContext(Context);
+    const current = gameState.current;
     let cardOne = images[player[0]];
     let cardTwo = images[player[1]];
     const [chosenCard, setChosenCard] = useState('');
 
     useEffect(()=>{
-        console.log(chosenCard);
+        dispatch( chooseNewCard(chosenCard, current));
     }, [chosenCard]);
 
     return (

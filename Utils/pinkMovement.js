@@ -1,145 +1,130 @@
-export const pinkForwardOne = () => {
-		if (
-			opponent === player1 &&
-			parseInt(oldRow) - parseInt(newRow) === 1 &&
-			Math.abs(
-				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
-			) === 0
-		) {
-			return true;
-		} else return false;
-	};
+export const pinkForwardOne = (coordinates) => {
+	if (
+		coordinates.currentRow - coordinates.targetRow === 1 &&
+		Math.abs(
+			coordinates.currentCol - coordinates.targetCol
+		) === 0
+	) {
+		return true;
+	} else return false;
+};
 
-    export const pinkBackwardOne = () => {
-		if (
-			opponent === player1 &&
-			parseInt(oldRow) - parseInt(newRow) === -1 &&
-			Math.abs(
-				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
-			) === 0
-		) {
-			return true;
-		} else return false;
-	};
+export const pinkBackwardOne = (coordinates) => {
+	if (
+		coordinates.currentRow - coordinates.targetRow === -1 &&
+		Math.abs(
+			coordinates.currentCol - coordinates.targetCol
+		) === 0
+	) {
+		return true;
+	} else return false;
+};
 
-	export const pinkLateralOne = () => {
-		if (
-			opponent === player1 &&
-			Math.abs(
-				parseInt(oldRow) - parseInt(newRow) === 0 &&
-					Math.abs(
-						columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
-					) === 1
-			)
-		) {
-			return true;
-		} else return false;
-	};
-
-	export const pinkLeftOne = () => {
-		if (
-			opponent === player1 &&
-			Math.abs(
-				parseInt(oldRow) - parseInt(newRow) === 0 &&
-					columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) ===
-						1
-			)
-		) {
-			return true;
-		} else return false;
-	};
-
-	export const pinkRightOne = () => {
-		if (
-			opponent === player1 &&
-			Math.abs(
-				parseInt(oldRow) - parseInt(newRow) === 0 &&
-					columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) ===
-						-1
-			)
-		) {
-			return true;
-		} else return false;
-	};
-
-	export const pinkLeftOneForwardOne = () => {
-		if (
-			opponent === player1 &&
-			parseInt(oldRow) - parseInt(newRow) === 1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 1
-		) {
-			return true;
-		} else return false;
-	};
-
-	export const pinkRightOneForwardOne = () => {
-		if (
-			opponent === player1 &&
-			parseInt(oldRow) - parseInt(newRow) === 1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -1
+export const pinkLateralOne = (coordinates) => {
+	if (
+		Math.abs(
+			coordinates.currentRow - coordinates.targetRow === 0 &&
+				Math.abs(
+					coordinates.currentCol - coordinates.targetCol
+				) === 1
 		)
-			return true;
-		else return false;
-	};
-	export const pinkLeftOneBackwardOne = () => {
-		if (
-			opponent === player1 &&
-			parseInt(oldRow) - parseInt(newRow) === -1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 1
-		) {
-			return true;
-		} else return false;
-	};
-	export const pinkRightOneBackwardOne = () => {
-		if (
-			opponent === player1 &&
-			parseInt(oldRow) - parseInt(newRow) === -1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -1
-		) {
-			return true;
-		} else return false;
-	};
+	) {
+		return true;
+	} else return false;
+};
 
-	export const pinkForwardTwo = () => {
-		if (
-			opponent === player1 &&
-			parseInt(oldRow) - parseInt(newRow) === 2 &&
-			Math.abs(
-				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
-			) === 0
-		) {
-			return true;
-		} else return false;
-	};
-	export const pinkLateralTwo = () => {
-		if (
-			opponent === player1 &&
-			Math.abs(
-				parseInt(oldRow) - parseInt(newRow) === 0 &&
-					Math.abs(
-						columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
-					) === 2
-			)
-		) {
-			return true;
-		} else return false;
-	};
+export const pinkLeftOne = (coordinates) => {
+	if (
+		Math.abs(
+			coordinates.currentRow - coordinates.targetRow === 0 &&
+				coordinates.currentCol - coordinates.targetCol === 1
+		)
+	) {
+		return true;
+	} else return false;
+};
 
-	export const pinkRightTwoForwardOne = () => {
-		if (
-			opponent === player1 &&
-			parseInt(oldRow) - parseInt(newRow) === 1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -2
-		) {
-			return true;
-		} else return false;
-	};
-	export const pinkLeftTwoForwardOne = () => {
-		if (
-			opponent === player1 &&
-			parseInt(oldRow) - parseInt(newRow) === 1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 2
-		) {
-			return true;
-		} else return false;
-	};
+export const pinkRightOne = (coordinates) => {
+	if (
+		Math.abs(
+			coordinates.currentRow - coordinates.targetRow === 0 &&
+				coordinates.currentCol - coordinates.targetCol === -1
+		)
+	) {
+		return true;
+	} else return false;
+};
+
+export const pinkLeftOneForwardOne = (coordinates) => {
+	if (
+		coordinates.currentRow - coordinates.targetRow === 1 &&
+		coordinates.currentCol - coordinates.targetCol === 1
+	) {
+		return true;
+	} else return false;
+};
+
+export const pinkRightOneForwardOne = (coordinates) => {
+	if (
+		coordinates.currentRow - coordinates.targetRow === 1 &&
+		coordinates.currentCol - coordinates.targetCol === -1
+	)
+		return true;
+	else return false;
+};
+export const pinkLeftOneBackwardOne = (coordinates) => {
+	if (
+		coordinates.currentRow - coordinates.targetRow === -1 &&
+		coordinates.currentCol - coordinates.targetCol === 1
+	) {
+		return true;
+	} else return false;
+};
+export const pinkRightOneBackwardOne = (coordinates) => {
+	if (
+		coordinates.currentRow - coordinates.targetRow === -1 &&
+		coordinates.currentCol - coordinates.targetCol === -1
+	) {
+		return true;
+	} else return false;
+};
+
+export const pinkForwardTwo = (coordinates) => {
+	if (
+		coordinates.currentRow - coordinates.targetRow === 2 &&
+		Math.abs(
+			coordinates.currentCol - coordinates.targetCol
+		) === 0
+	) {
+		return true;
+	} else return false;
+};
+export const pinkLateralTwo = (coordinates) => {
+	if (
+		Math.abs(
+			coordinates.currentRow - coordinates.targetRow === 0 &&
+				Math.abs(
+					coordinates.currentCol - coordinates.targetCol
+				) === 2
+		)
+	) {
+		return true;
+	} else return false;
+};
+
+export const pinkRightTwoForwardOne = (coordinates) => {
+	if (
+		coordinates.currentRow - coordinates.targetRow === 1 &&
+		coordinates.currentCol - coordinates.targetCol === -2
+	) {
+		return true;
+	} else return false;
+};
+export const pinkLeftTwoForwardOne = (coordinates) => {
+	if (
+		coordinates.currentRow - coordinates.targetRow === 1 &&
+		coordinates.currentCol - coordinates.targetCol === 2
+	) {
+		return true;
+	} else return false;
+};

@@ -14,21 +14,21 @@ export const images = {
 export const cards = {
 	boar: {
 		name: 'boar',
-		move: (coordinates) => {
-			if (current.player === 'Blue') {
+		move: (player, coordinates) => {
+			if (player === 'Blue') {
 				if (
 					blueCoreCards.blueForwardOne(coordinates) ||
 					blueCoreCards.blueLateralOne(coordinates)
-				) {
+				)
 					return true;
-				}
+				else return false;
 			} else if (
 				pinkCoreCards.pinkForwardOne(coordinates) ||
 				pinkCoreCards.pinkLateralOne(coordinates)
-			) {
+			)
 				return true;
-			} else {
-				false;
+			else {
+				return false;
 			}
 		},
 
@@ -37,14 +37,15 @@ export const cards = {
 
 	eel: {
 		name: 'eel',
-		move: (coordinates) => {
-			if (current.player === 'Blue') {
+		move: (player, coordinates) => {
+			if (player === 'Blue') {
 				if (
 					blueCoreCards.blueRightOne(coordinates) ||
 					blueCoreCards.blueLeftOneForwardOne(coordinates) ||
 					blueCoreCards.blueLeftOneBackwardOne(coordinates)
 				)
 					return true;
+				else return false;
 			} else if (
 				pinkCoreCards.pinkRightOne(coordinates) ||
 				pinkCoreCards.pinkLeftOneForwardOne(coordinates) ||
@@ -58,14 +59,15 @@ export const cards = {
 
 	mantis: {
 		name: 'mantis',
-		move: (coordinates) => {
-			if (current.player === 'Blue') {
+		move: (player, coordinates) => {
+			if (player === 'Blue') {
 				if (
 					blueCoreCards.blueBackwardOne(coordinates) ||
 					blueCoreCards.blueLeftOneForwardOne(coordinates) ||
 					blueCoreCards.blueRightOneForwardOne(coordinates)
 				)
 					return true;
+				else return false;
 			} else if (
 				pinkCoreCards.pinkBackwardOne(coordinates) ||
 				pinkCoreCards.pinkLeftOneForwardOne(coordinates) ||
@@ -79,14 +81,15 @@ export const cards = {
 
 	ox: {
 		name: 'ox',
-		move: (coordinates) => {
-			if (current.player === 'Blue') {
+		move: (player, coordinates) => {
+			if (player === 'Blue') {
 				if (
 					blueCoreCards.blueForwardOne(coordinates) ||
 					blueCoreCards.blueRightOne(coordinates) ||
 					blueCoreCards.blueBackwardOne(coordinates)
 				)
 					return true;
+				else return false;
 			} else if (
 				pinkCoreCards.pinkForwardOne(coordinates) ||
 				pinkCoreCards.pinkRightOne(coordinates) ||
@@ -100,14 +103,15 @@ export const cards = {
 
 	cobra: {
 		name: 'cobra',
-		move: (coordinates) => {
-			if (current.player === 'Blue') {
+		move: (player, coordinates) => {
+			if (player === 'Blue') {
 				if (
 					blueCoreCards.blueLeftOne(coordinates) ||
 					blueCoreCards.blueRightOneForwardOne(coordinates) ||
 					blueCoreCards.blueRightOneBackwardOne(coordinates)
 				)
 					return true;
+				else return false;
 			} else if (
 				pinkCoreCards.pinkLeftOne(coordinates) ||
 				pinkCoreCards.pinkRightOneForwardOne(coordinates) ||
@@ -121,14 +125,15 @@ export const cards = {
 
 	horse: {
 		name: 'horse',
-		move: (coordinates) => {
-			if (current.player === 'Blue') {
+		move: (player, coordinates) => {
+			if (player === 'Blue') {
 				if (
 					blueCoreCards.blueForwardOne(coordinates) ||
 					blueCoreCards.blueLeftOne(coordinates) ||
 					blueCoreCards.blueBackwardOne(coordinates)
 				)
 					return true;
+				else return false;
 			} else if (
 				pinkCoreCards.pinkForwardOne(coordinates) ||
 				pinkCoreCards.pinkLeftOne(coordinates) ||
