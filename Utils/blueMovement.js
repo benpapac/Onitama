@@ -1,7 +1,7 @@
 export const blueForwardOne = (coordinates) => {
 	if (
-		coordinates.currentRow - coordinates.targetRow === -1 &&
-		Math.abs(coordinates.currentCol - coordinates.targetCol) === 0
+		coordinates.currentCol - coordinates.targetCol === 1 &&
+		Math.abs(coordinates.currentRow - coordinates.targetRow) === 0
 	) {
 		return true;
 	} else return false;
@@ -9,8 +9,8 @@ export const blueForwardOne = (coordinates) => {
 
 export const blueBackwardOne = (coordinates) => {
 	if (
-		coordinates.currenRow - coordinates.targetRow === 1 &&
-		Math.abs(coordinates.currentCol - coordinates.targetCol) === 0
+		coordinates.currentCol - coordinates.targetCol === -1 &&
+		Math.abs(coordinates.currentRow - coordinates.targetRow) === 0
 	) {
 		return true;
 	} else return false;
@@ -19,8 +19,8 @@ export const blueBackwardOne = (coordinates) => {
 export const blueLateralOne = (coordinates) => {
 	if (
 		Math.abs(
-			coordinates.currenRow - coordinates.targetRow === 0 &&
-				Math.abs(coordinates.currentCol - coordinates.targetCol) === 1
+			coordinates.currentCol - coordinates.targetCol === 0 &&
+				Math.abs(coordinates.currentRow - coordinates.targetRow) === 1
 		)
 	) {
 		return true;
@@ -30,8 +30,8 @@ export const blueLateralOne = (coordinates) => {
 export const blueLeftOne = (coordinates) => {
 	if (
 		Math.abs(
-			coordinates.currenRow - coordinates.targetRow === 0 &&
-				coordinates.currentCol - coordinates.targetCol === 1
+			coordinates.currentCol - coordinates.targetCol === 0 &&
+				coordinates.currentRow - coordinates.targetRow === -1
 		)
 	) {
 		return true;
@@ -41,8 +41,8 @@ export const blueLeftOne = (coordinates) => {
 export const blueRightOne = (coordinates) => {
 	if (
 		Math.abs(
-			coordinates.currenRow - coordinates.targetRow === 0 &&
-				coordinates.currentCol - coordinates.targetCol === -1
+			coordinates.currentCol - coordinates.targetCol === 0 &&
+				coordinates.currentRow - coordinates.targetRow === 1
 		)
 	) {
 		return true;
@@ -51,8 +51,8 @@ export const blueRightOne = (coordinates) => {
 
 export const blueLeftOneForwardOne = (coordinates) => {
 	if (
-		coordinates.currenRow - coordinates.targetRow === -1 &&
-		coordinates.currentCol - coordinates.targetCol === 1
+		coordinates.currentCol - coordinates.targetCol === 1 &&
+		coordinates.currentRow - coordinates.targetRow === -1
 	) {
 		return true;
 	} else return false;
@@ -60,24 +60,24 @@ export const blueLeftOneForwardOne = (coordinates) => {
 
 export const blueRightOneForwardOne = (coordinates) => {
 	if (
-		coordinates.currenRow - coordinates.targetRow === -1 &&
-		coordinates.currentCol - coordinates.targetCol === -1
+		coordinates.currentCol - coordinates.targetCol === 1 &&
+		coordinates.currentRow - coordinates.targetRow === 1
 	) {
 		return true;
 	} else return false;
 };
 export const blueLeftOneBackwardOne = (coordinates) => {
 	if (
-		coordinates.currenRow - coordinates.targetRow === 1 &&
-		coordinates.currentCol - coordinates.targetCol === 1
+		coordinates.currentCol - coordinates.targetCol === -1 &&
+		coordinates.currentRow - coordinates.targetRow === -1
 	) {
 		return true;
 	} else return false;
 };
 export const blueRightOneBackwardOne = (coordinates) => {
 	if (
-		coordinates.currenRow - coordinates.targetRow === 1 &&
-		coordinates.currentCol - coordinates.targetCol === -1
+		coordinates.currentCol - coordinates.targetCol === -1 &&
+		coordinates.currentRow - coordinates.targetRow === 1
 	) {
 		return true;
 	} else return false;
@@ -85,8 +85,8 @@ export const blueRightOneBackwardOne = (coordinates) => {
 
 export const blueForwardTwo = (coordinates) => {
 	if (
-		coordinates.currenRow - coordinates.targetRow === -2 &&
-		Math.abs(coordinates.currentCol - coordinates.targetCol) === 0
+		coordinates.currentCol - coordinates.targetCol === 2 &&
+		Math.abs(coordinates.currentRow - coordinates.targetRow) === 0
 	) {
 		return true;
 	} else return false;
@@ -94,8 +94,8 @@ export const blueForwardTwo = (coordinates) => {
 export const blueLateralTwo = (coordinates) => {
 	if (
 		Math.abs(
-			coordinates.currenRow - coordinates.targetRow === 0 &&
-				Math.abs(coordinates.currentCol - coordinates.targetCol) === 2
+			coordinates.currentCol - coordinates.targetCol === 0 &&
+				Math.abs(coordinates.currentRow - coordinates.targetRow) === 2
 		)
 	) {
 		return true;
@@ -104,16 +104,16 @@ export const blueLateralTwo = (coordinates) => {
 
 export const blueRightTwoForwardOne = (coordinates) => {
 	if (
-		coordinates.currenRow - coordinates.targetRow === -1 &&
-		coordinates.currentCol - coordinates.targetCol === -2
+		coordinates.currentCol - coordinates.targetCol === 1 &&
+		coordinates.currentRow - coordinates.targetRow === 2
 	) {
 		return true;
 	} else return false;
 };
 export const blueLeftTwoForwardOne = (coordinates) => {
 	if (
-		coordinates.currenRow - coordinates.targetRow === -1 &&
-		coordinates.currentCol - coordinates.targetCol === 2
+		coordinates.currentCol - coordinates.targetCol === 1 &&
+		coordinates.currentRow - coordinates.targetRow === -2
 	) {
 		return true;
 	} else return false;

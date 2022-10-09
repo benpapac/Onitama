@@ -11,8 +11,6 @@ const makeCoordinates = (currentSquare, targetSquare) => {
 	let targetRow = parseInt(targetSquare[1]);
 	let targetCol = targetSquare.charCodeAt(0)-A;
 
-	console.log(currentSquare);
-
 	return {
 		currentRow: currentRow,
 		currentCol: currentCol,
@@ -31,10 +29,11 @@ export const glowSquares = (cols, glowSquares) => {
 		['square', 'square', 'square', 'square', 'square'],
 	];
 
-	console.log(board);
 	glowSquares.forEach(el => {
 		board[ cols.indexOf( el[0] ) ][ parseInt(el[1]) ] = 'glowSquare';
 	})
+
+	console.log(board);
 	return {
 		type: 'UPDATE_GLOW',
 		value: board,
@@ -43,11 +42,8 @@ export const glowSquares = (cols, glowSquares) => {
 
 
 export const moveIsValid = (board, current, target) => {
-	console.log('checking move');
 	let newBoard = board;
 	let coordinates = makeCoordinates(current.square, target.square);
-
-	console.log(current);
 
 	// when being called to glow squares, target arg will carry a bool glow: true.
 	// this prevents the move validator from unwittingly changing the game board.
@@ -56,7 +52,8 @@ export const moveIsValid = (board, current, target) => {
 		newBoard[coordinates.currentCol][coordinates.currentRow] = null;
 	}
 
-	if (cards[current.card].move(current.player, coordinates)){
+
+	if (cards[current.card].move(current.player, target.piece, coordinates)){
 		return {
 			type: 'MOVE',
 			value: newBoard,

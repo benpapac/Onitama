@@ -65,6 +65,7 @@ export const gameStateReducer = (state, action) => {
 				current: action.value,
 				glowBoard: newGameState.glowBoard,
 				newTurn: true,
+				target: newGameState.target,
 			};
 
 		default:

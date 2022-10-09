@@ -21,12 +21,12 @@ const Board = () => {
         }
 
         if(gameState.newSquare === 'current' && gameState.current.card){
-            console.log('getting new glowSquares...');
+            console.log(cards[gameState.current.card].rule);
             let squares = [];
 
             gameState.cols.forEach(el => {
                 for(let i=0; i<gameState.board[0].length; i++){
-                    let res = moveIsValid(gameState.board, gameState.current, {square: `${el}${i}`, glow: true});
+                    let res = moveIsValid(gameState.board, gameState.current, {square: `${el}${i}`, piece: gameState.board[gameState.cols.indexOf(el)][i], glow: true});
                     if(res.type === 'MOVE') {
                         squares.push(`${el}${i}`);
                     }
