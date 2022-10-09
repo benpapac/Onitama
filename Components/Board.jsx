@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { View, Image, Pressable } from 'react-native';
 import { Context } from '../Utils/context';
-import { chooseNewSquare, newTurn, moveIsValid, newGame, glowSquares, rotateCards} from '../Utils/dispatch';
+import { chooseNewSquare, newTurn, moveIsValid, newGame, glowSquares, rotateCards, gameIsOver} from '../Utils/dispatch';
 import { cards, images } from '../Utils/cards';
 
 import PlayerCards from './CardPanel';
@@ -37,11 +37,16 @@ const Board = () => {
 
         if(gameState.target.square.length && !gameState.newTurn ) {
             console.log('validating move...');
-            let res = moveIsValid(gameState.board, gameState.current, gameState.target);
+            let res = moveIsValid(gameState.board, gameState.current, gameState.target, gameState.graveYard);
             dispatch(res);
             if(res.type === 'MOVE') {
-                dispatch(rotateCards(gameState.current, gameState.cards))
-                dispatch(newTurn(gameState.current.player));
+                const gameOver = gameIsOver(gameState.board, gameState.graveYard);
+                if(gameOver.type === 'INVALID'){
+                    dispatch(rotateCards(gameState.current, gameState.cards))
+                    dispatch(newTurn(gameState.current.player));
+                }
+
+                else dispatch(gameOver);
             }
         }
     }, [ gameState])

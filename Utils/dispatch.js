@@ -41,22 +41,25 @@ export const glowSquares = (cols, glowSquares) => {
 }
 
 
-export const moveIsValid = (board, current, target) => {
-	let newBoard = board;
+export const moveIsValid = (board, current, target, graveYard) => {
 	let coordinates = makeCoordinates(current.square, target.square);
 
 	// when being called to glow squares, target arg will carry a bool glow: true.
 	// this prevents the move validator from unwittingly changing the game board.
 	if(!target.glow){
-		newBoard[coordinates.targetCol][coordinates.targetRow] = current.piece;
-		newBoard[coordinates.currentCol][coordinates.currentRow] = null;
-	}
+		board[coordinates.targetCol][coordinates.targetRow] = current.piece;
+		board[coordinates.currentCol][coordinates.currentRow] = null;
 
+		if(target.piece) graveYard.push(target.piece);
+	}
 
 	if (cards[current.card].move(current.player, target.piece, coordinates)){
 		return {
 			type: 'MOVE',
-			value: newBoard,
+			value: {
+				board: board,
+				taken: graveYard,
+			},
 		};
 	}
 	else return { type: 'INVALID' };
@@ -102,6 +105,25 @@ export const createHand = (deck) => {
 	}
 	return hand;
 };
+
+export const gameIsOver = (board, graveYard) => {
+	
+	if( board[0][2] === 'BK' || graveYard.includes('PK')) return {
+		type: 'END_GAME',
+		winner: 'Blue',
+		gameOver: true,
+		
+	}
+	else if(board[4][2] === 'PK' || graveYard.includes('BK')) return {
+		type: 'END_GAME',
+		winner: 'Pink',
+		gameOver: true,
+	};
+
+	else return {
+		type: 'INVALID'
+	}
+}
 
 export const newGame = (deck) => {
 	//update the gameCards.

@@ -23,8 +23,9 @@ export const gameStateReducer = (state, action) => {
 		case 'MOVE':
 			return {
 				...state,
-				board: action.value,
+				board: action.value.board,
 				newSquare: false,
+				graveYard: action.value.graveYard,
 			};
 
 		case 'UPDATE_CARDS':
@@ -39,6 +40,13 @@ export const gameStateReducer = (state, action) => {
 				cards: action.value,
 				newGame: false,
 			};
+		
+		case 'END_GAME':
+			return {
+				...state,
+				winner: action.winner,
+				gameOver: true,
+			}
 
 		case 'UPDATE_GLOW':
 			return {
@@ -75,7 +83,6 @@ export const gameStateReducer = (state, action) => {
 
 export const newGameState = {
 	// board: an array of five  indeces (rows), at which will be an array (cols), each of which will hold five strings "pieces"
-	cols: ['A', 'B', 'C', 'D', 'E'],
 	board: [
 		['P1', 'P2', 'PK', 'P4', 'P5'],
 		['', '', '', '', ''],
@@ -83,6 +90,18 @@ export const newGameState = {
 		['', '', '', '', ''],
 		['B1', 'B2', 'BK', 'B4', 'B5'],
 	],
+	cards: {
+		pink: ['', ''],
+		blue: ['', ''],
+		gameCards: ['', '', '', '', ''],
+	},
+	cols: ['A', 'B', 'C', 'D', 'E'],
+	current: {
+		square: '',
+		piece: '',
+		player: 'Pink',
+		card: '',
+	},
 
 	glowBoard: [
 		['square', 'square', 'square', 'square', 'square'],
@@ -91,24 +110,15 @@ export const newGameState = {
 		['square', 'square', 'square', 'square', 'square'],
 		['square', 'square', 'square', 'square', 'square'],
 	],
-	current: {
-		square: '',
-		piece: '',
-		player: 'Pink',
-		card: '',
-	},
+
+	graveYard: [],
 
 	newGame: true,
 	newSquare: false,
 	newTurn: false,
+
 	target: {
 		square: '',
 		piece: '',
-	},
-
-	cards: {
-		pink: ['', ''],
-		blue: ['', ''],
-		gameCards: ['', '', '', '', ''],
 	},
 };
