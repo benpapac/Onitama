@@ -39,6 +39,7 @@ export const gameStateReducer = (state, action) => {
 				...newGameState,
 				cards: action.value,
 				newGame: false,
+				gameOver: false,
 			};
 		
 		case 'END_GAME':
@@ -103,6 +104,7 @@ export const newGameState = {
 		card: '',
 	},
 
+
 	glowBoard: [
 		['square', 'square', 'square', 'square', 'square'],
 		['square', 'square', 'square', 'square', 'square'],
@@ -116,6 +118,7 @@ export const newGameState = {
 	newGame: true,
 	newSquare: false,
 	newTurn: false,
+	gameOver: true,
 
 	target: {
 		square: '',

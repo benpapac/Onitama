@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useReducer } from 'react';
+import { newGame } from './Utils/dispatch';
 
 //components
+import WinScreen from './Components/WinScreen';
 import Board from './Components/Board';
 
 //styles
@@ -31,6 +33,12 @@ export default function App() {
 		B: 'https://i.imgur.com/6OUJdaN.png',
 	};
 
+	const startGame = (e) => {
+		e.preventDefault();
+		console.log('restarting...');
+		dispatch(newGame());
+	}
+
 
 	useEffect(() => {}, []);
 
@@ -47,13 +55,11 @@ export default function App() {
 					<Text style={styles.title}>Welcome to Onitama!</Text>
 				</View>
 					
-					<Board />
+					{gameState.gameOver ? <WinScreen /> : <Board />}
 
 				<Button
 					style={styles.button}
-					onPress={() => {
-						startGame;
-					}}
+					onPress={startGame}
 					title="Let's play."
 				/>
 			</View>

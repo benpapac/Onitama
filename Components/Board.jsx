@@ -20,7 +20,7 @@ const Board = () => {
         }
 
         if(gameState.newSquare === 'current' && gameState.current.card){
-            console.log(cards[gameState.current.card].rule);
+            console.log('checking for glow squares...');
             let squares = [];
 
             gameState.cols.forEach(el => {

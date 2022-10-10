@@ -1,4 +1,4 @@
-import { deck, cards } from './cards';
+import { cards } from './cards';
 import { newGameState } from './gameState';
 
 export const getRandomNumber = (length) => Math.floor(Math.random() * length);
@@ -58,7 +58,7 @@ export const moveIsValid = (board, current, target, graveYard) => {
 			type: 'MOVE',
 			value: {
 				board: board,
-				taken: graveYard,
+				graveYard: graveYard,
 			},
 		};
 	}
@@ -107,8 +107,8 @@ export const createHand = (deck) => {
 };
 
 export const gameIsOver = (board, graveYard) => {
-	
-	if( board[0][2] === 'BK' || graveYard.includes('PK')) return {
+	console.log(board, graveYard);
+	if( board[0][2] === 'BK' || ( graveYard.length && graveYard.includes('PK') )) return {
 		type: 'END_GAME',
 		winner: 'Blue',
 		gameOver: true,
@@ -125,10 +125,10 @@ export const gameIsOver = (board, graveYard) => {
 	}
 }
 
-export const newGame = (deck) => {
+export const newGame = () => {
 	//update the gameCards.
-	let randomInt = getRandomNumber(deck.length - 1);
-	let newGameDeck = deck;
+	let newGameDeck = Object.keys(cards);
+	let randomInt = getRandomNumber(newGameDeck.length - 1);
 
 	let gameCards = newGameDeck.splice(randomInt, 1);
 
@@ -181,10 +181,10 @@ export const chooseNewSquare = ( pawn, location, current, target) => {
 	if ( pawn && pawn[0] === current.player[0]) {
 		type = 'UPDATE_CURRENT';
 		obj = current;
-	} else {
+	} else if(current.piece && current.card) {
 		type = 'UPDATE_TARGET';
 		obj = target;
-	}
+	} else type = "INVALID";
 
 	return {
 		type: type,
