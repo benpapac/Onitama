@@ -36,11 +36,47 @@ export const gameStateReducer = (state, action) => {
 
 		case 'NEW_GAME':
 			return {
-				...newGameState,
-				cards: action.value,
-				newGame: false,
-				gameOver: false,
-			};
+	// board: an array of five  indeces (rows), at which will be an array (cols), each of which will hold five strings "pieces"
+		board: [
+			['P1', 'P2', 'PK', 'P4', 'P5'],
+			['', '', '', '', ''],
+			['', '', '', '', ''],
+			['', '', '', '', ''],
+			['B1', 'B2', 'BK', 'B4', 'B5'],
+		],
+		cards: {
+			pink: action.value.pink,
+			blue: action.value.blue,
+			gameCards: action.value.gameCards,
+		},
+		cols: ['A', 'B', 'C', 'D', 'E'],
+		current: {
+			square: '',
+			piece: '',
+			player: 'Pink',
+			card: '',
+		},
+
+		glowBoard: [
+			['square', 'square', 'square', 'square', 'square'],
+			['square', 'square', 'square', 'square', 'square'],
+			['square', 'square', 'square', 'square', 'square'],
+			['square', 'square', 'square', 'square', 'square'],
+			['square', 'square', 'square', 'square', 'square'],
+		],
+
+		graveYard: [],
+
+		newGame: false,
+		newSquare: false,
+		newTurn: false,
+		gameOver: false,
+
+		target: {
+			square: '',
+			piece: '',
+		},
+	};
 		
 		case 'END_GAME':
 			return {
@@ -76,6 +112,9 @@ export const gameStateReducer = (state, action) => {
 				newTurn: true,
 				target: newGameState.target,
 			};
+
+		case 'INVALID':
+			return state;
 
 		default:
 			break;

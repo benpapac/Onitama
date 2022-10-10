@@ -1,5 +1,4 @@
 import { cards } from './cards';
-import { newGameState } from './gameState';
 
 export const getRandomNumber = (length) => Math.floor(Math.random() * length);
 
@@ -128,20 +127,26 @@ export const gameIsOver = (board, graveYard) => {
 export const newGame = () => {
 	//update the gameCards.
 	let newGameDeck = Object.keys(cards);
+	console.log('new game deck');
+	console.log(newGameDeck)
 	let randomInt = getRandomNumber(newGameDeck.length - 1);
 
-	let gameCards = newGameDeck.splice(randomInt, 1);
+	newGameDeck.splice(randomInt, 1);
+
+
 
 	//these functions contain side effects that change newGameDeck.
 	let pink = createHand(newGameDeck);
 	let blue = createHand(newGameDeck);
+
+	console.log(newGameDeck, pink, blue);
 
 	return {
 		type: 'NEW_GAME',
 		value: {
 			pink: pink,
 			blue: blue,
-			gameCards: gameCards,
+			gameCards: newGameDeck,
 		},
 	};
 };
@@ -185,6 +190,8 @@ export const chooseNewSquare = ( pawn, location, current, target) => {
 		type = 'UPDATE_TARGET';
 		obj = target;
 	} else type = "INVALID";
+
+	console.log(type);
 
 	return {
 		type: type,

@@ -15,10 +15,6 @@ const Board = () => {
     const deck = Object.keys(cards);
     
     useEffect(() => {
-        if(gameState.newGame) {
-            dispatch(newGame(deck));
-        }
-
         if(gameState.newSquare === 'current' && gameState.current.card){
             console.log('checking for glow squares...');
             let squares = [];
@@ -46,7 +42,10 @@ const Board = () => {
                     dispatch(newTurn(gameState.current.player));
                 }
 
-                else dispatch(gameOver);
+                else {
+                    console.log(res);
+                    dispatch(gameOver);
+                }
             }
         }
     }, [ gameState])

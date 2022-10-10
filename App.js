@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useReducer } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import { newGame } from './Utils/dispatch';
 
 //components
@@ -26,6 +26,7 @@ function Link(props) {
 
 export default function App() {
 	const [gameState, dispatch] = useReducer(gameStateReducer, newGameState);
+	const [initiated, setInitiated] = useState(false);
 	const images = {
 		PK: 'https://i.imgur.com/Wj39fNp.png',
 		BK: 'https://i.imgur.com/Bhxkard.png',
@@ -35,12 +36,13 @@ export default function App() {
 
 	const startGame = (e) => {
 		e.preventDefault();
-		console.log('restarting...');
+		console.log('new game...');
 		dispatch(newGame());
 	}
 
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+	}, []);
 
 	return (
 		<Context.Provider
