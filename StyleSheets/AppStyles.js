@@ -3,17 +3,28 @@ import { StyleSheet, Dimensions } from 'react-native';
 let ScreenHeight = Dimensions.get('window').height;
 
 export const styles = StyleSheet.create({
+	background: {
+		height: '100%',
+		width: '100%',
+		zIndex: '-1',
+		position: 'absolute',
+		top: '0',
+	},
 	container: {
+		height: '100vh',
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#F5FCFF',
+		backgroundColor: 'rgba(0,0,0,0.6)',
+		// backgroundColor: 'darkgrey',
 	},
 	header: {
-		padding: 20,
+		marginVertical: '5vh',
+		// padding: 20,
 	},
 	title: {
 		fontWeight: 'bold',
-		fontSize: '1.5rem',
+		fontSize: '3rem',
+		color: 'rgba(245,213,200,1)',
 		marginVertical: '1em',
 		textAlign: 'center',
 	},

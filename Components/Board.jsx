@@ -1,16 +1,17 @@
 import React, { useContext, useEffect } from 'react';
-import { View, Image, Pressable } from 'react-native';
+import { View, ImageBackground, Pressable } from 'react-native';
 import { Context } from '../Utils/context';
-import { chooseNewSquare, newTurn, moveIsValid, newGame, glowSquares, rotateCards, gameIsOver} from '../Utils/dispatch';
+import { chooseNewSquare, newTurn, moveIsValid, glowSquares, rotateCards, gameIsOver} from '../Utils/dispatch';
 import { cards, images } from '../Utils/cards';
 
 import PlayerCards from './CardPanel';
 import Pawn from './Pawn'
 
-import { BoardStyles as styles} from '../StyleSheets/BoardStyles';
+import { BoardStyles, BoardStyles as styles} from '../StyleSheets/BoardStyles';
 
 const Board = () => {
-    const { images, gameState, dispatch} = useContext(Context);
+    const { gameState, dispatch} = useContext(Context);
+    const squareBackground = { uri: 'https://i.imgur.com/fmofDFG.jpg'}
     
     const deck = Object.keys(cards);
     
@@ -53,27 +54,35 @@ const Board = () => {
         }
     }, [ gameState])
     return (
-        <View style={styles.table}>
-            <PlayerCards player={gameState.cards.pink} color='pink' />
-                <View style={styles.board}>
-                {
-                gameState.board 
-                    && gameState.board.map( (col, colIdx) => col.map( (square, rowIdx) =>  <Pressable 
-                                key={rowIdx} 
-                                style={styles[gameState.glowBoard[colIdx][rowIdx]]} 
-                                nativeID={`${gameState.cols[colIdx]}${rowIdx}`}
-                                onPress={()=>{dispatch(chooseNewSquare(null, `${gameState.cols[colIdx]}${rowIdx}`, gameState.current, gameState.target))}} 
-                                >
-                                    <>
-                                    {
-                                        gameState.board[colIdx][rowIdx] && <Pawn colIdx={colIdx} rowIdx={rowIdx} />
-                                    }
-                                    </>
-                                </Pressable>
-                    ))}
-                </View>
-            <PlayerCards player={gameState.cards.blue} color='blue' />
-        </View>
+            <View style={styles.table}>
+                <PlayerCards player={gameState.cards.pink} color='pink' />
+
+                    <View style={styles.board}>
+
+                    {
+                    gameState.board 
+                        && gameState.board.map( (col, colIdx) => col.map( (square, rowIdx) =>  
+                        <ImageBackground style={BoardStyles.background} source={squareBackground}>
+
+                                <Pressable 
+                                        key={rowIdx} 
+                                        style={{...styles[gameState.glowBoard[colIdx][rowIdx]], backgroundImage: 'https://i.imgur.com/wESlb39.jpg'}} 
+                                        nativeID={`${gameState.cols[colIdx]}${rowIdx}`}
+                                        onPress={()=>{dispatch(chooseNewSquare(null, `${gameState.cols[colIdx]}${rowIdx}`, gameState.current, gameState.target))}} 
+                                        >
+                                            <>
+                                            {
+                                                gameState.board[colIdx][rowIdx] && <Pawn colIdx={colIdx} rowIdx={rowIdx} />
+                                            }
+                                            </>
+                            </Pressable>
+                        </ImageBackground>
+                            ))}
+
+                    </View>
+
+                <PlayerCards player={gameState.cards.blue} color='blue' />
+            </View>
     );
 };
 

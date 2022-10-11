@@ -1,6 +1,5 @@
 export const gameStateReducer = (state, action) => {
 	switch (action.type) {
-
 		case 'UPDATE_TARGET':
 			return {
 				...state,
@@ -36,61 +35,61 @@ export const gameStateReducer = (state, action) => {
 
 		case 'NEW_GAME':
 			return {
-	// board: an array of five  indeces (rows), at which will be an array (cols), each of which will hold five strings "pieces"
-		board: [
-			['P1', 'P2', 'PK', 'P4', 'P5'],
-			['', '', '', '', ''],
-			['', '', '', '', ''],
-			['', '', '', '', ''],
-			['B1', 'B2', 'BK', 'B4', 'B5'],
-		],
-		cards: {
-			pink: action.value.pink,
-			blue: action.value.blue,
-			gameCards: action.value.gameCards,
-		},
-		cols: ['A', 'B', 'C', 'D', 'E'],
-		current: {
-			square: '',
-			piece: '',
-			player: 'Pink',
-			card: '',
-		},
+				// board: an array of five  indeces (rows), at which will be an array (cols), each of which will hold five strings "pieces"
+				board: [
+					['P1', 'P2', 'PK', 'P4', 'P5'],
+					['', '', '', '', ''],
+					['', '', '', '', ''],
+					['', '', '', '', ''],
+					['B1', 'B2', 'BK', 'B4', 'B5'],
+				],
+				cards: {
+					pink: action.value.pink,
+					blue: action.value.blue,
+					gameCards: action.value.gameCards,
+				},
+				cols: ['A', 'B', 'C', 'D', 'E'],
+				current: {
+					square: '',
+					piece: '',
+					player: 'Pink',
+					card: '',
+				},
 
-		glowBoard: [
-			['square', 'square', 'square', 'square', 'square'],
-			['square', 'square', 'square', 'square', 'square'],
-			['square', 'square', 'square', 'square', 'square'],
-			['square', 'square', 'square', 'square', 'square'],
-			['square', 'square', 'square', 'square', 'square'],
-		],
+				glowBoard: [
+					['square', 'square', 'square', 'square', 'square'],
+					['square', 'square', 'square', 'square', 'square'],
+					['square', 'square', 'square', 'square', 'square'],
+					['square', 'square', 'square', 'square', 'square'],
+					['square', 'square', 'square', 'square', 'square'],
+				],
 
-		graveYard: [],
+				graveYard: [],
 
-		newGame: false,
-		newCurrent: false,
-		newTurn: false,
-		gameOver: false,
+				newGame: false,
+				newCurrent: false,
+				newTurn: false,
+				gameOver: false,
 
-		target: {
-			square: '',
-			piece: '',
-		},
-	};
-		
+				target: {
+					square: '',
+					piece: '',
+				},
+			};
+
 		case 'END_GAME':
 			return {
 				...state,
 				winner: action.winner,
 				gameOver: true,
-			}
+			};
 
 		case 'UPDATE_GLOW':
 			return {
 				...state,
 				glowBoard: action.value,
 				newCurrent: false,
-			}
+			};
 
 		case 'RESET_GLOW':
 			return {
@@ -143,7 +142,6 @@ export const newGameState = {
 		card: '',
 	},
 
-
 	glowBoard: [
 		['square', 'square', 'square', 'square', 'square'],
 		['square', 'square', 'square', 'square', 'square'],
@@ -163,4 +161,7 @@ export const newGameState = {
 		square: '',
 		piece: '',
 	},
+
+	winner:
+		"Designed by Shimpei Sato and published by Arcane Wonders in 2014, Onitama gives players a wonderfully unique experience. Any pawn can be moved, as long as it follows the rules of one of your movement cards! You rotate cards with your opponent, so be careful as you move.\n\n There are two ways to win:\nWay of Stone: Capture the opponent's Sage. \n Way of Water: Move your Sage to your opponent's temple.",
 };

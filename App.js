@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect, useReducer } from 'react';
+import { Text, View, Button, ImageBackground } from 'react-native';
 import { newGame } from './Utils/dispatch';
 
 //components
@@ -10,7 +11,6 @@ import Board from './Components/Board';
 import { styles } from './StyleSheets/AppStyles.js';
 
 //hooks
-import { Text, View, Button } from 'react-native';
 import { Context } from './Utils/context';
 import { newGameState, gameStateReducer } from './Utils/gameState';
 
@@ -27,6 +27,7 @@ function Link(props) {
 export default function App() {
 	const [gameState, dispatch] = useReducer(gameStateReducer, newGameState);
 	const [initiated, setInitiated] = useState(false);
+	const templeBackground = { uri: 'https://i.imgur.com/r2eosVK.jpg' };
 	const images = {
 		PK: 'https://i.imgur.com/Wj39fNp.png',
 		BK: 'https://i.imgur.com/Bhxkard.png',
@@ -38,11 +39,9 @@ export default function App() {
 		e.preventDefault();
 		console.log('new game...');
 		dispatch(newGame());
-	}
+	};
 
-
-	useEffect(() => {
-	}, []);
+	useEffect(() => {}, []);
 
 	return (
 		<Context.Provider
@@ -50,22 +49,27 @@ export default function App() {
 				gameState: gameState,
 				dispatch: dispatch,
 				images: images,
+				templeBackground: templeBackground,
 			}}>
+			<ImageBackground source={templeBackground} style={styles.background}>
+				<View style={styles.container}>
+					{gameState.gameOver ? (
+						<View style={styles.header}>
+							<Text style={styles.title}>Welcome to Onitama!</Text>
+						</View>
+					) : null}
 
-			<View style={styles.container}>
-				<View style={styles.header}>
-					<Text style={styles.title}>Welcome to Onitama!</Text>
-				</View>
-					
 					{gameState.gameOver ? <WinScreen /> : <Board />}
 
-				<Button
-					style={styles.button}
-					onPress={startGame}
-					title="Let's play."
-				/>
-			</View>
-
+					{gameState.gameOver ? (
+						<Button
+							style={styles.button}
+							onPress={startGame}
+							title="Let's play."
+						/>
+					) : null}
+				</View>
+			</ImageBackground>
 		</Context.Provider>
 	);
 }

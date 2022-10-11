@@ -1,9 +1,12 @@
-import { StyleSheet, YellowBox } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const CardPanelStyles = StyleSheet.create({
+	background: {
+		height: '100%',
+	},
 	panel: {
 		flex: 1,
-		backgroundColor: 'gray',
+		// backgroundColor: 'gray',
 		flexDirection: 'column',
 		padding: 10,
 	},

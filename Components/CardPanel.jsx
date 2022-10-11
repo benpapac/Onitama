@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Image, Text, Pressable } from 'react-native';
+import { View, Image, Text, Pressable, ImageBackground } from 'react-native';
 import { Context } from '../Utils/context';
 import { images } from '../Utils/cards';
-import {CardPanelStyles} from '../StyleSheets/CardPanels.js';
+import {CardPanelStyles} from '../StyleSheets/CardPanelStyles.js';
 import { chooseNewCard } from '../Utils/dispatch';
 
 const playerCards = ({player, color}) => {
@@ -14,6 +14,8 @@ const playerCards = ({player, color}) => {
 
     const [cardOne, setCardOne] = useState(images[player[0]]);
     const [cardTwo, setCardTwo] = useState(images[player[1]]);
+
+    const panelBackground = { uri: 'https://i.imgur.com/MM6wckg.jpg'};
 
     useEffect(()=>{
         if(prevCard !== chosenCard && color === gameState.current.player.toLowerCase()){
@@ -29,6 +31,8 @@ const playerCards = ({player, color}) => {
     }, [chosenCard, gameState]);
 
     return (
+        <ImageBackground style={CardPanelStyles.background} source={panelBackground}>
+
         <View style={CardPanelStyles.panel}>
             <Text style={CardPanelStyles.title}>{color}</Text>
                  
@@ -47,6 +51,7 @@ const playerCards = ({player, color}) => {
                 </Pressable>
 
                 </View>
+        </ImageBackground>
     );
 };
 

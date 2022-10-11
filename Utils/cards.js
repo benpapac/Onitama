@@ -15,7 +15,7 @@ export const cards = {
 	boar: {
 		name: 'boar',
 		move: (player, piece, coordinates) => {
-			if(piece && piece[0] === player[0]) return false;
+			if (piece && piece[0] === player[0]) return false;
 			if (player === 'Blue') {
 				console.log('checking blue');
 				if (

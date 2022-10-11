@@ -1,12 +1,14 @@
 import { StyleSheet } from 'react-native';
 export const BoardStyles = StyleSheet.create({
 	table: {
+		height: '70vh',
+		width: '100vw',
 		flexDirection: 'row',
+		justifyContent: 'space-around',
+		alignContent: 'space-evenly',
 	},
 	board: {
-		marginLeft: '10vw',
-		marginRight: '10vw',
-		width: '70vh',
+		width: '80vh',
 		height: '80vh',
 
 		flexWrap: 'wrap',
@@ -15,11 +17,18 @@ export const BoardStyles = StyleSheet.create({
 		// transform: "rotate(90deg)",
 		// padding: "1em",
 	},
+
+	background: {
+		width: '16vh',
+		height: '16vh',
+		resizeMode: 'cover',
+	},
 	square: {
 		width: '16vh',
 		height: '16vh',
 		border: 'solid 1px black',
-		backgroundColor: 'brown',
+		// backgroundColor: 'brown',
+		backgroundImage: 'https://imgur.com/wESlb39',
 	},
 
 	glowSquare: {
@@ -31,7 +40,7 @@ export const BoardStyles = StyleSheet.create({
 	},
 
 	pawn: {
-		height: "100%",
-		width: "100%",
-	}
+		height: '100%',
+		width: '100%',
+	},
 });

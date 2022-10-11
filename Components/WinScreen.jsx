@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
 import { View, Text } from 'react-native';
+import { ImageBackground } from 'react-native-web';
 import  {WinScreenStyles}  from '../StyleSheets/WinScreenStyles.js';
 import { Context } from '../Utils/context.js';
 
 const WinScreen = () => {
-    const {gameState, dispatch} = useContext(Context);
+    const {gameState, templeBackground} = useContext(Context);
     return (
-        <View>
-            <Text nativeID={WinScreenStyles.headline}>{gameState.winner} is the winner!</Text>
+        <View style={WinScreenStyles.container}>
+            <Text style={WinScreenStyles.headline}>{gameState.winner}</Text>
+            <Text style={{...WinScreenStyles.headline, position: 'absolute', zIndex: -1}}>{gameState.winner}</Text>
         </View>
     );
 };
