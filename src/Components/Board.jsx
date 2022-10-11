@@ -17,7 +17,6 @@ const Board = () => {
     
     useEffect(() => {
         if(gameState.current.piece && gameState.current.card){
-            console.log('checking for glow squares...');
             let squares = [];
             
             if(gameState.newCurrent){
@@ -35,11 +34,9 @@ const Board = () => {
         }
 
         if(gameState.target.square && !gameState.newTurn ) {
-            console.log('validating move...');
             let res = moveIsValid(gameState.board, gameState.current, gameState.target, gameState.graveYard);
             dispatch(res);
             if(res.type === 'MOVE') {
-                console.log('checking win conditions...')
                 const gameOver = gameIsOver(gameState.board, gameState.graveYard);
                 if(gameOver.type === 'INVALID'){
                     dispatch(rotateCards(gameState.current, gameState.cards))
@@ -66,7 +63,7 @@ const Board = () => {
 
                                 <Pressable 
                                         key={rowIdx} 
-                                        style={{...styles[gameState.glowBoard[colIdx][rowIdx]], backgroundImage: 'https://i.imgur.com/wESlb39.jpg'}} 
+                                        style={{...styles[gameState.glowBoard[colIdx][rowIdx]], }} 
                                         nativeID={`${gameState.cols[colIdx]}${rowIdx}`}
                                         onPress={()=>{dispatch(chooseNewSquare(null, `${gameState.cols[colIdx]}${rowIdx}`, gameState.current, gameState.target))}} 
                                         >
