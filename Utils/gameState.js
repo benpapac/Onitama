@@ -12,8 +12,8 @@ export const gameStateReducer = (state, action) => {
 			return {
 				...state,
 				current: action.value,
-				newSquare: 'current',
 				newTurn: false,
+				newCurrent: action.value.piece || action.value.card ? true : false,
 			};
 
 		case 'RESET': {
@@ -24,7 +24,7 @@ export const gameStateReducer = (state, action) => {
 			return {
 				...state,
 				board: action.value.board,
-				newSquare: false,
+				newCurrent: false,
 				graveYard: action.value.graveYard,
 			};
 
@@ -68,7 +68,7 @@ export const gameStateReducer = (state, action) => {
 		graveYard: [],
 
 		newGame: false,
-		newSquare: false,
+		newCurrent: false,
 		newTurn: false,
 		gameOver: false,
 
@@ -89,7 +89,7 @@ export const gameStateReducer = (state, action) => {
 			return {
 				...state,
 				glowBoard: action.value,
-				newSquare: false,
+				newCurrent: false,
 			}
 
 		case 'RESET_GLOW':

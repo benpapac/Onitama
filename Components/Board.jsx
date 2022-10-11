@@ -15,27 +15,30 @@ const Board = () => {
     const deck = Object.keys(cards);
     
     useEffect(() => {
-        if(gameState.newSquare === 'current' && gameState.current.card){
+        if(gameState.current.piece && gameState.current.card){
             console.log('checking for glow squares...');
             let squares = [];
-
-            gameState.cols.forEach(el => {
-                for(let i=0; i<gameState.board[0].length; i++){
-                    let res = moveIsValid(gameState.board, gameState.current, {square: `${el}${i}`, piece: gameState.board[gameState.cols.indexOf(el)][i], glow: true});
-                    if(res.type === 'MOVE') {
-                        squares.push(`${el}${i}`);
+            
+            if(gameState.newCurrent){
+                gameState.cols.forEach(el => {
+                    for(let i=0; i<gameState.board[0].length; i++){
+                        let res = moveIsValid(gameState.board, gameState.current, {square: `${el}${i}`, piece: gameState.board[gameState.cols.indexOf(el)][i], glow: true});
+                        if(res.type === 'MOVE') {
+                            squares.push(`${el}${i}`);
+                        }
                     }
-                }
-            });
+                });
+                dispatch(glowSquares(gameState.cols, squares));
+            }
 
-            dispatch(glowSquares(gameState.cols, squares));
         }
 
-        if(gameState.target.square.length && !gameState.newTurn ) {
+        if(gameState.target.square && !gameState.newTurn ) {
             console.log('validating move...');
             let res = moveIsValid(gameState.board, gameState.current, gameState.target, gameState.graveYard);
             dispatch(res);
             if(res.type === 'MOVE') {
+                console.log('checking win conditions...')
                 const gameOver = gameIsOver(gameState.board, gameState.graveYard);
                 if(gameOver.type === 'INVALID'){
                     dispatch(rotateCards(gameState.current, gameState.cards))

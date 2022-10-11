@@ -21,7 +21,7 @@ const playerCards = ({player, color}) => {
             setPrevCard(chosenCard);
         };
 
-        if(cardOne !== images[player[0]]) {
+        if(cardOne !== images[player[0]] || cardTwo !== images[player[1]]) {
             setCardOne(images[player[0]]);
             setCardTwo(images[player[1]]);
         };
