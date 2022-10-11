@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect, useReducer } from 'react';
 import { Text, View, Button, ImageBackground } from 'react-native';
-import { newGame } from './Utils/dispatch';
 
 //components
 import WinScreen from './Components/WinScreen';
@@ -11,6 +10,7 @@ import Board from './Components/Board';
 import { styles } from './StyleSheets/AppStyles.js';
 
 //hooks
+import { newGame } from './Utils/dispatch';
 import { Context } from './Utils/context';
 import { newGameState, gameStateReducer } from './Utils/gameState';
 
