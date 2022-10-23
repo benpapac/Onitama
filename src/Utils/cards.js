@@ -16,8 +16,7 @@ export const cards = {
 		name: 'boar',
 		move: (player, piece, coordinates) => {
 			if (piece && piece[0] === player[0]) return false;
-			if (player === 'Blue') {
-				console.log('checking blue');
+			if (player === 'blue') {
 				if (
 					blueCoreCards.blueForwardOne(coordinates) ||
 					blueCoreCards.blueLateralOne(coordinates)
@@ -41,7 +40,7 @@ export const cards = {
 		name: 'eel',
 		move: (player, piece, coordinates) => {
 			if (piece && piece[0] === player[0]) return false;
-			if (player === 'Blue') {
+			if (player === 'blue') {
 				if (
 					blueCoreCards.blueRightOne(coordinates) ||
 					blueCoreCards.blueLeftOneForwardOne(coordinates) ||
@@ -65,7 +64,7 @@ export const cards = {
 		move: (player, piece, coordinates) => {
 			if (piece && piece[0] === player[0]) return false;
 
-			if (player === 'Blue') {
+			if (player === 'blue') {
 				if (
 					blueCoreCards.blueBackwardOne(coordinates) ||
 					blueCoreCards.blueLeftOneForwardOne(coordinates) ||
@@ -89,7 +88,7 @@ export const cards = {
 		move: (player, piece, coordinates) => {
 			if (piece && piece[0] === player[0]) return false;
 
-			if (player === 'Blue') {
+			if (player === 'blue') {
 				if (
 					blueCoreCards.blueForwardOne(coordinates) ||
 					blueCoreCards.blueRightOne(coordinates) ||
@@ -113,7 +112,7 @@ export const cards = {
 		move: (player, piece, coordinates) => {
 			if (piece && piece[0] === player[0]) return false;
 
-			if (player === 'Blue') {
+			if (player === 'blue') {
 				if (
 					blueCoreCards.blueLeftOne(coordinates) ||
 					blueCoreCards.blueRightOneForwardOne(coordinates) ||
@@ -137,7 +136,7 @@ export const cards = {
 		move: (player, piece, coordinates) => {
 			if (piece && piece[0] === player[0]) return false;
 
-			if (player === 'Blue') {
+			if (player === 'blue') {
 				if (
 					blueCoreCards.blueForwardOne(coordinates) ||
 					blueCoreCards.blueLeftOne(coordinates) ||

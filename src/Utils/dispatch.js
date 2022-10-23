@@ -3,7 +3,6 @@ import { cards } from './cards';
 export const getRandomNumber = (length) => Math.floor(Math.random() * length);
 
 export const chooseNewCard = (card, current) => {
-	console.log('new card');
 	return {
 		type: 'UPDATE_CURRENT',
 		value: {
@@ -22,27 +21,21 @@ export const chooseNewSquare = (pawn, location, current, target) => {
 		type = '',
 		obj = {};
 
-	if (/P/.test(pawn) || /B/.test(pawn)) {
-		console.log('player chose a piece');
+	if (/p/.test(pawn) || /b/.test(pawn)) {
 		piece = pawn;
 		square = location;
 	} else {
-		console.log('player chose a square');
 		piece = '';
 		square = location;
 	}
 
 	if (pawn && pawn[0] === current.player[0]) {
-		console.log('new current');
 		type = 'UPDATE_CURRENT';
 		obj = current;
 	} else if (current.piece && current.card) {
-		console.log('new target');
 		type = 'UPDATE_TARGET';
 		obj = target;
 	} else type = 'INVALID';
-
-	// console.log(type);
 
 	return {
 		type: type,
@@ -65,7 +58,6 @@ export const createHand = (deck) => {
 };
 
 export const glowSquares = (cols, glowSquares) => {
-	console.log('glowing squares');
 	let board = [
 		['square', 'square', 'square', 'square', 'square'],
 		['square', 'square', 'square', 'square', 'square'],
@@ -78,7 +70,6 @@ export const glowSquares = (cols, glowSquares) => {
 		board[cols.indexOf(el[0])][parseInt(el[1])] = 'glowSquare';
 	});
 
-	console.log(board);
 	return {
 		type: 'UPDATE_GLOW',
 		value: board,
@@ -104,15 +95,14 @@ const makeCoordinates = (currentSquare, targetSquare) => {
 export const moveIsValid = (board, current, target, graveYard) => {
 	let coordinates = makeCoordinates(current.square, target.square);
 
-	// when being called to glow squares, target arg will carry a bool glow: true.
-	// this prevents the move validator from unwittingly changing the game board.
-
 	let move = cards[current.card].move(
 		current.player,
 		target.piece,
 		coordinates
 	);
 
+	// when being called to glow squares, target arg will carry a bool glow: true.
+	// this prevents the move validator from unwittingly changing the game board.
 	if (!target.glow && move) {
 		board[coordinates.targetCol][coordinates.targetRow] = current.piece;
 		board[coordinates.currentCol][coordinates.currentRow] = null;
@@ -157,7 +147,6 @@ export const rotateCards = (current, gameCards) => {
 };
 
 export const gameIsOver = (board, graveYard) => {
-	console.log(board, graveYard);
 	if (board[0][2] === 'BK' || (graveYard.length && graveYard.includes('PK')))
 		return {
 			type: 'END_GAME',
@@ -199,13 +188,12 @@ export const newGame = () => {
 
 //updateCurrent, or something...
 export const newTurn = (player) => {
-	console.log('new turn.');
 	return {
 		type: 'NEW_TURN',
 		value: {
 			square: '',
 			piece: '',
-			player: player === 'Pink' ? 'Blue' : 'Pink',
+			player: player === 'pink' ? 'blue' : 'pink',
 		},
 	};
 };

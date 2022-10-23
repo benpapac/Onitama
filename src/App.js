@@ -29,10 +29,10 @@ export default function App() {
 	const [initiated, setInitiated] = useState(false);
 	const templeBackground = { uri: 'https://i.imgur.com/r2eosVK.jpg' };
 	const images = {
-		PK: 'https://i.imgur.com/Wj39fNp.png',
-		BK: 'https://i.imgur.com/Bhxkard.png',
-		P: 'https://i.imgur.com/TzZmzxf.png',
-		B: 'https://i.imgur.com/6OUJdaN.png',
+		pK: 'https://i.imgur.com/Wj39fNp.png',
+		bK: 'https://i.imgur.com/Bhxkard.png',
+		p: 'https://i.imgur.com/TzZmzxf.png',
+		b: 'https://i.imgur.com/6OUJdaN.png',
 	};
 
 	const startGame = (e) => {

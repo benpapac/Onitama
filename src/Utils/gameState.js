@@ -37,11 +37,11 @@ export const gameStateReducer = (state, action) => {
 			return {
 				// board: an array of five  indeces (rows), at which will be an array (cols), each of which will hold five strings "pieces"
 				board: [
-					['P1', 'P2', 'PK', 'P4', 'P5'],
+					['p1', 'p2', 'pK', 'p4', 'p5'],
 					['', '', '', '', ''],
 					['', '', '', '', ''],
 					['', '', '', '', ''],
-					['B1', 'B2', 'BK', 'B4', 'B5'],
+					['b1', 'b2', 'bK', 'b4', 'b5'],
 				],
 				cards: {
 					pink: action.value.pink,
@@ -52,7 +52,7 @@ export const gameStateReducer = (state, action) => {
 				current: {
 					square: '',
 					piece: '',
-					player: 'Pink',
+					player: 'pink',
 					card: '',
 				},
 
@@ -70,6 +70,7 @@ export const gameStateReducer = (state, action) => {
 				newCurrent: false,
 				newTurn: false,
 				gameOver: false,
+				winner: false,
 
 				target: {
 					square: '',
@@ -123,11 +124,11 @@ export const gameStateReducer = (state, action) => {
 export const newGameState = {
 	// board: an array of five  indeces (rows), at which will be an array (cols), each of which will hold five strings "pieces"
 	board: [
-		['P1', 'P2', 'PK', 'P4', 'P5'],
+		['p1', 'p2', 'pK', 'p4', 'p5'],
 		['', '', '', '', ''],
 		['', '', '', '', ''],
 		['', '', '', '', ''],
-		['B1', 'B2', 'BK', 'B4', 'B5'],
+		['b1', 'b2', 'bK', 'b4', 'b5'],
 	],
 	cards: {
 		pink: ['', ''],
@@ -138,7 +139,7 @@ export const newGameState = {
 	current: {
 		square: '',
 		piece: '',
-		player: 'Pink',
+		player: 'pink',
 		card: '',
 	},
 
