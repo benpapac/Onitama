@@ -10,26 +10,22 @@ export const evaluate = (board, cols, gameCards, graveYard) => {
 		200 * (pinkEval.king - blueEval.king) +
 		(pinkEval.kingThreat - blueEval.kingThreat) +
 		(pinkEval.mobilityValue - blueEval.mobilityValue);
-	console.log('evaluation: ', value);
 	return { evaluation: value };
 };
 
-export const copyMoveRes =(move) => {
+export const copyMoveRes = (move) => {
 	let keys = Object.keys(move);
 	let copy = {};
 	keys.forEach((key) => {
-		console.log('key: ', key, 'moveAtKey: ', move[key]);
 		if (key === 'winner') {
 			copy[key] = move[key];
-		}
-		else if (key === 'cards') {
+		} else if (key === 'cards') {
 			copy[key] = {
 				pink: deepCopy(move[key].pink),
 				blue: deepCopy(move[key].blue),
 				gameCards: deepCopy(move[key].gameCards),
 			};
-		}
-		else copy[key] = deepCopy(move[key]);
+		} else copy[key] = deepCopy(move[key]);
 	});
 	return copy;
 };
@@ -53,7 +49,7 @@ export const miniMax = (gameState, currentPlayer, depth) => {
 			gameCopy.board,
 			gameCopy.cols,
 			gameCopy.cards,
-			gameCopy.graveYard,
+			gameCopy.graveYard
 		).evaluation;
 		return { evaluation: evaluation };
 	}
@@ -65,7 +61,7 @@ export const miniMax = (gameState, currentPlayer, depth) => {
 			currentPlayer,
 			gameCopy.cols,
 			gameCopy.cards,
-			gameCopy.graveYard,
+			gameCopy.graveYard
 		);
 
 		moves.forEach((move) => {
@@ -75,8 +71,8 @@ export const miniMax = (gameState, currentPlayer, depth) => {
 			maxEval = Math.max(maxEval, evaluation);
 			if (maxEval === evaluation) {
 				bestMove = copyMoveRes(move);
-			};
-			console.log(`returning depth ${depth} from pink...`, bestMove.board, maxEval);
+			}
+			// console.log(`returning depth ${depth} from pink...`, bestMove.board, maxEval);
 		});
 		return {
 			bestMove: bestMove,
@@ -100,8 +96,8 @@ export const miniMax = (gameState, currentPlayer, depth) => {
 			minEval = Math.min(minEval, evaluation);
 			if (minEval === evaluation) {
 				bestMove = copyMoveRes(move);
-			};
-			console.log(`returning depth ${depth} from blue...`, bestMove, minEval);
+			}
+			// console.log(`returning depth ${depth} from blue...`, bestMove, minEval);
 		});
 		return {
 			bestMove: bestMove,

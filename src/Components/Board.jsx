@@ -21,6 +21,22 @@ const Board = () => {
         if(gameState.current.player === 'blue') {
             let miniMaxRes = miniMax(gameState, gameState.current.player, 2);
             console.log('miniMax: ', miniMaxRes);
+
+            dispatch({
+                type: 'MOVE', 
+                value: {
+                board: miniMaxRes.bestMove.board,
+                graveYard: miniMaxRes.bestMove.graveYard,
+                },
+            })
+            console.log(gameState);
+
+            const gameOver = gameIsOver(gameState.board, gameState.graveYard);
+
+            if(gameOver.type === 'INVALID'){
+                dispatch(rotateCards(gameState.current, gameState.cards));
+                dispatch(newTurn(gameState.current.player));
+            }
         }
         else{
 
@@ -46,7 +62,7 @@ const Board = () => {
                 if(res.type === 'MOVE') {
                     const gameOver = gameIsOver(gameState.board, gameState.graveYard);
                     if(gameOver.type === 'INVALID'){
-                        dispatch(rotateCards(gameState.current, gameState.cards))
+                        dispatch(rotateCards(gameState.current, gameState.cards));
                         dispatch(newTurn(gameState.current.player));
                     }
                     

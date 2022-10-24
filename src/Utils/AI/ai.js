@@ -32,21 +32,39 @@ const makeCurrentObject = (
 	};
 };
 
-export const getAllMoves = (board, currentPlayer, cols, gameCards, graveYard) => {
+export const getAllMoves = (
+	board,
+	currentPlayer,
+	cols,
+	gameCards,
+	graveYard
+) => {
 	let moves = [];
 	const pieceData = getAllPieces(board, currentPlayer, cols);
 	const pieces = Object.keys(pieceData);
 	const playerCards = gameCards[currentPlayer];
 
-
 	for (let pieceIndex = 0; pieceIndex < pieces.length; pieceIndex++) {
 		for (let cardIndex = 0; cardIndex < playerCards.length; cardIndex++) {
-			let currentData = makeCurrentObject(playerCards, pieces, pieceData, pieceIndex, cardIndex);
-
-			let res = getValidMoves(board, currentData, cols, gameCards, graveYard);
+			let currentData = makeCurrentObject(
+				playerCards,
+				pieces,
+				pieceData,
+				pieceIndex,
+				cardIndex
+			);
+			let boardCopy = deepCopy(board);
+			let res = getValidMoves(
+				boardCopy,
+				currentData,
+				cols,
+				gameCards,
+				graveYard
+			);
 			moves.push(...res);
 		}
 	}
+
 	return moves;
 };
 
@@ -86,7 +104,7 @@ export const getValidMoves = (board, current, cols, gameCards, graveYard) => {
 			if (res.type === 'MOVE') {
 				let newCards = rotateCards(current, gameCards).value;
 				let winner = false;
-				if(target.piece) graveYard.push(target.piece);
+				if (target.piece) graveYard.push(target.piece);
 				if (target.piece && target.piece[1] === 'K') winner = current.player;
 				moves.push({
 					board: res.value.board,
@@ -98,14 +116,13 @@ export const getValidMoves = (board, current, cols, gameCards, graveYard) => {
 			}
 		}
 	});
-	// console.log(moves);
 	return moves;
 };
 
 export const getEval = (board, currentPlayer, cols, gameCards, graveYard) => {
 	let pieceData = getAllPieces(board, currentPlayer, cols);
 	let pieces = Object.keys(pieceData);
-	let pawns = pieces.filter(piece => piece[1] !== 'K').length;
+	let pawns = pieces.filter((piece) => piece[1] !== 'K').length;
 	let king = pieces.length - pawns;
 
 	let allMoves = getAllMoves(board, currentPlayer, cols, gameCards, graveYard);
