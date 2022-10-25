@@ -20,7 +20,6 @@ const Board = () => {
 
         if(gameState.current.player === 'blue') {
             let miniMaxRes = miniMax(gameState, gameState.current.player, 2);
-            // console.log('miniMax: ', miniMaxRes);
 
             // the ai uses rotateCards to simulate card rotation as it searches each depth. 
             //The card left in the gameCards array is the card that was used to produce this move.
