@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { View, ImageBackground, Pressable } from 'react-native';
 import { Context } from '../Utils/context';
-import { chooseNewSquare, newTurn, moveIsValid, glowSquares, rotateCards, gameIsOver} from '../Utils/dispatch';
+import { chooseNewSquare, newTurn, moveIsValid, glowSquares, rotateCards, gameIsOver, chooseNewCard} from '../Utils/dispatch';
 import { cards, images } from '../Utils/cards';
 
 import PlayerCards from './CardPanel';
@@ -20,7 +20,12 @@ const Board = () => {
 
         if(gameState.current.player === 'blue') {
             let miniMaxRes = miniMax(gameState, gameState.current.player, 2);
-            console.log('miniMax: ', miniMaxRes);
+            // console.log('miniMax: ', miniMaxRes);
+
+            // the ai uses rotateCards to simulate card rotation as it searches each depth. 
+            //The card left in the gameCards array is the card that was used to produce this move.
+            let usedCard = miniMaxRes.bestMove.cards.gameCards[0];
+            // dispatch(chooseNewCard(usedCard, gameState.current));
 
             dispatch({
                 type: 'MOVE', 
@@ -29,12 +34,15 @@ const Board = () => {
                 graveYard: miniMaxRes.bestMove.graveYard,
                 },
             })
-            console.log(gameState);
+            // console.log('dispatch result: ', gameState);
+            // console.log('gameState.cards: ', gameState.cards);
 
             const gameOver = gameIsOver(gameState.board, gameState.graveYard);
 
+
             if(gameOver.type === 'INVALID'){
-                dispatch(rotateCards(gameState.current, gameState.cards));
+                // console.log('rotation of cards', rotateCards(gameState.current, gameState.cards));
+                dispatch(rotateCards({...gameState.current, card: usedCard}, gameState.cards));
                 dispatch(newTurn(gameState.current.player));
             }
         }
@@ -57,9 +65,9 @@ const Board = () => {
             }
             
             if(gameState.target.square && !gameState.newTurn ) {
-                let res = moveIsValid(gameState.board, gameState.current, gameState.target, gameState.graveYard);
-                dispatch(res);
-                if(res.type === 'MOVE') {
+                let move = moveIsValid(gameState.board, gameState.current, gameState.target, gameState.graveYard);
+                dispatch(move);
+                if(move.type === 'MOVE') {
                     const gameOver = gameIsOver(gameState.board, gameState.graveYard);
                     if(gameOver.type === 'INVALID'){
                         dispatch(rotateCards(gameState.current, gameState.cards));
@@ -67,7 +75,6 @@ const Board = () => {
                     }
                     
                     else {
-                        console.log(res);
                         dispatch(gameOver);
                     }
                 }

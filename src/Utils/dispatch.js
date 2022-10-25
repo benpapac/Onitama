@@ -124,6 +124,8 @@ export const moveIsValid = (board, current, target, graveYard) => {
 };
 
 export const rotateCards = (current, gameCards) => {
+	// console.log('current: ', current);
+	// console.log('gameCards: ', gameCards);
 	let currentPlayer = current.player.toLowerCase();
 
 	let rotatedCardIndex = gameCards[currentPlayer].indexOf(current.card);

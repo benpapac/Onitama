@@ -43,6 +43,7 @@ export const getAllMoves = (
 	const pieceData = getAllPieces(board, currentPlayer, cols);
 	const pieces = Object.keys(pieceData);
 	const playerCards = gameCards[currentPlayer];
+	console.log('gameCards: ', gameCards, 'player: ', currentPlayer);
 
 	for (let pieceIndex = 0; pieceIndex < pieces.length; pieceIndex++) {
 		for (let cardIndex = 0; cardIndex < playerCards.length; cardIndex++) {
@@ -95,11 +96,14 @@ export const getValidMoves = (board, current, cols, gameCards, graveYard) => {
 				square: `${col}${i}`,
 				piece: board[cols.indexOf(col)][i],
 			};
+
+			// console.log('current arg: ',current);
+
 			let res = moveIsValid(
 				board,
 				current,
 				target,
-				[] // moveIsValid tracks a [] 'graveYard', which isn't needed in ai.
+				graveYard,
 			);
 			if (res.type === 'MOVE') {
 				let newCards = rotateCards(current, gameCards).value;
