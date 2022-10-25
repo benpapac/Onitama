@@ -107,6 +107,7 @@ export const getValidMoves = (board, current, cols, gameCards, graveYard) => {
 				let newCards = rotateCards(current, gameCards).value;
 				let winner = false;
 				if (target.piece && target.piece[1] === 'K') winner = current.player;
+				if(target.square === 'A2' && current.piece[1] === 'K') winner = current.player;
 				moves.push({
 					board: res.value.board,
 					winner: winner,

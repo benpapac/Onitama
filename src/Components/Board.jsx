@@ -45,7 +45,7 @@ const Board = () => {
                 },
             })
 
-            const gameOver = gameIsOver(gameState.board, miniMaxRes.bestMove.graveYard);
+            const gameOver = gameIsOver(miniMaxRes.bestMove.board, miniMaxRes.bestMove.graveYard);
 
             if(gameOver.type === 'INVALID'){
                 dispatch(rotateCards({...gameState.current, card: usedCard}, gameState.cards));
