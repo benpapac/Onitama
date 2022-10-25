@@ -96,7 +96,6 @@ export const getValidMoves = (board, current, cols, gameCards, graveYard) => {
 				piece: board[cols.indexOf(col)][i],
 			};
 
-			// console.log('current arg: ',current);
 
 			let res = moveIsValid(
 				board,
@@ -107,13 +106,12 @@ export const getValidMoves = (board, current, cols, gameCards, graveYard) => {
 			if (res.type === 'MOVE') {
 				let newCards = rotateCards(current, gameCards).value;
 				let winner = false;
-				if (target.piece) graveYard.push(target.piece);
 				if (target.piece && target.piece[1] === 'K') winner = current.player;
 				moves.push({
 					board: res.value.board,
 					winner: winner,
 					cards: newCards,
-					graveYard: graveYard,
+					graveYard: res.value.graveYard,
 					cols: cols,
 				});
 			}

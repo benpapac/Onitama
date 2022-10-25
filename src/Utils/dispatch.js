@@ -93,9 +93,10 @@ const makeCoordinates = (currentSquare, targetSquare) => {
 	};
 };
 
-export const moveIsValid = (oldBoard, current, target, graveYard) => {
+export const moveIsValid = (oldBoard, current, target, oldGraveYard) => {
 	let coordinates = makeCoordinates(current.square, target.square);
 	let board = deepCopy(oldBoard);
+	let graveYard = oldGraveYard.length ? deepCopy(oldGraveYard) : [];
 
 	let move = cards[current.card].move(
 		current.player,
@@ -107,7 +108,7 @@ export const moveIsValid = (oldBoard, current, target, graveYard) => {
 	// this prevents the move validator from unwittingly changing the game board.
 	if (!target.glow && move) {
 		board[coordinates.targetCol][coordinates.targetRow] = current.piece;
-		board[coordinates.currentCol][coordinates.currentRow] = null;
+		board[coordinates.currentCol][coordinates.currentRow] = '';
 
 		if (target.piece) graveYard.push(target.piece);
 
@@ -149,17 +150,22 @@ export const rotateCards = (current, gameCards) => {
 };
 
 export const gameIsOver = (board, graveYard) => {
-	if (board[0][2] === 'BK' || (graveYard.length && graveYard.includes('PK')))
+	console.log(
+		'who wins? ', 
+			board[0][2],
+			board[4][2],
+			graveYard
+	);
+
+	if (board[0][2] === 'bK' || (graveYard.length && graveYard.includes('pK')))
 		return {
 			type: 'END_GAME',
 			winner: 'Blue is the winner!',
-			gameOver: true,
 		};
-	else if (board[4][2] === 'PK' || graveYard.includes('BK'))
+	else if (board[4][2] === 'pK' || graveYard.includes('bK'))
 		return {
 			type: 'END_GAME',
 			winner: 'Pink is the winner!',
-			gameOver: true,
 		};
 	else
 		return {

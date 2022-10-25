@@ -34,10 +34,9 @@ const Board = () => {
                 graveYard: miniMaxRes.bestMove.graveYard,
                 },
             })
-            // console.log('dispatch result: ', gameState);
-            // console.log('gameState.cards: ', gameState.cards);
+            console.log(gameState.graveYard);
 
-            const gameOver = gameIsOver(gameState.board, gameState.graveYard);
+            const gameOver = gameIsOver(gameState.board, miniMaxRes.bestMove.graveYard);
 
 
             if(gameOver.type === 'INVALID'){
@@ -55,7 +54,7 @@ const Board = () => {
                 if(gameState.newCurrent){
                     gameState.cols.forEach(el => {
                         for(let i=0; i<gameState.board[0].length; i++){
-                            let res = moveIsValid(gameState.board, gameState.current, {square: `${el}${i}`, piece: gameState.board[gameState.cols.indexOf(el)][i], glow: true});
+                            let res = moveIsValid(gameState.board, gameState.current, {square: `${el}${i}`, piece: gameState.board[gameState.cols.indexOf(el)][i], glow: true}, gameState.graveYard);
                             if(res.type === 'MOVE') {
                                 squares.push(`${el}${i}`);
                             }
