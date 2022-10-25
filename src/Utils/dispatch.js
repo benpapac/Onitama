@@ -14,9 +14,6 @@ export const chooseNewCard = (card, current) => {
 };
 
 export const chooseNewSquare = (pawn, location, current, target) => {
-	//logic to determing if we're picking new current or new target.
-
-	//logic to grab square data.
 	let piece = '',
 		square = '',
 		type = '',
@@ -150,13 +147,6 @@ export const rotateCards = (current, gameCards) => {
 };
 
 export const gameIsOver = (board, graveYard) => {
-	console.log(
-		'who wins? ', 
-			board[0][2],
-			board[4][2],
-			graveYard
-	);
-
 	if (board[0][2] === 'bK' || (graveYard.length && graveYard.includes('pK')))
 		return {
 			type: 'END_GAME',

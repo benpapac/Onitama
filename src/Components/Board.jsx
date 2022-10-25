@@ -12,44 +12,10 @@ import { miniMax } from '../Utils/AI/miniMax';
 
 const Board = () => {
     const { gameState, dispatch} = useContext(Context);
-    const squareBackground = { uri: 'https://i.imgur.com/fmofDFG.jpg'}
-    
-    const deck = Object.keys(cards);
-    
-    useEffect(() => {
+    const squareBackground = 'https://i.imgur.com/fmofDFG.jpg';
 
-        if(gameState.current.player === 'blue') {
-            let miniMaxRes = miniMax(gameState, gameState.current.player, 2);
-
-            // the ai uses rotateCards to simulate card rotation as it searches each depth. 
-            //The card left in the gameCards array is the card that was used to produce this move.
-            let usedCard = miniMaxRes.bestMove.cards.gameCards[0];
-            // dispatch(chooseNewCard(usedCard, gameState.current));
-
-            dispatch({
-                type: 'MOVE', 
-                value: {
-                board: miniMaxRes.bestMove.board,
-                graveYard: miniMaxRes.bestMove.graveYard,
-                },
-            })
-            console.log(gameState.graveYard);
-
-            const gameOver = gameIsOver(gameState.board, miniMaxRes.bestMove.graveYard);
-
-
-            if(gameOver.type === 'INVALID'){
-                // console.log('rotation of cards', rotateCards(gameState.current, gameState.cards));
-                dispatch(rotateCards({...gameState.current, card: usedCard}, gameState.cards));
-                dispatch(newTurn(gameState.current.player));
-            } else {
-                        dispatch(gameOver);
-                    }
-        }
-        else{
-
-            if(gameState.current.piece && gameState.current.card){
-                let squares = [];
+    const showPossibleMoves = (gameState) => {
+          let squares = [];
                 if(gameState.newCurrent){
                     gameState.cols.forEach(el => {
                         for(let i=0; i<gameState.board[0].length; i++){
@@ -61,26 +27,61 @@ const Board = () => {
                     });
                     dispatch(glowSquares(gameState.cols, squares));
                 }
-                
-            }
-            
-            if(gameState.target.square && !gameState.newTurn ) {
-                let move = moveIsValid(gameState.board, gameState.current, gameState.target, gameState.graveYard);
-                dispatch(move);
-                if(move.type === 'MOVE') {
-                    const gameOver = gameIsOver(gameState.board, gameState.graveYard);
-                    if(gameOver.type === 'INVALID'){
-                        dispatch(rotateCards(gameState.current, gameState.cards));
-                        dispatch(newTurn(gameState.current.player));
-                    }
-                    
-                    else {
+        return squares;
+    }
+
+    const takeAiTurn = () => {
+        let miniMaxRes = miniMax(gameState, gameState.current.player, 2);
+
+            // the ai uses rotateCards to simulate card rotation as it searches each depth. 
+            //The card left in the gameCards array is the card that was used to produce this move.
+            let usedCard = miniMaxRes.bestMove.cards.gameCards[0];
+
+            dispatch({
+                type: 'MOVE', 
+                value: {
+                board: miniMaxRes.bestMove.board,
+                graveYard: miniMaxRes.bestMove.graveYard,
+                },
+            })
+
+            const gameOver = gameIsOver(gameState.board, miniMaxRes.bestMove.graveYard);
+
+            if(gameOver.type === 'INVALID'){
+                dispatch(rotateCards({...gameState.current, card: usedCard}, gameState.cards));
+                dispatch(newTurn(gameState.current.player));
+            } else {
                         dispatch(gameOver);
                     }
+        return miniMaxRes;
+    }
+
+    const takePlayerTurn = () => {
+         if(gameState.current.piece && gameState.current.card) showPossibleMoves(gameState);
+            
+        if(gameState.target.square && !gameState.newTurn ) {
+            let move = moveIsValid(gameState.board, gameState.current, gameState.target, gameState.graveYard);
+            dispatch(move);
+
+            if(move.type === 'MOVE') {
+                const gameOver = gameIsOver(gameState.board, gameState.graveYard);
+                if(gameOver.type === 'INVALID'){
+                    dispatch(rotateCards(gameState.current, gameState.cards));
+                    dispatch(newTurn(gameState.current.player));
+                }
+                
+                else {
+                    dispatch(gameOver);
                 }
             }
-        };
-        }, [ gameState])
+        }
+    }
+    
+    useEffect(() => {
+        if(gameState.current.player === 'blue') takeAiTurn();
+        else takePlayerTurn();
+
+        }, [ gameState] );
         return (
             <View style={styles.table}>
                 <PlayerCards player={gameState.cards.pink} color='pink' />

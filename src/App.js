@@ -37,11 +37,9 @@ export default function App() {
 
 	const startGame = (e) => {
 		e.preventDefault();
-		console.log('new game...');
 		dispatch(newGame());
 	};
 
-	useEffect(() => {}, []);
 
 	return (
 		<Context.Provider

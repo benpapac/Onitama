@@ -72,7 +72,6 @@ export const miniMax = (gameState, currentPlayer, depth) => {
 			if (maxEval === evaluation) {
 				bestMove = copyMoveRes(move);
 			}
-			// console.log(`returning depth ${depth} from pink...`, bestMove.board, maxEval);
 		});
 		return {
 			bestMove: bestMove,
@@ -97,9 +96,7 @@ export const miniMax = (gameState, currentPlayer, depth) => {
 			if (minEval === evaluation) {
 				bestMove = copyMoveRes(move);
 			}
-			// console.log(`returning depth ${depth} from blue...`, bestMove, minEval);
 		});
-		console.log('bestMove: ', bestMove);
 		return {
 			bestMove: bestMove,
 			evaluation: minEval,
