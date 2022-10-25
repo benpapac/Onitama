@@ -99,6 +99,7 @@ export const miniMax = (gameState, currentPlayer, depth) => {
 			}
 			// console.log(`returning depth ${depth} from blue...`, bestMove, minEval);
 		});
+		console.log('bestMove: ', bestMove);
 		return {
 			bestMove: bestMove,
 			evaluation: minEval,

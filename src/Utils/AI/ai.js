@@ -43,7 +43,6 @@ export const getAllMoves = (
 	const pieceData = getAllPieces(board, currentPlayer, cols);
 	const pieces = Object.keys(pieceData);
 	const playerCards = gameCards[currentPlayer];
-	console.log('gameCards: ', gameCards, 'player: ', currentPlayer);
 
 	for (let pieceIndex = 0; pieceIndex < pieces.length; pieceIndex++) {
 		for (let cardIndex = 0; cardIndex < playerCards.length; cardIndex++) {

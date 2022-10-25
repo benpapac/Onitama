@@ -44,7 +44,9 @@ const Board = () => {
                 // console.log('rotation of cards', rotateCards(gameState.current, gameState.cards));
                 dispatch(rotateCards({...gameState.current, card: usedCard}, gameState.cards));
                 dispatch(newTurn(gameState.current.player));
-            }
+            } else {
+                        dispatch(gameOver);
+                    }
         }
         else{
 

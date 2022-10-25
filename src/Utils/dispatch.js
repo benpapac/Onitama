@@ -1,3 +1,4 @@
+import { deepCopy } from './AI/deepCopy';
 import { cards } from './cards';
 
 export const getRandomNumber = (length) => Math.floor(Math.random() * length);
@@ -92,8 +93,9 @@ const makeCoordinates = (currentSquare, targetSquare) => {
 	};
 };
 
-export const moveIsValid = (board, current, target, graveYard) => {
+export const moveIsValid = (oldBoard, current, target, graveYard) => {
 	let coordinates = makeCoordinates(current.square, target.square);
+	let board = deepCopy(oldBoard);
 
 	let move = cards[current.card].move(
 		current.player,
@@ -124,8 +126,6 @@ export const moveIsValid = (board, current, target, graveYard) => {
 };
 
 export const rotateCards = (current, gameCards) => {
-	// console.log('current: ', current);
-	// console.log('gameCards: ', gameCards);
 	let currentPlayer = current.player.toLowerCase();
 
 	let rotatedCardIndex = gameCards[currentPlayer].indexOf(current.card);
