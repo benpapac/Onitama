@@ -26,7 +26,12 @@ export const copyMoveRes = (move) => {
 				blue: deepCopy(move[key].blue),
 				gameCards: deepCopy(move[key].gameCards),
 			};
-		} else copy[key] = deepCopy(move[key]);
+		} else if (key === 'current' || key === 'target') copy[key] = {
+			square: move[key].square,
+			piece: move[key].piece,
+			player: move[key].player,
+		}
+		else copy[key] = deepCopy(move[key]);
 	});
 	return copy;
 };
