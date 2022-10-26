@@ -71,21 +71,24 @@ export const getAllMoves = (
 export const getKingThreat = (moves, opposingKingSquare) => {
 	let threats = 0;
 	moves.forEach((move) => {
-		if (move.square === opposingKingSquare) threats++;
+		if (move.target.square === opposingKingSquare) threats++;
 	});
 	return threats;
 };
 
-export const getOpposingKingSquare = (color, board, cols) => {
-	let oppColor = color === 'Pink' ? 'B' : 'P';
-
+export const getOpposingKingSquare = (oppColor, board, cols) => {
 	for (let i = 0; i < board.length; i++) {
 		for (let j = 0; j < board[0].length; j++) {
-			if (board[i][j] === `${color}K`) return `${cols[i]}${j}`;
+			if (board[i][j] === `${oppColor}K`) return `${cols[i]}${j}`;
 		}
 	}
 	return ``;
 };
+
+export const getTempleThreat = (oppTemple, moves) => {
+	//practicing a functional programming approach...
+	return moves.filter(move => move.target.square === oppTemple).length;
+}
 
 export const getValidMoves = (board, current, cols, gameCards, graveYard) => {
 	let moves = [];
@@ -109,11 +112,13 @@ export const getValidMoves = (board, current, cols, gameCards, graveYard) => {
 				if (target.piece && target.piece[1] === 'K') winner = current.player;
 				if(target.square === 'A2' && current.piece[1] === 'K') winner = current.player;
 				moves.push({
+					current: current,
 					board: res.value.board,
 					winner: winner,
 					cards: newCards,
 					graveYard: res.value.graveYard,
 					cols: cols,
+					target: target,
 				});
 			}
 		}
@@ -132,13 +137,18 @@ export const getEval = (board, currentPlayer, cols, gameCards, graveYard) => {
 
 	//create logic for squares here.
 	// number of possible captures, and king attacks.
-	let opposingKing = getOpposingKingSquare(currentPlayer, board, cols);
+	const oppColor = currentPlayer === 'pink' ? 'blue' : 'pink';
+	let opposingKing = getOpposingKingSquare(oppColor, board, cols);
 	let kingThreat = getKingThreat(allMoves, opposingKing);
+	
+	const oppTemple = currentPlayer === 'pink' ? 'E2' : 'A2';
+	const templeThreat = getTempleThreat(oppTemple, allMoves);
 
 	return {
 		pawns: pawns,
 		king: king,
 		kingThreat: kingThreat,
+		templeThreat: templeThreat,
 		mobilityValue: mobilityValue,
 	};
 };

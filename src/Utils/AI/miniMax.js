@@ -8,7 +8,8 @@ export const evaluate = (board, cols, gameCards, graveYard) => {
 		pinkEval.pawns -
 		blueEval.pawns +
 		200 * (pinkEval.king - blueEval.king) +
-		(pinkEval.kingThreat - blueEval.kingThreat) +
+		2 * (pinkEval.kingThreat - blueEval.kingThreat) +
+		10 * (pinkEval.templeThreat - blueEval.templeThreat) +
 		(pinkEval.mobilityValue - blueEval.mobilityValue);
 	return { evaluation: value };
 };
