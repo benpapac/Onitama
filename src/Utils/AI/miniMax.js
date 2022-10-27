@@ -1,9 +1,9 @@
 import { getEval, getAllMoves } from './ai';
 import { deepCopy } from './deepCopy';
 
-export const evaluate = (board, cols, gameCards, graveYard) => {
-	let pinkEval = getEval(board, 'pink', cols, gameCards, graveYard);
-	let blueEval = getEval(board, 'blue', cols, gameCards, graveYard);
+export const evaluate = (gameCopy) => {
+	let pinkEval = getEval(gameCopy, 'pink');
+	let blueEval = getEval(gameCopy, 'blue');
 	let value =
 		pinkEval.pawns -
 		blueEval.pawns +
@@ -26,14 +26,40 @@ export const copyMoveRes = (move) => {
 				blue: deepCopy(move[key].blue),
 				gameCards: deepCopy(move[key].gameCards),
 			};
-		} else if (key === 'current' || key === 'target') copy[key] = {
-			square: move[key].square,
-			piece: move[key].piece,
-			player: move[key].player,
-		}
+		} else if (key === 'current' || key === 'target')
+			copy[key] = {
+				square: move[key].square,
+				piece: move[key].piece,
+				player: move[key].player,
+			};
 		else copy[key] = deepCopy(move[key]);
 	});
 	return copy;
+};
+
+const findBestMove = (gameCopy, currentPlayer, depth) => {
+	let bestMove = {};
+	let op = 'max';
+	let val = -Infinity;
+	let oppPlayer = 'blue';
+	if (currentPlayer === 'blue') {
+		(op = 'min'), (val = Infinity), (oppPlayer = 'pink');
+	}
+
+	let moves = getAllMoves(gameCopy, currentPlayer);
+
+	moves.forEach((move) => {
+		gameCopy = copyMoveRes(move);
+
+		let evaluation = miniMax(gameCopy, oppPlayer, depth - 1).evaluation;
+		val = Math[op](val, evaluation);
+
+		if (val === evaluation) bestMove = copyMoveRes(move);
+	});
+	return {
+		bestMove: bestMove,
+		evaluation: val,
+	};
 };
 
 export const miniMax = (gameState, currentPlayer, depth) => {
@@ -48,64 +74,12 @@ export const miniMax = (gameState, currentPlayer, depth) => {
 		graveYard: deepCopy(gameState.graveYard),
 	};
 
-	let bestMove = {};
-
 	if (depth === 0 || gameState.winner) {
-		let evaluation = evaluate(
-			gameCopy.board,
-			gameCopy.cols,
-			gameCopy.cards,
-			gameCopy.graveYard
-		).evaluation;
+		let evaluation = evaluate(gameCopy).evaluation;
 		return { evaluation: evaluation };
 	}
 
-	if (currentPlayer === 'pink') {
-		let maxEval = -Infinity;
-		let moves = getAllMoves(
-			gameCopy.board,
-			currentPlayer,
-			gameCopy.cols,
-			gameCopy.cards,
-			gameCopy.graveYard
-		);
-
-		moves.forEach((move) => {
-			gameCopy = copyMoveRes(move);
-
-			let evaluation = miniMax(gameCopy, 'blue', depth - 1).evaluation;
-			maxEval = Math.max(maxEval, evaluation);
-			if (maxEval === evaluation) {
-				bestMove = copyMoveRes(move);
-			}
-		});
-		return {
-			bestMove: bestMove,
-			evaluation: maxEval,
-		};
-	} else {
-		let minEval = Infinity;
-		let moves = getAllMoves(
-			gameCopy.board,
-			currentPlayer,
-			gameCopy.cols,
-			gameCopy.cards,
-			gameCopy.graveYard
-		);
-
-		moves.forEach((move) => {
-			gameCopy = copyMoveRes(move);
-
-			let evaluation = miniMax(gameCopy, 'pink', depth - 1).evaluation;
-
-			minEval = Math.min(minEval, evaluation);
-			if (minEval === evaluation) {
-				bestMove = copyMoveRes(move);
-			}
-		});
-		return {
-			bestMove: bestMove,
-			evaluation: minEval,
-		};
-	}
+	if (currentPlayer === 'pink')
+		return findBestMove(gameCopy, currentPlayer, depth);
+	else return findBestMove(gameCopy, currentPlayer, depth);
 };

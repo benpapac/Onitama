@@ -32,17 +32,12 @@ const makeCurrentObject = (
 	};
 };
 
-export const getAllMoves = (
-	board,
-	currentPlayer,
-	cols,
-	gameCards,
-	graveYard
-) => {
+export const getAllMoves = (gameCopy, currentPlayer) => {
+	console.log('gameCopy: ', gameCopy);
 	let moves = [];
-	const pieceData = getAllPieces(board, currentPlayer, cols);
+	const pieceData = getAllPieces(gameCopy.board, currentPlayer, gameCopy.cols);
 	const pieces = Object.keys(pieceData);
-	const playerCards = gameCards[currentPlayer];
+	const playerCards = gameCopy.cards[currentPlayer];
 
 	for (let pieceIndex = 0; pieceIndex < pieces.length; pieceIndex++) {
 		for (let cardIndex = 0; cardIndex < playerCards.length; cardIndex++) {
@@ -53,13 +48,13 @@ export const getAllMoves = (
 				pieceIndex,
 				cardIndex
 			);
-			let boardCopy = deepCopy(board);
+			let boardCopy = deepCopy(gameCopy.board);
 			let res = getValidMoves(
 				boardCopy,
 				currentData,
-				cols,
-				gameCards,
-				graveYard
+				gameCopy.cols,
+				gameCopy.cards,
+				gameCopy.graveYard
 			);
 			moves.push(...res);
 		}
@@ -87,8 +82,8 @@ export const getOpposingKingSquare = (oppColor, board, cols) => {
 
 export const getTempleThreat = (oppTemple, moves) => {
 	//practicing a functional programming approach...
-	return moves.filter(move => move.target.square === oppTemple).length;
-}
+	return moves.filter((move) => move.target.square === oppTemple).length;
+};
 
 export const getValidMoves = (board, current, cols, gameCards, graveYard) => {
 	let moves = [];
@@ -99,18 +94,14 @@ export const getValidMoves = (board, current, cols, gameCards, graveYard) => {
 				piece: board[cols.indexOf(col)][i],
 			};
 
-
-			let res = moveIsValid(
-				board,
-				current,
-				target,
-				graveYard,
-			);
+			let res = moveIsValid(board, current, target, graveYard);
 			if (res.type === 'MOVE') {
+				console.log(target.square);
 				let newCards = rotateCards(current, gameCards).value;
 				let winner = false;
 				if (target.piece && target.piece[1] === 'K') winner = current.player;
-				if(target.square === 'A2' && current.piece[1] === 'K') winner = current.player;
+				if (target.square === 'A2' && current.piece[1] === 'K')
+					winner = current.player;
 				moves.push({
 					current: current,
 					board: res.value.board,
@@ -126,21 +117,21 @@ export const getValidMoves = (board, current, cols, gameCards, graveYard) => {
 	return moves;
 };
 
-export const getEval = (board, currentPlayer, cols, gameCards, graveYard) => {
-	let pieceData = getAllPieces(board, currentPlayer, cols);
+export const getEval = (gameCopy, currentPlayer) => {
+	let pieceData = getAllPieces(gameCopy.board, currentPlayer, gameCopy.cols);
 	let pieces = Object.keys(pieceData);
 	let pawns = pieces.filter((piece) => piece[1] !== 'K').length;
 	let king = pieces.length - pawns;
 
-	let allMoves = getAllMoves(board, currentPlayer, cols, gameCards, graveYard);
+	let allMoves = getAllMoves(gameCopy, currentPlayer);
 	let mobilityValue = allMoves.length;
 
 	//create logic for squares here.
 	// number of possible captures, and king attacks.
 	const oppColor = currentPlayer === 'pink' ? 'blue' : 'pink';
-	let opposingKing = getOpposingKingSquare(oppColor, board, cols);
+	let opposingKing = getOpposingKingSquare(oppColor, gameCopy.board, gameCopy.cols);
 	let kingThreat = getKingThreat(allMoves, opposingKing);
-	
+
 	const oppTemple = currentPlayer === 'pink' ? 'E2' : 'A2';
 	const templeThreat = getTempleThreat(oppTemple, allMoves);
 
