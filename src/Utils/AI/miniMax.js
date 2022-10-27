@@ -37,6 +37,17 @@ export const copyMoveRes = (move) => {
 	return copy;
 };
 
+
+const findWinningMove = (move) => {
+	if(move.winner === 'blue') return {
+		bestMove: move,
+		evaluation: 1000
+	}
+
+	else return false;
+}
+
+
 const findBestMove = (gameCopy, currentPlayer, depth) => {
 	let bestMove = {};
 	let op = 'max';
@@ -50,6 +61,13 @@ const findBestMove = (gameCopy, currentPlayer, depth) => {
 
 	moves.forEach((move) => {
 		gameCopy = copyMoveRes(move);
+
+		let winningMove = findWinningMove(move);
+		if(winningMove !== false) {
+			bestMove = winningMove.bestMove;
+			val = winningMove.evaluation;
+		} ;
+
 
 		let evaluation = miniMax(gameCopy, oppPlayer, depth - 1).evaluation;
 		val = Math[op](val, evaluation);
