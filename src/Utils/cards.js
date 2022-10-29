@@ -2,14 +2,6 @@ import * as pinkCoreCards from './pinkMovement';
 import * as blueCoreCards from './blueMovement.js';
 
 export const deck = ['boar', 'eel', 'mantis', 'ox', 'horse', 'cobra'];
-export const images = {
-	boar: 'https://i.imgur.com/D0vyLD5.png',
-	eel: 'https://i.imgur.com/I1teSub.png',
-	mantis: 'https://i.imgur.com/HlbdsEj.png',
-	ox: 'https://i.imgur.com/ZWGhxru.png',
-	cobra: 'https://i.imgur.com/BvcAIxE.png',
-	horse: 'https://i.imgur.com/AFi6ZrC.png',
-};
 
 export const cards = {
 	boar: {

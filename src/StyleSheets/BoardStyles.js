@@ -8,8 +8,8 @@ export const BoardStyles = StyleSheet.create({
 		alignContent: 'space-evenly',
 	},
 	board: {
-		width: '80vh',
-		height: '80vh',
+		width: '60vh',
+		height: '60vh',
 
 		flexWrap: 'wrap',
 		justifyContent: 'center',
@@ -19,21 +19,21 @@ export const BoardStyles = StyleSheet.create({
 	},
 
 	background: {
-		width: '16vh',
-		height: '16vh',
+		width: '12vh',
+		height: '12vh',
 		resizeMode: 'cover',
 	},
 	square: {
-		width: '16vh',
-		height: '16vh',
+		width: '12vh',
+		height: '12vh',
 		border: 'solid 1px black',
 		// backgroundColor: 'brown',
 		backgroundImage: 'https://imgur.com/wESlb39',
 	},
 
 	glowSquare: {
-		width: '16vh',
-		height: '16vh',
+		width: '12vh',
+		height: '12vh',
 		border: 'solid 1px black',
 
 		backgroundColor: 'rgba(205,205,205,0.7)',

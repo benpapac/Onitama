@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Image, Text, Pressable, ImageBackground } from 'react-native';
 import { Context } from '../Utils/context';
-import { images } from '../Utils/cards';
 import {CardPanelStyles} from '../StyleSheets/CardPanelStyles.js';
 import { chooseNewCard } from '../Utils/dispatch';
 import { cards } from '../Utils/cards';
 
 const playerCards = ({player, color}) => {
-    const { gameState, dispatch} = useContext(Context);
+    const { gameState, dispatch, images} = useContext(Context);
     const current = gameState.current;
     const [chosenCard, setChosenCard] = useState('');
     const [prevCard, setPrevCard] = useState('');

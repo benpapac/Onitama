@@ -9,6 +9,7 @@ import Pawn from './Pawn'
 
 import { BoardStyles, BoardStyles as styles} from '../StyleSheets/BoardStyles';
 import { miniMax } from '../Utils/AI/miniMax';
+import DrawPile from './DrawPile';
 
 const Board = () => {
     const { gameState, dispatch} = useContext(Context);

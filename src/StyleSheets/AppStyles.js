@@ -19,6 +19,9 @@ export const styles = StyleSheet.create({
 	},
 	header: {
 		marginVertical: '5vh',
+		width: '100vw',
+		height: '20vh',
+		alignItems: 'center',
 		// padding: 20,
 	},
 	title: {

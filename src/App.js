@@ -5,6 +5,7 @@ import { Text, View, Button, ImageBackground } from 'react-native';
 //components
 import WinScreen from './Components/WinScreen';
 import Board from './Components/Board';
+import DrawPile from './Components/DrawPile';
 
 //styles
 import { styles } from './StyleSheets/AppStyles.js';
@@ -33,6 +34,12 @@ export default function App() {
 		bK: 'https://i.imgur.com/Bhxkard.png',
 		p: 'https://i.imgur.com/TzZmzxf.png',
 		b: 'https://i.imgur.com/6OUJdaN.png',
+		boar: 'https://i.imgur.com/D0vyLD5.png',
+		eel: 'https://i.imgur.com/I1teSub.png',
+		mantis: 'https://i.imgur.com/HlbdsEj.png',
+		ox: 'https://i.imgur.com/ZWGhxru.png',
+		cobra: 'https://i.imgur.com/BvcAIxE.png',
+		horse: 'https://i.imgur.com/AFi6ZrC.png',
 	};
 
 	const startGame = (e) => {
@@ -51,20 +58,27 @@ export default function App() {
 			<ImageBackground source={templeBackground} style={styles.background}>
 				<View style={styles.container}>
 					{gameState.gameOver ? (
-						<View style={styles.header}>
-							<Text style={styles.title}>Welcome to Onitama!</Text>
-						</View>
-					) : null}
+						<>
+							<View style={styles.header}>
+								<Text style={styles.title}>Welcome to Onitama!</Text>
+							</View>
 
-					{gameState.gameOver ? <WinScreen /> : <Board />}
+							<WinScreen />
+							<Button
+								style={styles.button}
+								onPress={startGame}
+								title="Let's play."
+							/>
+						</>
+					) : (
+						<>
+							<View style={styles.header}>
+								<DrawPile />
+							</View>
 
-					{gameState.gameOver ? (
-						<Button
-							style={styles.button}
-							onPress={startGame}
-							title="Let's play."
-						/>
-					) : null}
+							<Board />
+						</>
+					)}
 				</View>
 			</ImageBackground>
 

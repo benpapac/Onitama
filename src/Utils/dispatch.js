@@ -1,5 +1,6 @@
 import { deepCopy } from './AI/deepCopy';
 import { cards } from './cards';
+import { newGameState } from './gameState';
 
 export const getRandomNumber = (length) => Math.floor(Math.random() * length);
 
@@ -46,6 +47,7 @@ export const chooseNewSquare = (pawn, location, current, target) => {
 };
 
 export const createHand = (deck) => {
+	//this function currently produces a side effect on the argument, deck.
 	let hand = [];
 	for (let i = 0; i < 2; i++) {
 		let randomInt = getRandomNumber(deck.length - 1);
@@ -56,13 +58,7 @@ export const createHand = (deck) => {
 };
 
 export const glowSquares = (cols, glowSquares) => {
-	let board = [
-		['square', 'square', 'square', 'square', 'square'],
-		['square', 'square', 'square', 'square', 'square'],
-		['square', 'square', 'square', 'square', 'square'],
-		['square', 'square', 'square', 'square', 'square'],
-		['square', 'square', 'square', 'square', 'square'],
-	];
+	let board = deepCopy(newGameState.glowBoard);
 
 	glowSquares.forEach((el) => {
 		board[cols.indexOf(el[0])][parseInt(el[1])] = 'glowSquare';
@@ -123,23 +119,24 @@ export const moveIsValid = (oldBoard, current, target, oldGraveYard) => {
 	} else return { type: 'INVALID' };
 };
 
-export const rotateCards = (current, gameCards) => {
-	let currentPlayer = current.player.toLowerCase();
+export const rotateCards = (current, cards) => {
+	let newCards = deepCopy(cards.gameCards);
 
-	let rotatedCardIndex = gameCards[currentPlayer].indexOf(current.card);
-	let newCards = gameCards.gameCards.map((el) => el);
+	const currentPlayer = current.player;
+	let playerCards = deepCopy(cards[currentPlayer]);
+	let playedCardIndex = playerCards.indexOf(current.card);
 
-	let playerCards = gameCards[currentPlayer].map((el) => el);
-	const playedCard = playerCards[rotatedCardIndex];
+	const playedCard = current.card;
+
 	// put the played card at the bottom of the deck.
 	newCards.splice(0, 0, playedCard);
-	//out with the old, THEN in with the new, for the player cards.
-	playerCards.splice(playerCards.indexOf(playedCard), 1, newCards.pop());
+	//out with the old, and in with the new, for the player cards.
+	playerCards.splice(playedCardIndex, 1, newCards.pop());
 
 	return {
 		type: 'UPDATE_CARDS',
 		value: {
-			...gameCards,
+			...cards,
 			[currentPlayer]: playerCards,
 			gameCards: newCards,
 		},
@@ -174,6 +171,8 @@ export const newGame = () => {
 	let pink = createHand(newGameDeck);
 	let blue = createHand(newGameDeck);
 
+	console.log(newGameDeck);
+
 	return {
 		type: 'NEW_GAME',
 		value: {
@@ -184,7 +183,6 @@ export const newGame = () => {
 	};
 };
 
-//updateCurrent, or something...
 export const newTurn = (player) => {
 	return {
 		type: 'NEW_TURN',
@@ -195,16 +193,3 @@ export const newTurn = (player) => {
 		},
 	};
 };
-
-// export const switchCards = () => {
-// 	if (board.current.player === 'pink') {
-// 		updateGameState({type: 'UPDATE_CARDS', value: {
-//             pink:
-//             blue:
-//             gameCards:
-//         }})
-// 	} else {
-// 		currentCards = player2.cards;
-// 		opponentCards = player1.cards;
-// 	}
-// }
