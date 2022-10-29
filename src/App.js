@@ -40,7 +40,6 @@ export default function App() {
 		dispatch(newGame());
 	};
 
-
 	return (
 		<Context.Provider
 			value={{
@@ -68,6 +67,8 @@ export default function App() {
 					) : null}
 				</View>
 			</ImageBackground>
+
+			{/* <Route to={} */}
 		</Context.Provider>
 	);
 }

@@ -4,6 +4,7 @@ import { Context } from '../Utils/context';
 import { images } from '../Utils/cards';
 import {CardPanelStyles} from '../StyleSheets/CardPanelStyles.js';
 import { chooseNewCard } from '../Utils/dispatch';
+import { cards } from '../Utils/cards';
 
 const playerCards = ({player, color}) => {
     const { gameState, dispatch} = useContext(Context);
@@ -31,27 +32,32 @@ const playerCards = ({player, color}) => {
     }, [chosenCard, gameState]);
 
     return (
+        <View id='panelContainer' style={CardPanelStyles.container}>
+            <Text style={CardPanelStyles.title}>{color}</Text>
         <ImageBackground style={CardPanelStyles.background} source={panelBackground}>
 
         <View style={CardPanelStyles.panel}>
-            <Text style={CardPanelStyles.title}>{color}</Text>
                  
                 <Pressable  nativeID={player[0]} style={{...CardPanelStyles.image, backgroundImage: cardOne}} onPress={() => setChosenCard(player[0])} >
                         <Image title={player[0]} 
                     style={CardPanelStyles.image} 
                     source={{uri: cardOne}}
-                  />
+                    />
+                  <Text> { cards[ gameState.cards[gameState.current.player][0] ].rule }</Text>
+
                 </Pressable>
 
                 <Pressable  nativeID={player[1]} style={CardPanelStyles.image} onPress={() => setChosenCard(player[1])} >
                     <Image title={player[1]} 
                     style={CardPanelStyles.image} 
                     source={{uri: cardTwo}}
-                />
+                    />
+                  <Text> { cards[ gameState.cards[gameState.current.player][1] ].rule }</Text>
                 </Pressable>
 
                 </View>
         </ImageBackground>
+                    </View>
     );
 };
 

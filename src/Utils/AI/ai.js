@@ -129,7 +129,11 @@ export const getEval = (gameCopy, currentPlayer) => {
 	//create logic for squares here.
 	// number of possible captures, and king attacks.
 	const oppColor = currentPlayer === 'pink' ? 'blue' : 'pink';
-	let opposingKing = getOpposingKingSquare(oppColor, gameCopy.board, gameCopy.cols);
+	let opposingKing = getOpposingKingSquare(
+		oppColor,
+		gameCopy.board,
+		gameCopy.cols
+	);
 	let kingThreat = getKingThreat(allMoves, opposingKing);
 
 	const oppTemple = currentPlayer === 'pink' ? 'E2' : 'A2';

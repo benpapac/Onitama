@@ -1,6 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 export const CardPanelStyles = StyleSheet.create({
+	container: {
+		height: '80vh',
+		width: '20vw',
+		display: 'flex',
+		flexDirection: 'column',
+	},
+
 	background: {
 		height: '100%',
 	},
@@ -11,11 +18,10 @@ export const CardPanelStyles = StyleSheet.create({
 		padding: 10,
 	},
 	image: {
-		flex: 2,
-		height: '100px',
-		width: '200px',
+		flex: 1,
 	},
 	title: {
 		flex: 1,
+		color: 'antiquewhite',
 	},
 });

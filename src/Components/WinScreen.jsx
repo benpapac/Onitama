@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { View, Text } from 'react-native';
-import { ImageBackground } from 'react-native-web';
 import  {WinScreenStyles}  from '../StyleSheets/WinScreenStyles.js';
 import { Context } from '../Utils/context.js';
+import Board from './Board.jsx';
 
 const WinScreen = () => {
     const {gameState, templeBackground} = useContext(Context);
