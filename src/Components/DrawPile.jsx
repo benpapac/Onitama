@@ -5,25 +5,11 @@ import { CardPanelStyles } from '../StyleSheets/CardPanelStyles';
 
 const DrawPile = () => {
     const {gameState, images} = useContext(Context);
-
-    const [drawPile, setDrawPile] = useState('');
-    const [prevCard, setPrevCard] = useState('');
-    const [image, setImage] = useState('');
-
-
-    useEffect(()=>{
-        setDrawPile(gameState.cards.gameCards[0]);
-            if(drawPile !== prevCard){
-                setPrevCard(drawPile);
-                setImage(images[drawPile]);
-            }
-    },[gameState])
-
     return (
         <View style={CardPanelStyles.drawPile}>
-             <Image title={drawPile} 
+             <Image title={gameState.cards.gameCards[0]} 
                     style={CardPanelStyles.image} 
-                    source={{uri: image}}
+                    source={{uri: images[gameState.cards.gameCards[0]]}}
                     />
         </View>
     );

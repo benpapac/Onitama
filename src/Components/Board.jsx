@@ -52,7 +52,7 @@ const Board = () => {
                 dispatch(rotateCards({...gameState.current, card: usedCard}, gameState.cards));
                 dispatch(newTurn(gameState.current.player));
             } else {
-                        dispatch(gameOver);
+                    dispatch(gameOver);
                     }
         return miniMaxRes;
     }
