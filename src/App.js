@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect, useReducer } from 'react';
-import { Text, View, Button, ImageBackground } from 'react-native';
+import { Text, View, Button, ImageBackground, Pressable } from 'react-native';
 
 //components
 import WinScreen from './Components/WinScreen';
+import RuleBook from './Components/RuleBook';
 import Board from './Components/Board';
 import DrawPile from './Components/DrawPile';
 
@@ -15,19 +16,19 @@ import { newGame } from './Utils/dispatch';
 import { Context } from './Utils/context';
 import { newGameState, gameStateReducer } from './Utils/gameState';
 
-function Link(props) {
-	return (
-		<Text
-			{...props}
-			accessibilityRole='link'
-			style={StyleSheet.compose(styles.link, props.style)}
-		/>
-	);
-}
+// function Link(props) {
+// 	return (
+// 		<Text
+// 			{...props}
+// 			accessibilityRole='link'
+// 			style={StyleSheet.compose(styles.link, props.style)}
+// 		/>
+// 	);
+// }
 
 export default function App() {
 	const [gameState, dispatch] = useReducer(gameStateReducer, newGameState);
-	const [initiated, setInitiated] = useState(false);
+	const [rules, setRules] = useState(true);
 	const templeBackground = { uri: 'https://i.imgur.com/r2eosVK.jpg' };
 	const images = {
 		pK: 'https://i.imgur.com/Wj39fNp.png',
@@ -42,6 +43,8 @@ export default function App() {
 		horse: 'https://i.imgur.com/AFi6ZrC.png',
 	};
 
+
+
 	const startGame = (e) => {
 		e.preventDefault();
 		dispatch(newGame());
@@ -54,6 +57,8 @@ export default function App() {
 				dispatch: dispatch,
 				images: images,
 				templeBackground: templeBackground,
+				rules: rules,
+				setRules: setRules,
 			}}>
 			<ImageBackground source={templeBackground} style={styles.background}>
 				<View style={styles.container}>
@@ -72,11 +77,20 @@ export default function App() {
 						</>
 					) : (
 						<>
-							<View style={styles.header}>
-								<DrawPile />
-							</View>
+							{rules ? (
+								<RuleBook />
+							) : (
+								<>
+									<View style={styles.header}>
+										<Pressable onPress={() => setRules(!rules)}>
+											Rulebook
+										</Pressable>
+										<DrawPile />
+									</View>
 
-							<Board />
+									<Board />
+								</>
+							)}
 						</>
 					)}
 				</View>

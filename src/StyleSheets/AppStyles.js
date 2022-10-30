@@ -18,7 +18,10 @@ export const styles = StyleSheet.create({
 		// backgroundColor: 'darkgrey',
 	},
 	header: {
-		marginVertical: '5vh',
+		paddingVertical: '5vh',
+		marginBottom: '5vh',
+		backgroundColor: 'rgba(0,0,0,0.6)',
+
 		width: '100vw',
 		height: '20vh',
 		alignItems: 'center',

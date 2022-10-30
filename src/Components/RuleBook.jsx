@@ -1,46 +1,65 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import {View, Text, FlatList, Pressable} from 'react-native';
+import { ImageBackground } from 'react-native-web';
+import { RuleBookStyles } from '../StyleSheets/RuleBookStyles';
 import { cards } from '../Utils/cards';
 
-const RuleBook = () => {
+import { Context } from '../Utils/context';
 
-    const renderCard = (card) => {
+const RuleBook = () => {
+    const {rules, setRules, images} = useContext(Context);
+
+    const CARD_KEYS = Object.keys(cards)
+      const DATA = CARD_KEYS.reduce((accum, key) => {
+        accum.push(cards[key]);
+        return accum;
+      },[]);
+    
+    const renderCard = (item) => {
+        console.log(item);
         return (
-            <View>
-                <Text>
-                    {card.name}
+            <ImageBackground style={RuleBookStyles.cardBackground} source={images[item.name] }>
+                <View style={RuleBookStyles.card}>
+                <Text style={RuleBookStyles.title}>
+                    {item.name}
                 </Text>
-                <Text>
-                    {card.rule}
+                <Text style={RuleBookStyles.text}>
+                    {item.rule}
                 </Text>
             </View>
+            </ImageBackground>
         )
     }
 
-
     return (
-        <div>
-
-            <View>
-                <Text>
-                    Designed by Shimpei Sato and published by Arcane Wonders in 2014, Onitama gives players a wonderfully unique experience. Any pawn can be moved, as long as it follows the rules of one of your movement cards! You rotate cards with your opponent, so be careful as you move.\n\n There are two ways to win:\nWay of Stone: Capture the opponent's Sage. \n Way of Water: Move your Sage to your opponent's temple.
+            <View style={RuleBookStyles.container}>
+                <Text style ={RuleBookStyles.title}>
+                    THE RULES
                 </Text>
-                <Text>
-                    THE CARDS. 
+                <Text style={RuleBookStyles.text}>
+                    Any pawn can be moved, as long as it follows the rules of one of your movement cards. Select a card from the pink player card panel on the left by clicking it. Then, choose one of your pawns, and all legal moves will glow. To switch pawns, or switch cards, just click a new one. Once you're ready to move, select the glowing square, and the ai will automatically take its turn.
+                </Text>
+                <Text style ={RuleBookStyles.title}>
+                    HOW TO WIN
+                </Text>
+                <Text style={RuleBookStyles.text}>
+                    There are two ways to win: Way of Stone: Capture the opponent's Sage. Way of Water: Move your Sage to your opponent's temple.
+                </Text>
+                <Text style ={RuleBookStyles.title}>
+                    THE CARDS
+                </Text>
+                <Text style={RuleBookStyles.text}>
                     This simulation includes 6 movement cards. Each game, 5 cards will be drawn randomly, and two will be dealt to each player. Each turn, you'll play one of your cards and apply its rules to one of your pawns. Then, you'll discard that card and draw the card waiting by the side of the table. Your opponent will do the same. It's important to think ahead, and imagine what your opponent will do with the card you discard!
-
-                    <FlatList
-                        data={cards}
-                        renderItem={renderCard}
-                        keyExtractor={item =>item.name}
-                        />
                 </Text>
-                <Text>
 
-                </Text>
+                <View style={RuleBookStyles.cardBox}>
+                {DATA && DATA.map(card => renderCard(card) )}
+                </View>
+
+                <Pressable  style={RuleBookStyles.button} onPress={()=> setRules(!rules)}>
+                    <Text>Back to the game.</Text>
+                </Pressable>
             </View>
-            
-        </div>
     );
 };
 
