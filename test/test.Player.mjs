@@ -1,6 +1,9 @@
 import { expect } from 'chai';
 
-import { Pawn, Player } from '../classes';
+import { Pawn, Player } from '../src/Utils/classes.js';
+
+// const Pawn = require('../Utils/classes.js');
+// const Player = require('../Utils/classes.js');
 
 describe('The Player class ', () => {
 	let player = new Player('blue', ['ox', 'horse']);

@@ -2,13 +2,15 @@
   "name": "react-onitama",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
+  "type": "module",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "preinstall": "npx npm-force-resolutions",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "test": "mocha"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",

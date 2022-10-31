@@ -1,4 +1,4 @@
-import * as pinkCoreCards from './pinkMovement';
+import * as pinkCoreCards from './pinkMovement.js';
 import * as blueCoreCards from './blueMovement.js';
 
 export const deck = ['boar', 'eel', 'mantis', 'ox', 'horse', 'cobra'];
@@ -6,6 +6,18 @@ export const deck = ['boar', 'eel', 'mantis', 'ox', 'horse', 'cobra'];
 export const cards = {
 	boar: {
 		name: 'boar',
+		changes: {
+			pink: [
+				[0, -1],
+				[-1, 1],
+				[1, 1],
+			],
+			blue: [
+				[-1, -1],
+				[1, -1],
+				[0, 1],
+			],
+		},
 		move: (player, piece, coordinates) => {
 			if (piece && piece[0] === player[0]) return false;
 			if (player === 'blue') {
@@ -30,6 +42,18 @@ export const cards = {
 
 	eel: {
 		name: 'eel',
+		changes: {
+			pink: [
+				[1, 0],
+				[-1, 1],
+				[-1, -1],
+			],
+			blue: [
+				[-1, 0],
+				[1, -1],
+				[1, 1],
+			],
+		},
 		move: (player, piece, coordinates) => {
 			if (piece && piece[0] === player[0]) return false;
 			if (player === 'blue') {
@@ -53,6 +77,19 @@ export const cards = {
 
 	mantis: {
 		name: 'mantis',
+		changes: {
+			pink: [
+				[0, -1],
+				[-1, 1],
+				[1, 1],
+			],
+			blue: [
+				[0, 1],
+				[1, -1],
+				[-1, -1],
+			],
+		},
+
 		move: (player, piece, coordinates) => {
 			if (piece && piece[0] === player[0]) return false;
 
@@ -77,6 +114,19 @@ export const cards = {
 
 	ox: {
 		name: 'ox',
+		changes: {
+			pink: [
+				[0, 1],
+				[1, 0],
+				[0, -1],
+			],
+			blue: [
+				[0, -1],
+				[-1, 0],
+				[0, 1],
+			],
+		},
+
 		move: (player, piece, coordinates) => {
 			if (piece && piece[0] === player[0]) return false;
 
@@ -101,6 +151,19 @@ export const cards = {
 
 	cobra: {
 		name: 'cobra',
+		changes: {
+			pink: [
+				[0, -1],
+				[-1, 1],
+				[1, 1],
+			],
+			blue: [
+				[-1, -1],
+				[1, -1],
+				[0, 1],
+			],
+		},
+
 		move: (player, piece, coordinates) => {
 			if (piece && piece[0] === player[0]) return false;
 
@@ -125,6 +188,19 @@ export const cards = {
 
 	horse: {
 		name: 'horse',
+		changes: {
+			pink: [
+				[0, 1],
+				[-1, 0],
+				[0, -1],
+			],
+			blue: [
+				[0, -1],
+				[1, 0],
+				[0, 1],
+			],
+		},
+
 		move: (player, piece, coordinates) => {
 			if (piece && piece[0] === player[0]) return false;
 
