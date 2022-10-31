@@ -1,21 +1,22 @@
 import { expect } from 'chai';
 
 import { Pawn, Player } from '../src/Utils/classes.js';
+import { cards } from '../src/Utils/cards.js';
 
 // const Pawn = require('../Utils/classes.js');
 // const Player = require('../Utils/classes.js');
 
 describe('The Player class ', () => {
 	let player = new Player('blue', ['ox', 'horse']);
-	let pawn1 = new Pawn('blue', [0, 0]);
-	let pawn2 = new Pawn('blue', [0, 1]);
-	let king = new Pawn('blue', [0, 2], true);
-	let pawn4 = new Pawn('blue', [0, 3]);
-	let pawn5 = new Pawn('blue', [0, 4]);
+	let pawn1 = new Pawn('blue', [0, 0], 'b1');
+	let pawn2 = new Pawn('blue', [0, 1], 'b2');
+	let king = new Pawn('blue', [0, 2], 'bking');
+	let pawn4 = new Pawn('blue', [0, 3], 'b4');
+	let pawn5 = new Pawn('blue', [0, 4], 'b5');
 	const PIECES = [pawn1, pawn2, king, pawn4, pawn5];
 
-	const OPP_PAWN = new Pawn('pink', [1, 3]);
-	const OPP_KING = new Pawn('pink', [1, 2], true);
+	const OPP_PAWN = new Pawn('pink', [1, 3], 'b2');
+	const OPP_KING = new Pawn('pink', [1, 2], 'bking');
 	const CAPTURED_PIECES = [OPP_PAWN, OPP_KING];
 
 	it('1. should have the color blue', (done) => {
@@ -30,13 +31,13 @@ describe('The Player class ', () => {
 		done();
 	});
 
-	it('3. should track the movement of its pawns.', (done) => {
-		player.pawns[0].move([1, 1]);
-		expect(player.pawns[0].square).to.equal([1, 1]);
+	it('3. should track the movement of its pieces', (done) => {
+		player.pieces[0].move([1, 1]);
+		expect(player.pieces[0].square).to.deep.equal([1, 1]);
 		done();
 	});
 
-	it('4. should be able to capture opposing pieces.', (done) => {
+	it('4. should be able to capture opposing pieces', (done) => {
 		player.capture(OPP_PAWN);
 		expect(player.capturedPieces).to.be.instanceof(Array);
 		expect(player.capturedPieces[0]).to.equal(OPP_PAWN);
@@ -46,44 +47,57 @@ describe('The Player class ', () => {
 		done();
 	});
 
-	it('5. should be able to delete its pieces, when they are captured.', (done) => {
-		player.pawns[0].isCaptured();
-		player.deleteCapturedPawn();
-		expect(player.pawns[0].name).to.not.equal(PIECES[0].name);
-		expect(player.pawns).have.lengthOf(4);
+	it('5. should be able to delete its pieces, when they are captured', (done) => {
+		player.deleteCapturedPiece(player.pieces[0]);
+		expect(player.pieces[0].name).to.not.equal(PIECES[0].name);
+		expect(player.pieces).have.lengthOf(4);
 		done();
 	});
 
-	it('6. should be able to win.', (done) => {
+	it('6. should be able to win', (done) => {
 		expect(player.wins).to.equal(true);
 		done();
 	});
 });
 
 describe('The Player Hand', () => {
-	const PLAYER = new Player('pink', ['boar', 'mantis']);
+	let pinkHand = ['boar', 'mantis'];
+	const PLAYER = new Player('pink', pinkHand);
+	PLAYER.createPieces();
 
-	it('1. should exist.', (done) => {
+	it('1. should exist', (done) => {
 		expect(PLAYER.hand).to.be.instanceof(Array);
 		expect(PLAYER.hand).to.have.lengthOf(2);
-		expect(PLAYER.hand[0]).to.be.instanceof(String);
+		expect(PLAYER.hand).to.deep.equal(pinkHand);
 		done();
 	});
 
-	it('2. should be chooseable.', (done) => {
+	it('2. should be chooseable', (done) => {
 		PLAYER.chooseCard(0);
-		expect(PLAYER.chosenCard).to.equal(PLAYER.hand[0]);
+		expect(PLAYER.chosenCard).to.equal(0);
+		expect(PLAYER.hand[PLAYER.chosenCard]).to.equal('boar');
 		done();
 	});
 
-	it('3. should replace the chosen card in its hand with the drawn card.', (done) => {
-		const DISCARD = player.chosenCard;
+	it('3. should properly pass card data to its pieces.', (done) => {
+		expect(PLAYER.pieces).to.have.lengthOf(5);
+		let newThreats = [[1, 1]];
+		PLAYER.pieces[0].createThreats(
+			cards[PLAYER.hand[PLAYER.chosenCard]].changes[PLAYER.color]
+		);
+		expect(PLAYER.pieces[0].threats).to.be.instanceOf(Array);
+		expect(PLAYER.pieces[0].threats).to.deep.equal(newThreats);
+		done();
+	});
+
+	it('3. should replace the chosen card in its hand with the drawn card', (done) => {
+		const DISCARD = PLAYER.hand[PLAYER.chosenCard];
 		const DRAWN_CARD = 'cobra';
-		player.replaceCard(DRAWN_CARD);
-		expect(player.hand).to.have.lengthOf(2);
-		expect(player.hand.includes(DISCARD)).to.equal(false);
-		expect(player.hand.includes(DRAWN_CARD)).to.equal(true);
-		expect(player.chosenCard).to.equal({});
+		PLAYER.replaceCard(DRAWN_CARD);
+		expect(PLAYER.hand).to.have.lengthOf(2);
+		expect(PLAYER.hand.includes(DISCARD)).to.equal(false);
+		expect(PLAYER.hand.includes(DRAWN_CARD)).to.equal(true);
+		expect(PLAYER.chosenCard).to.equal(-1);
 		done();
 	});
 });
