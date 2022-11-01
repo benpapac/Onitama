@@ -19,8 +19,8 @@ describe('The Player class ', () => {
 	let pawn5 = new Pawn('blue', [4, 4], 'b5');
 	const PIECES = [pawn1, pawn2, king, pawn4, pawn5];
 
-	const OPP_PAWN = new Pawn('pink', [1, 3], 'b2');
-	const OPP_KING = new Pawn('pink', [1, 2], 'bking');
+	const OPP_PAWN = new Pawn('pink', [1, 3], 'p2');
+	const OPP_KING = new Pawn('pink', [1, 2], 'pking');
 	const CAPTURED_PIECES = [OPP_PAWN, OPP_KING];
 
 	it('1. should have the color blue', (done) => {
@@ -96,13 +96,20 @@ describe('The Player Hand', () => {
 	// 	done();
 	// });
 
+	const IDX = 0;
+	const TESTCARD = PLAYER.hand[IDX];
+	const DISCARD = PLAYER.discard(IDX);
+	it('2. should discard the card at thte chosen card index', (done)=>{
+		expect(DISCARD).to.equal(TESTCARD);
+		done();
+	});
+
 	it('3. should replace the chosen card in its hand with the drawn card', (done) => {
 		const DRAWN_CARD = 'cobra';
-		let idx = 0;
-		const DISCARD = PLAYER.replaceCard(idx, DRAWN_CARD);
+		PLAYER.drawCard(IDX, DRAWN_CARD);
 		expect(PLAYER.hand).to.have.lengthOf(2);
 		expect(PLAYER.hand.includes(DISCARD)).to.equal(false);
-		expect(PLAYER.hand[idx]).to.equal(DRAWN_CARD);
+		expect(PLAYER.hand[IDX]).to.equal(DRAWN_CARD);
 		done();
 	});
 });

@@ -6,32 +6,36 @@ export default class Game {
 		this.pinkPlayer = new Player('pink');
 		this.bluePlayer = new Player('blue');
 		this.drawPile = [];
-		this.chosenCard = '';
+		this.chosenCardIndex = '';
+		this.chosenPiece = {};
 	}
 
 	chooseCard(idx) {
-		this.chosenCard = idx;
-		return this.chosenCard;
+		this.chosenCardIndex = idx;
+		return this.chosenCardIndex;
 	}
 
-	setUpBoard() {
-		this.pinkPlayer.createPieces();
-		this.bluePlayer.createPieces();
+	choosePiece(name) {
+		let chosenPiece =
+			this.pinkPlayer.pieces.find((piece) => piece.name === name) ||
+			this.bluePlayer.pieces.find((piece) => piece.name === name);
 
-		this.shuffleCards();
+		this.chosenPiece = chosenPiece;
+		return chosenPiece;
 	}
 
-	shuffleCards() {
-		let gameDeck = deck.map((card) => card);
-		let randomNumber = Math.floor(Math.random() * gameDeck.length - 1);
-		gameDeck = gameDeck.filter((card, i) => i !== randomNumber);
-		randomNumber = Math.floor(Math.random() * gameDeck.length - 1);
+	createThreats(changes, square) {
+		let threats = changes.map((change) => {
+			let threat = change.map((coord, idx) => (coord += square[idx]));
+			return threat;
+		});
 
-		gameDeck = gameDeck
-			.slice(randomNumber)
-			.concat(gameDeck.slice(0, randomNumber));
+		threats = threats.filter((threat) => {
+			return threat[0] > -1 && threat[0] < 5 && threat[1] > -1 && threat[1] < 5;
+		});
 
-		this.drawPile = gameDeck;
+		this.threats = threats;
+		return this.threats;
 	}
 
 	dealCards() {
@@ -44,5 +48,40 @@ export default class Game {
 		this.drawPile = this.drawPile.slice(0, 1);
 
 		return this.drawPile;
+	}
+
+	setUpBoard() {
+		this.pinkPlayer.createPieces();
+		this.bluePlayer.createPieces();
+
+		this.shuffleCards();
+	}
+
+	shuffleCards() {
+		let gameDeck = deck.map((card) => card);
+		let randomNumber = Math.floor(Math.random() * gameDeck.length - 1);
+		gameDeck = gameDeck
+			.slice(0, randomNumber)
+			.concat(gameDeck.slice(randomNumber + 1));
+		randomNumber = Math.floor(Math.random() * gameDeck.length - 1);
+
+		gameDeck = gameDeck
+			.slice(randomNumber)
+			.concat(gameDeck.slice(0, randomNumber));
+
+		this.drawPile = gameDeck;
+	}
+
+	startNewTurn(name) {
+		let nextPlayer = name === 'pink' ? this.pinkPlayer : this.bluePlayer;
+		let drawnCard = this.drawPile[0];
+		this.drawPile[0] = nextPlayer.discard(
+			this.chosenCardIndex,
+			this.drawPile[0]
+		);
+		nextPlayer.drawCard(this.chosenCardIndex, drawnCard);
+		this.chosenCardIndex = -1;
+		this.chosenPiece = {};
+		return nextPlayer;
 	}
 }

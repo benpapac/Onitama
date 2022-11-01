@@ -42,17 +42,20 @@ export default class Player {
 		return pieces;
 	}
 
-	replaceCard(drawnCard) {
+	drawCard(chosenCardIndex, drawnCard) {
 		let newHand = this.hand.map((card, i) => {
-			if (i === this.chosenCard) {
+			if (i === chosenCardIndex) {
 				return drawnCard;
 			} else {
 				return card;
 			}
 		});
-		this.chosenCard = -1;
 		this.hand = newHand;
-		return this.hand;
+	}
+
+	discard(chosenCardIndex) {
+		let disCard = this.hand.find((card, i) => i === chosenCardIndex);
+		return disCard;
 	}
 
 	get wins() {
@@ -60,9 +63,12 @@ export default class Player {
 		let oppColor = currColor === 'p' ? 'b' : 'p';
 		let temple = currColor === 'p' ? [4, 2] : [0, 2];
 		let myKing = this.pieces.find((piece) => piece.name === `${currColor}king`);
+		let capturedKing = this.capturedPieces.find(
+			(pawn) => pawn.name === `${oppColor}king`
+		);
 
 		return (
-			this.capturedPieces.find((pawn) => pawn.name === `${oppColor}king`) ||
+			capturedKing.name === 'pking' ||
 			(myKing.square[0] === temple[0] && myKing.square[1] === temple[1])
 		);
 	}

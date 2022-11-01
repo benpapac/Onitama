@@ -5,6 +5,20 @@ import Player from '../src/Utils/classes/class.Player.js';
 import Game from '../src/Utils/classes/class.Game.js';
 import { cards } from '../src/Utils/cards.js';
 
+// Thinking about declarative vs imperative programming...
+//React needs state to be updated declaratively. In other words, I can't just say:
+// const [player1, setPlayer1] = useState( new Player('pink'));
+// player1.pieces[0].square = [1,1];
+// This would not work. Instead, I need to do this:
+// let newPlayerState = <deepCopyFunction>(player1);
+// newPlayerState.pieces[0].square = [1,1];
+// setPlayer1(newPlayerState);
+
+// Although, could I just do this?
+// setPlayer1(player1.move()) // where move() returns an altered player1?
+// I bet I can. I bet this is what Obi was talking about. There's a way to find out!
+//Let's try this idea first.
+
 // Let's think about memory efficiency.
 // I only need one array of threats at a time.
 // passing that function and property from Pawn up to Game seems unnecessary. Let's refactor that.
@@ -12,7 +26,7 @@ import { cards } from '../src/Utils/cards.js';
 // Having hands 1 and 2, AND a drawpile, seems like a lot, especially if I'm storing hands in each Player, as well.
 // Why don't I have a drawPile, and shorten it when I dealCards()?
 
-// There is only one chosenCard at a time. Why not store this in Game, rather than in Player?
+// There is only one chosenCardIndex at a time. Why not store this in Game, rather than in Player?
 
 //Regarding Pawn creation...
 // is it more efficient to create three arguments, and pass them all in from the Player level?
@@ -66,25 +80,37 @@ describe('The Game ', () => {
 
 	it('5. should keep track of the chosen card', (done) => {
 		GAME.chooseCard(0);
-		expect(GAME.chosenCard).to.equal(0);
+		expect(GAME.chosenCardIndex).to.equal(0);
 		GAME.chooseCard(1);
-		expect(GAME.chosenCard).to.equal(1);
+		expect(GAME.chosenCardIndex).to.equal(1);
+		done();
 	});
 
-	it('6. should create and track threats for all pawns ', (done) => {
+	it('6. should track the chosen piece', (done) => {
+		GAME.choosePiece('bking');
+		expect(GAME.chosenPiece).to.deep.equal(
+			BLUE_PLAYER.pieces.find((piece) => piece.name === 'bking')
+		);
+		done();
+	});
+
+	it('7. should create and track threats for all pawns', (done) => {
 		let game2 = new Game();
-		const CARD = PINK_PLAYER.hand[chosenCard];
+		const CARD = PINK_PLAYER.hand[GAME.chosenCardIndex];
 		const COLOR = PINK_PLAYER.color;
 		const CHANGES = cards[CARD].changes[COLOR];
+		expect(CHANGES[0]).to.be.instanceof(Array);
 
-		let pawn = new Pawn('pink', [0, 2], 'pking');
-		game2.createThreats(pawn.square, CHANGES);
+		let pKing = new Pawn('pink', [0, 2], 'pking');
+		game2.createThreats(CHANGES, pKing.square);
 
-		GAME.createThreats(CHANGES);
+		const KING = GAME.pinkPlayer.pieces.find((piece) => piece.name === 'pking');
+		GAME.createThreats(CHANGES, KING.square);
 		expect(GAME.threats).to.deep.equal(game2.threats);
+		done();
 	});
 
-	it('7. should track Pawn moves', (done) => {
+	it('8. should track Pawn moves', (done) => {
 		const SQUARE = GAME.threats[0];
 		const PINK_KING = PINK_PLAYER.pieces.find(
 			(piece) => piece.name === 'pking'
@@ -94,8 +120,9 @@ describe('The Game ', () => {
 		done();
 	});
 
-	it('8. should update the drawPile when a Player takes a turn.', () => {
+	it('9. should update the drawPile when a Player takes a turn.', (done) => {
 		GAME.startNewTurn();
-		expect(GAME.chosenCard).to.equal(-1);
+		expect(GAME.chosenCardIndex).to.equal(-1);
+		done();
 	});
 });

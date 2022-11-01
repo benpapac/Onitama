@@ -55,13 +55,14 @@ describe('The Pawn Class', () => {
 		done();
 	});
 
-	it('7. should have a threats array that includes [1,0], [2,0], and [2,2]', (done) => {
-		pawn.createThreats(CHANGES);
-		expect(pawn.threats).to.be.instanceof(Array);
-		expect(pawn.threats).to.have.lengthOf(3);
-		expect(pawn.threats).to.deep.equal(THREATS);
-		done();
-	});
+	// Passed up to Game Class
+	// it('7. should have a threats array that includes [1,0], [2,0], and [2,2]', (done) => {
+	// 	pawn.createThreats(CHANGES);
+	// 	expect(pawn.threats).to.be.instanceof(Array);
+	// 	expect(pawn.threats).to.have.lengthOf(3);
+	// 	expect(pawn.threats).to.deep.equal(THREATS);
+	// 	done();
+	// });
 
 	// REMOVED -- bad targets should not be passed to a move method
 	// it('6. should not move', (done) => {
