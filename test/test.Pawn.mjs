@@ -75,11 +75,11 @@ describe('The Pawn Class', () => {
 	// });
 
 	it('6. should be able to clone another Pawn', (done) => {
-		let clone = new Pawn('blue', [0,0], 'b1');
+		let clone = new Pawn('blue', [0, 0], 'b1');
 		clone.clone(pawn);
 		expect(clone).to.deep.equal(pawn);
 		done();
-	})
+	});
 
 	it('7. should be captured.', (done) => {
 		pawn.isCaptured();

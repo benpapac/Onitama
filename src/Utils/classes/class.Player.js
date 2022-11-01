@@ -35,6 +35,12 @@ export default class Player {
 		this.capturedPieces = newArr;
 		return piece;
 	}
+	
+	clone(instance) {
+		let keys = Object.keys(instance);
+		keys.forEach((key) => (this[key] = instance[key]));
+		return this;
+	}
 
 	deleteCapturedPiece(piece) {
 		let pieces = this.pieces.filter((el) => el.name !== piece.name);

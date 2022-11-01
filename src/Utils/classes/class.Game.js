@@ -24,6 +24,12 @@ export default class Game {
 		return chosenPiece;
 	}
 
+	clone(instance) {
+		let keys = Object.keys(instance);
+		keys.forEach((key) => (this[key] = instance[key]));
+		return this;
+	}
+
 	createThreats(changes, square) {
 		let threats = changes.map((change) => {
 			let threat = change.map((coord, idx) => (coord += square[idx]));

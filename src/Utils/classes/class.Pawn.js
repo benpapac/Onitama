@@ -6,11 +6,9 @@ export default class Pawn {
 		this.captured = false;
 	}
 
-	clone(pawn) {
-		this.name = pawn.name;
-		this.color = pawn.color;
-		this.square = pawn.square;
-		this.captured = pawn.captured;
+	clone(instance) {
+		let keys = Object.keys(instance);
+		keys.forEach(key => this[key] = instance[key]);
 		return this;
 	}
 
