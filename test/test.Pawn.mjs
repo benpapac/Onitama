@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Pawn } from '../src/Utils/classes.js';
+import Pawn from '../src/Utils/classes/class.Pawn.js';
 import { cards } from '../src/Utils/cards.js';
 
 describe('The Pawn Class', () => {
@@ -22,10 +22,10 @@ describe('The Pawn Class', () => {
 		done();
 	});
 
-	it('1.2 should have name "p1".', (done)=>{
+	it('1.2 should have name "p1".', (done) => {
 		expect(pawn.name).to.equal('p1');
 		done();
-	})
+	});
 
 	it('2. should have a name.', (done) => {
 		expect(pawn.name).to.equal('p1');
@@ -35,18 +35,19 @@ describe('The Pawn Class', () => {
 	// hangs as pending in test...
 	it('3. should be located at [0,0]'),
 		(done) => {
-			let square = [0,0];
+			let square = [0, 0];
 			expect(pawn.square).to.deep.equal(square);
 			done();
 		};
 
-	it('6. should have a threats array that includes [1,1]', (done) => {
-		pawn.createThreats(CHANGES);
-		expect(pawn.threats).to.be.instanceof(Array);
-		expect(pawn.threats).to.have.lengthOf(1);
-		expect(pawn.threats[0]).to.deep.equal([1, 1]);
-		done();
-	});
+	//passed up createThreats to Game.js
+	// it('6. should create a threats array that includes [1,1]', (done) => {
+	// 	pawn.createThreats(CHANGES);
+	// 	expect(pawn.threats).to.be.instanceof(Array);
+	// 	expect(pawn.threats).to.have.lengthOf(1);
+	// 	expect(pawn.threats[0]).to.deep.equal([1, 1]);
+	// 	done();
+	// });
 
 	it('5. should move to square [1,1]', (done) => {
 		pawn.move(target);

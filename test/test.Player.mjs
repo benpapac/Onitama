@@ -1,18 +1,22 @@
 import { expect } from 'chai';
 
-import { Pawn, Player } from '../src/Utils/classes.js';
+import Pawn from '../src/Utils/classes/class.Pawn.js';
+import Player from '../src/Utils/classes/class.Player.js';
 import { cards } from '../src/Utils/cards.js';
 
 // const Pawn = require('../Utils/classes.js');
 // const Player = require('../Utils/classes.js');
 
+//need to test Pink player, AND Blue Player...
+// specify which color is being tested in each describe block.
+
 describe('The Player class ', () => {
 	let player = new Player('blue', ['ox', 'horse']);
-	let pawn1 = new Pawn('blue', [0, 0], 'b1');
-	let pawn2 = new Pawn('blue', [0, 1], 'b2');
-	let king = new Pawn('blue', [0, 2], 'bking');
-	let pawn4 = new Pawn('blue', [0, 3], 'b4');
-	let pawn5 = new Pawn('blue', [0, 4], 'b5');
+	let pawn1 = new Pawn('blue', [4, 0], 'b1');
+	let pawn2 = new Pawn('blue', [4, 1], 'b2');
+	let king = new Pawn('blue', [4, 2], 'bking');
+	let pawn4 = new Pawn('blue', [4, 3], 'b4');
+	let pawn5 = new Pawn('blue', [4, 4], 'b5');
 	const PIECES = [pawn1, pawn2, king, pawn4, pawn5];
 
 	const OPP_PAWN = new Pawn('pink', [1, 3], 'b2');
@@ -72,32 +76,33 @@ describe('The Player Hand', () => {
 		done();
 	});
 
-	it('2. should be chooseable', (done) => {
-		PLAYER.chooseCard(0);
-		expect(PLAYER.chosenCard).to.equal(0);
-		expect(PLAYER.hand[PLAYER.chosenCard]).to.equal('boar');
-		done();
-	});
+	// chooseCard() passed up to Game.js
+	// it('2. should be chooseable', (done) => {
+	// 	PLAYER.chooseCard(0);
+	// 	expect(PLAYER.chosenCard).to.equal(0);
+	// 	expect(PLAYER.hand[PLAYER.chosenCard]).to.equal('boar');
+	// 	done();
+	// });
 
-	it('3. should properly pass card data to its pieces.', (done) => {
-		expect(PLAYER.pieces).to.have.lengthOf(5);
-		let newThreats = [[1, 1]];
-		PLAYER.pieces[0].createThreats(
-			cards[PLAYER.hand[PLAYER.chosenCard]].changes[PLAYER.color]
-		);
-		expect(PLAYER.pieces[0].threats).to.be.instanceOf(Array);
-		expect(PLAYER.pieces[0].threats).to.deep.equal(newThreats);
-		done();
-	});
+	//passed up to Game.js
+	// it('3. should properly pass card data to its pieces.', (done) => {
+	// 	expect(PLAYER.pieces).to.have.lengthOf(5);
+	// 	let newThreats = [[1, 1]];
+	// 	PLAYER.pieces[0].createThreats(
+	// 		cards[PLAYER.hand[PLAYER.chosenCard]].changes[PLAYER.color]
+	// 	);
+	// 	expect(PLAYER.pieces[0].threats).to.be.instanceOf(Array);
+	// 	expect(PLAYER.pieces[0].threats).to.deep.equal(newThreats);
+	// 	done();
+	// });
 
 	it('3. should replace the chosen card in its hand with the drawn card', (done) => {
-		const DISCARD = PLAYER.hand[PLAYER.chosenCard];
 		const DRAWN_CARD = 'cobra';
-		PLAYER.replaceCard(DRAWN_CARD);
+		let idx = 0;
+		const DISCARD = PLAYER.replaceCard(idx, DRAWN_CARD);
 		expect(PLAYER.hand).to.have.lengthOf(2);
 		expect(PLAYER.hand.includes(DISCARD)).to.equal(false);
-		expect(PLAYER.hand.includes(DRAWN_CARD)).to.equal(true);
-		expect(PLAYER.chosenCard).to.equal(-1);
+		expect(PLAYER.hand[idx]).to.equal(DRAWN_CARD);
 		done();
 	});
 });

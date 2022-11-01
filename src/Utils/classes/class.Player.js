@@ -1,37 +1,6 @@
-export class Pawn {
-	constructor(color, square, name) {
-		this.name = name;
-		this.color = color;
-		this.square = square;
-		this.threats = [];
-		this.captured = false;
-	}
+import Pawn from './class.Pawn.js';
 
-	createThreats(changes) {
-		let threats = changes.map((change) => {
-			let threat = change.map((coord, idx) => (coord += this.square[idx]));
-			return threat;
-		});
-
-		threats = threats.filter((threat) => {
-			return threat[0] > -1 && threat[0] < 5 && threat[1] > -1 && threat[1] < 5;
-		});
-
-		this.threats = threats;
-		return this.threats;
-	}
-
-	move(target) {
-		this.square = target;
-		return this.square;
-	}
-
-	isCaptured() {
-		this.captured = true;
-	}
-}
-
-export class Player {
+export default class Player {
 	constructor(color, hand) {
 		this.color = color;
 		this.hand = hand;
@@ -44,6 +13,7 @@ export class Player {
 		let pieces = new Array(5).fill({});
 		let color = this.color.substring(0, 1);
 		let name = '';
+		let x = color === 'p' ? 0 : 4;
 
 		pieces = pieces.map((piece, i) => {
 			if (i === 2) {
@@ -52,7 +22,7 @@ export class Player {
 				name = `${color}${i + 1}`;
 			}
 
-			let square = [0, i];
+			let square = [x, i];
 			return new Pawn(this.color, square, name);
 		});
 
@@ -64,11 +34,6 @@ export class Player {
 		let newArr = this.capturedPieces.concat([piece]);
 		this.capturedPieces = newArr;
 		return piece;
-	}
-
-	chooseCard(idx) {
-		this.chosenCard = idx;
-		return this.chosenCard;
 	}
 
 	deleteCapturedPiece(piece) {
@@ -85,7 +50,7 @@ export class Player {
 				return card;
 			}
 		});
-        this.chosenCard = -1;
+		this.chosenCard = -1;
 		this.hand = newHand;
 		return this.hand;
 	}
