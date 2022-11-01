@@ -99,7 +99,7 @@ describe('The Player Hand', () => {
 	const IDX = 0;
 	const TESTCARD = PLAYER.hand[IDX];
 	const DISCARD = PLAYER.discard(IDX);
-	it('2. should discard the card at thte chosen card index', (done)=>{
+	it('2. should discard the card at thte chosen card index', (done) => {
 		expect(DISCARD).to.equal(TESTCARD);
 		done();
 	});

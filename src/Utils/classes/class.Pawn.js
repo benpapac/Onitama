@@ -3,8 +3,15 @@ export default class Pawn {
 		this.name = name;
 		this.color = color;
 		this.square = square;
-		this.threats = [];
 		this.captured = false;
+	}
+
+	clone(pawn) {
+		this.name = pawn.name;
+		this.color = pawn.color;
+		this.square = pawn.square;
+		this.captured = pawn.captured;
+		return this;
 	}
 
 	move(target) {
