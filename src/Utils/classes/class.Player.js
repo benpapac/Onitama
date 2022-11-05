@@ -6,7 +6,6 @@ export default class Player {
 		this.hand = hand;
 		this.pieces = [];
 		this.capturedPieces = [];
-		this.chosenCard = -1;
 	}
 
 	createPieces() {
@@ -35,7 +34,7 @@ export default class Player {
 		this.capturedPieces = newArr;
 		return piece;
 	}
-	
+
 	clone(instance) {
 		let keys = Object.keys(instance);
 		keys.forEach((key) => (this[key] = instance[key]));
@@ -48,9 +47,9 @@ export default class Player {
 		return pieces;
 	}
 
-	drawCard(chosenCardIndex, drawnCard) {
+	drawCard(chosenCard, drawnCard) {
 		let newHand = this.hand.map((card, i) => {
-			if (i === chosenCardIndex) {
+			if (card === chosenCard) {
 				return drawnCard;
 			} else {
 				return card;
@@ -59,8 +58,8 @@ export default class Player {
 		this.hand = newHand;
 	}
 
-	discard(chosenCardIndex) {
-		let disCard = this.hand.find((card, i) => i === chosenCardIndex);
+	discard(chosenCard) {
+		let disCard = this.hand.find((card) => card === chosenCard);
 		return disCard;
 	}
 

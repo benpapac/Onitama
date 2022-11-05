@@ -8,7 +8,7 @@ export default class Pawn {
 
 	clone(instance) {
 		let keys = Object.keys(instance);
-		keys.forEach(key => this[key] = instance[key]);
+		keys.forEach((key) => (this[key] = instance[key]));
 		return this;
 	}
 

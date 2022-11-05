@@ -40,7 +40,7 @@ export const BoardStyles = StyleSheet.create({
 	},
 
 	pawn: {
-		height: '100%',
-		width: '100%',
+		width: '12vh',
+		height: '12vh',
 	},
 });

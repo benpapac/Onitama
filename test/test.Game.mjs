@@ -17,22 +17,10 @@ import { cards } from '../src/Utils/cards.js';
 // Although, could I just do this?
 // setPlayer1(player1.move()) // where move() returns an altered player1?
 // I bet I can. I bet this is what Obi was talking about. There's a way to find out!
-//Let's try this idea first.
 
 // Let's think about memory efficiency.
 // I only need one array of threats at a time.
 // passing that function and property from Pawn up to Game seems unnecessary. Let's refactor that.
-
-// Having hands 1 and 2, AND a drawpile, seems like a lot, especially if I'm storing hands in each Player, as well.
-// Why don't I have a drawPile, and shorten it when I dealCards()?
-
-// There is only one chosenCardIndex at a time. Why not store this in Game, rather than in Player?
-
-//Regarding Pawn creation...
-// is it more efficient to create three arguments, and pass them all in from the Player level?
-//is it better to pass only one argument, and have the Pawn logic out what each of its properties should be, from that name?
-
-//does it matter? Is one more maintainable than another?
 
 describe('The Game ', () => {
 	const GAME = new Game();
@@ -49,9 +37,7 @@ describe('The Game ', () => {
 		GAME.setUpBoard();
 		expect(PINK_PLAYER.pieces).to.be.instanceof(Array);
 		expect(BLUE_PLAYER.pieces).to.have.lengthOf(5);
-		expect(GAME.drawPile).to.be.instanceof(Array);
-		expect(GAME.drawPile).to.have.lengthOf(5);
-		expect(new Set(GAME.drawPile)).to.have.lengthOf(5);
+		expect(GAME.currentPlayer).to.deep.equal(GAME.pinkPlayer);
 		done();
 	});
 
@@ -65,7 +51,6 @@ describe('The Game ', () => {
 	});
 
 	it('4. should deal unique hands to each player', (done) => {
-		GAME.dealCards();
 		expect(GAME.drawPile).to.have.lengthOf(1);
 		expect(PINK_PLAYER.hand).to.be.instanceOf(Array);
 		expect(BLUE_PLAYER.hand).to.have.lengthOf(2);
@@ -79,10 +64,10 @@ describe('The Game ', () => {
 	});
 
 	it('5. should keep track of the chosen card', (done) => {
-		GAME.chooseCard(0);
-		expect(GAME.chosenCardIndex).to.equal(0);
-		GAME.chooseCard(1);
-		expect(GAME.chosenCardIndex).to.equal(1);
+		GAME.chooseCard('boar');
+		expect(GAME.chosenCard).to.equal('boar');
+		GAME.chooseCard('cobra');
+		expect(GAME.chosenCard).to.equal('cobra');
 		done();
 	});
 
@@ -96,7 +81,7 @@ describe('The Game ', () => {
 
 	it('7. should create and track threats for all pawns', (done) => {
 		let game2 = new Game();
-		const CARD = PINK_PLAYER.hand[GAME.chosenCardIndex];
+		const CARD = GAME.chosenCard;
 		const COLOR = PINK_PLAYER.color;
 		const CHANGES = cards[CARD].changes[COLOR];
 		expect(CHANGES[0]).to.be.instanceof(Array);
@@ -120,9 +105,32 @@ describe('The Game ', () => {
 		done();
 	});
 
-	it('9. should update the drawPile when a Player takes a turn.', (done) => {
+	it('9. should update the drawPile and currentPlayer when a Player takes a turn.', (done) => {
+		expect(GAME.currentPlayer).to.deep.equal(GAME.pinkPlayer);
 		GAME.startNewTurn();
-		expect(GAME.chosenCardIndex).to.equal(-1);
+		expect(GAME.chosenCard).to.equal('');
+		expect(GAME.currentPlayer).to.deep.equal(GAME.bluePlayer);
+		done();
+	});
+
+	it('10. should get a pawn at a given square', (done) => {
+		let square = [0, 0];
+		const PAWN_1 = GAME.pawnAt(square);
+		expect(PAWN_1).to.deep.equal(
+			GAME.pinkPlayer.pieces.find((piece) => piece.name === 'p1')
+		);
+		square = [4, 4];
+		const PAWN_2 = GAME.pawnAt(square);
+		expect(PAWN_2).to.deep.equal(
+			GAME.bluePlayer.pieces.find((piece) => piece.name === 'b5')
+		);
+		done();
+	});
+
+	it('11. should be able to set a current player', (done) => {
+		expect(GAME.currentPlayer).to.deep.equal(GAME.bluePlayer);
+		GAME.switchCurrentPlayer();
+		expect(GAME.currentPlayer).to.deep.equal(GAME.pinkPlayer);
 		done();
 	});
 });

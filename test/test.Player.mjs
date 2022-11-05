@@ -98,7 +98,7 @@ describe('The Player Hand', () => {
 
 	const IDX = 0;
 	const TESTCARD = PLAYER.hand[IDX];
-	const DISCARD = PLAYER.discard(IDX);
+	const DISCARD = PLAYER.discard(TESTCARD);
 	it('2. should discard the card at thte chosen card index', (done) => {
 		expect(DISCARD).to.equal(TESTCARD);
 		done();
@@ -106,7 +106,7 @@ describe('The Player Hand', () => {
 
 	it('3. should replace the chosen card in its hand with the drawn card', (done) => {
 		const DRAWN_CARD = 'cobra';
-		PLAYER.drawCard(IDX, DRAWN_CARD);
+		PLAYER.drawCard(TESTCARD, DRAWN_CARD);
 		expect(PLAYER.hand).to.have.lengthOf(2);
 		expect(PLAYER.hand.includes(DISCARD)).to.equal(false);
 		expect(PLAYER.hand[IDX]).to.equal(DRAWN_CARD);
