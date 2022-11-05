@@ -5,7 +5,7 @@ import Pawn from './test.Pawn.jsx';
 import { Context } from '../src/Utils/context';
 
 const Square = ({square}) => {
-    const { game, images } = useContext(Context);
+    const { game, setGame, images } = useContext(Context);
 
     return (
              <ImageBackground style={BoardStyles.square} source={ images.square }>
@@ -14,7 +14,7 @@ const Square = ({square}) => {
                         title={`${square}`}
                         // style={{...BoardStyles[gameState.glowBoard[colIdx][rowIdx]], }} 
                         nativeID={`${square}`}
-                        onPress={()=> setSquare(square)} 
+                        onPress={()=> setGame(game.chooseSquare(square))} 
                         >
                         {game.pawnAt(square) && <Pawn pawn={game.pawnAt(square)} />}
                 </Pressable>

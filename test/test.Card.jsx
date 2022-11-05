@@ -5,7 +5,6 @@ import { cards } from '../src/Utils/cards';
 import { Context } from '../src/Utils/context';
 
 const Card = ({player, idx}) => {
-  console.log(player);
   const { images, game, setGame } = useContext(Context);
   const [card, setCard ] = useState('');
   const [chosenCard, setChosenCard] = useState('');
@@ -22,7 +21,7 @@ const Card = ({player, idx}) => {
           clone.chooseCard(chosenCard);
           setGame(clone);
         }
-  }, [player, chosenCard]);
+  }, [chosenCard]);
 
 
     return (game[player].hand &&

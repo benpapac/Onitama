@@ -31,15 +31,17 @@ export default class Game {
 		return this.chosenCard;
 	}
 
-	choosePiece(name) {
+	chooseSquare(square) {
 		let clone = new Game();
 		clone.clone(this);
+		clone.chosenSquare = square;
+		return clone;
+	}
 
-		let chosenPiece =
-			this.pinkPlayer.pieces.find((piece) => piece.name === name) ||
-			this.bluePlayer.pieces.find((piece) => piece.name === name);
-
-		clone.chosenPiece = chosenPiece;
+	choosePiece(piece) {
+		let clone = new Game();
+		clone.clone(this);
+		clone.chosenPiece = piece;
 		return clone;
 	}
 

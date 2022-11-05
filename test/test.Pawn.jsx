@@ -18,7 +18,7 @@ const Pawn = ({pawn}) => {
 
     return (
         <Pressable 
-            onPress={()=>setGame(game.choosePiece(pawn))}
+            onPress={()=> setGame(game.choosePiece(pawn))}
             >
             <Image source={ getName() } style={BoardStyles.pawn}  />
         </Pressable> 
