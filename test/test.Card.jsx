@@ -6,26 +6,14 @@ import { Context } from '../src/Utils/context';
 
 const Card = ({player, idx}) => {
   const { images, game, setGame } = useContext(Context);
-  const [card, setCard ] = useState('');
-  const [chosenCard, setChosenCard] = useState('');
-
-      const handleCardPress = (e)=>{
-        if(game.currentPlayer === e.target.role) setChosenCard(card);
-        return e.target.role;
-    };
-
-      useEffect(()=>{
-        if(chosenCard){
-          let clone = new Game();
-          clone.clone(game);
-          clone.chooseCard(chosenCard);
-          setGame(clone);
-        }
-  }, [chosenCard]);
-
 
     return (game[player].hand &&
-        <Pressable role={`${player.color}Card`} nativeID={game[player].hand[idx]} style={{...CardPanelStyles.image, backgroundImage: images[game[player].hand[idx]]}} onPress={handleCardPress} >
+        <Pressable 
+        role={`${player.color}Card`} 
+        nativeID={game[player].hand[idx]} 
+        style={{...CardPanelStyles.image, backgroundImage: images[game[player].hand[idx]]}} 
+        onPress={()=> setGame(game.chooseCard( game[player].hand[idx] ) ) } 
+        >
                         <Image title={game[player].hand[idx]} 
                     style={CardPanelStyles.image} 
                     source={{uri: images[game[player].hand[idx]]}}

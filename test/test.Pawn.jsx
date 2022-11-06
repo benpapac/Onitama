@@ -7,6 +7,14 @@ const Pawn = ({pawn}) => {
     const { game, setGame, images } = useContext(Context);
     const [chosenPiece, setChosenPiece] = useState({});
 
+    const compareToCurrPlayer = () => {
+        if(pawn.color === game.currentPlayer.color){
+          return game.choosePiece(pawn);
+        } else {
+          return game.chooseSquare(pawn.square);
+        }
+    }
+
     const getName = ()=>{
         if(!pawn) return '';
         if(pawn.name.includes('king')) {
@@ -18,7 +26,7 @@ const Pawn = ({pawn}) => {
 
     return (
         <Pressable 
-            onPress={()=> setGame(game.choosePiece(pawn))}
+            onPress={() => setGame( compareToCurrPlayer() )}
             >
             <Image source={ getName() } style={BoardStyles.pawn}  />
         </Pressable> 

@@ -14,7 +14,7 @@ export default class Pawn {
 
 	move(target) {
 		this.square = target;
-		return this.square;
+		return this;
 	}
 
 	isCaptured() {

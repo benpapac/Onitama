@@ -4,12 +4,35 @@ import { ImageBackground, View, Pressable, Text } from 'react-native-web';
 import { BoardStyles } from '../src/StyleSheets/BoardStyles';
 import Square from './test.Square';
 import CardPanel from './test.CardPanel';
+import { deepEqual } from './test.deepEquals';
+
+import { cards } from '../src/Utils/cards';
 
 const TestBoard = () => {
-    const { game } = useContext(Context);
+    const { game, setGame } = useContext(Context);
     const [ initiated, setInitiated] = useState(false);
     const squareBackground = 'https://i.imgur.com/fmofDFG.jpg';
     const [square, setSquare] = useState([]);
+    const [ moved, setMoved] = useState(false);
+
+    const render = () =>{
+        console.log('rendering...',game.threats);
+        if(!game.chosenSquare || !game.chosenCard) {
+            console.log('nothing to render.');
+            return null;
+        }
+        if(!game.threats.length ){
+            let changes = cards[game.chosenCard].changes[game.currentPlayer.color];
+            console.log('creating threats...', changes, game.chosenPiece)
+            setGame( game.createThreats(changes, game.chosenPiece.square) );
+        }
+
+        if(deepEqual(game.threats, game.chosenSquare)){
+            console.log('moving...')
+            setGame( game.movePiece() );
+            setGame( game.startNewTurn() );
+        }
+    }
     const BOARD = [
         [
             [0,0],
@@ -49,24 +72,25 @@ const TestBoard = () => {
     ];
 
     useEffect(()=>{
-        console.log(square);
         if(!initiated) {
-            game.setUpBoard();
+            setGame( game.setUpBoard() );
             setInitiated(true);
         }
-    }, [square]);
+        render();
+    }, [game.chosenSquare, game.chosenCard]);
 
     if(!game) return (<h1>Loading...</h1>)
 
     return (
+        game &&
         <View style={BoardStyles.table}>
          <CardPanel player={'pinkPlayer'} />
 
             <View style={BoardStyles.board}>
 
             
-        { BOARD.map( (col, colIdx) => col.map( (square, rowIdx) =>  
-               <Square square={BOARD[colIdx][rowIdx]} />  
+        { BOARD.map( (col) => col.map( (square) =>  
+               <Square square={square} />  
         ))}
         </View>
          <CardPanel player={'bluePlayer'} />

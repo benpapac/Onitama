@@ -48,7 +48,7 @@ export default class Player {
 	}
 
 	drawCard(chosenCard, drawnCard) {
-		let newHand = this.hand.map((card, i) => {
+		let newHand = this.hand.map((card) => {
 			if (card === chosenCard) {
 				return drawnCard;
 			} else {
