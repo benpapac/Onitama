@@ -16,8 +16,8 @@ const TestBoard = () => {
     const [ moved, setMoved] = useState(false);
 
     const render = () =>{
-        console.log('rendering...',game.threats);
-        if(!game.chosenSquare || !game.chosenCard) {
+        console.log('rendering...',game.currentPlayer);
+        if(!game.chosenSquare || !game.chosenCard || !game.chosenPiece) {
             console.log('nothing to render.');
             return null;
         }
@@ -27,6 +27,7 @@ const TestBoard = () => {
             setGame( game.createThreats(changes, game.chosenPiece.square) );
         }
 
+        console.log(game.threats, game.chosenSquare);
         if(deepEqual(game.threats, game.chosenSquare)){
             console.log('moving...')
             setGame( game.movePiece() );
@@ -77,7 +78,7 @@ const TestBoard = () => {
             setInitiated(true);
         }
         render();
-    }, [game.chosenSquare, game.chosenCard]);
+    }, [game.chosenSquare, game.chosenCard, game.chosenPiece]);
 
     if(!game) return (<h1>Loading...</h1>)
 

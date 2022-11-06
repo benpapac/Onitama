@@ -1,3 +1,4 @@
+import { deepEqual } from '../../../test/test.deepEquals.js';
 import { cards, deck } from '../cards.js';
 import Player from './class.Player.js';
 
@@ -10,10 +11,32 @@ export default class Game {
 		this.bluePlayer = new Player('blue');
 		this.drawPile = [];
 		this.chosenCard = '';
-		this.chosenPiece = {};
+		this.chosenPiece = null;
 		this.chosenSquare = [];
 		this.currentPlayer = this.pinkPlayer;
 		this.threats = [];
+	}
+
+	get capturedPiece() {
+		let oppPlayer = (this.currentPlayer.color === 'pink'
+			? this.bluePlayer
+			: this.pinkPlayer);
+
+		let capturedPiece = oppPlayer.pieces.find((piece) =>
+			deepEqual(piece.square, this.chosenSquare)
+		);
+
+		console.log('captured piece: ', capturedPiece);
+
+		return capturedPiece;
+	}
+
+	get nextPlayer() {
+		if (this.currentPlayer.color === 'pink') {
+			return this.bluePlayer;
+		} else {
+			return this.pinkPlayer;
+		}
 	}
 
 	chooseCard(card) {
@@ -24,7 +47,6 @@ export default class Game {
 	}
 
 	chooseSquare(square) {
-		console.log(square);
 		let clone = new Game();
 		clone.clone(this);
 		clone.chosenSquare = square;
@@ -58,6 +80,7 @@ export default class Game {
 		clone.clone(this);
 
 		clone.threats = threats;
+		console.log('new threats: ', clone.threats);
 		return clone;
 	}
 
@@ -77,6 +100,12 @@ export default class Game {
 		let clone = new Game();
 		clone.clone(this);
 		clone.chosenPiece.move(clone.chosenSquare);
+
+		if (this.capturedPiece) {
+			clone.currentPlayer.capture(this.capturedPiece);
+			clone.nextPlayer.deleteCapturedPiece(this.capturedPiece);
+		}
+
 		return clone;
 	}
 
@@ -92,14 +121,7 @@ export default class Game {
 		return pinkPiece || bluePiece || false;
 	}
 
-	get nextPlayer() {
-		return this.currentPlayer.color === 'pink'
-				? this.bluePlayer
-				: this.pinkPlayer;
-	}
-
 	setUpBoard() {
-		console.log(this);
 		let clone = new Game();
 		clone.clone(this);
 		clone.pinkPlayer.createPieces();
@@ -116,7 +138,6 @@ export default class Game {
 		gameDeck = gameDeck
 			.slice(0, randomNumber)
 			.concat(gameDeck.slice(randomNumber + 1));
-		console.log(gameDeck);
 		let pivot = Math.floor(gameDeck.length / 2);
 
 		let left = gameDeck.slice(0, pivot);
@@ -133,16 +154,16 @@ export default class Game {
 	startNewTurn() {
 		let clone = new Game();
 		clone.clone(this);
-		
+
 		let drawnCard = clone.drawPile[0];
 		clone.drawPile[0] = clone.chosenCard;
 		clone.currentPlayer.drawCard(clone.chosenCard, drawnCard);
-		
-		
+
 		clone.currentPlayer = clone.nextPlayer;
 		clone.chosenSquare = [];
 		clone.chosenCard = '';
-		clone.chosenPiece = {};
+		clone.chosenPiece = null;
+		clone.threats = [];
 		return clone;
 	}
 }

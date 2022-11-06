@@ -9,13 +9,13 @@ export const cards = {
 		changes: {
 			pink: [
 				[0, -1],
-				[-1, 1],
-				[1, 1],
+				[1, 0],
+				[0, 1],
 			],
 			blue: [
-				[-1, -1],
-				[1, -1],
 				[0, 1],
+				[-1, 0],
+				[0, -1],
 			],
 		},
 		move: (player, piece, coordinates) => {
@@ -44,14 +44,14 @@ export const cards = {
 		name: 'eel',
 		changes: {
 			pink: [
-				[1, 0],
-				[-1, 1],
+				[0, 1],
 				[-1, -1],
+				[1, -1],
 			],
 			blue: [
-				[-1, 0],
-				[1, -1],
+				[0, -1],
 				[1, 1],
+				[-1, 1],
 			],
 		},
 		move: (player, piece, coordinates) => {
@@ -79,13 +79,13 @@ export const cards = {
 		name: 'mantis',
 		changes: {
 			pink: [
-				[0, -1],
-				[-1, 1],
+				[-1, 0],
+				[1, -1],
 				[1, 1],
 			],
 			blue: [
-				[0, 1],
-				[1, -1],
+				[1, 0],
+				[-1, 1],
 				[-1, -1],
 			],
 		},
@@ -116,14 +116,14 @@ export const cards = {
 		name: 'ox',
 		changes: {
 			pink: [
-				[0, 1],
 				[1, 0],
-				[0, -1],
+				[0, 1],
+				[-1, 0],
 			],
 			blue: [
-				[0, -1],
 				[-1, 0],
-				[0, 1],
+				[0, -1],
+				[1, 0],
 			],
 		},
 
@@ -153,14 +153,14 @@ export const cards = {
 		name: 'cobra',
 		changes: {
 			pink: [
-				[0, -1],
-				[-1, 1],
-				[1, 1],
+				[0, -1], //left
+				[-1, 1], //for+right
+				[1, 1], //back+right
 			],
 			blue: [
-				[-1, -1],
-				[1, -1],
-				[0, 1],
+				[0, 1], //left
+				[-1, -1], //forw+right
+				[1, -1], //back+right
 			],
 		},
 
@@ -190,14 +190,14 @@ export const cards = {
 		name: 'horse',
 		changes: {
 			pink: [
-				[0, 1],
-				[-1, 0],
-				[0, -1],
+				[1, 0], //forward
+				[0, -1], //left
+				[-1, 0], //back
 			],
 			blue: [
-				[0, -1],
-				[1, 0],
-				[0, 1],
+				[-1, 0], //forward
+				[0, 1], //left
+				[1, 0], //backward
 			],
 		},
 
