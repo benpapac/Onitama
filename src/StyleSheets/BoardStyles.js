@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-export const BoardStyles = StyleSheet.create({
+const BoardStyles = StyleSheet.create({
 	table: {
 		height: '70vh',
 		width: '100vw',
@@ -44,3 +44,5 @@ export const BoardStyles = StyleSheet.create({
 		height: '12vh',
 	},
 });
+
+export default BoardStyles;

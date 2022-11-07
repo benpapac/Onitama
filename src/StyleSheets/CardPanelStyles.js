@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const CardPanelStyles = StyleSheet.create({
+const CardPanelStyles = StyleSheet.create({
 	container: {
 		height: '80vh',
 		width: '20vw',
@@ -29,3 +29,5 @@ export const CardPanelStyles = StyleSheet.create({
 		color: 'antiquewhite',
 	},
 });
+
+export default CardPanelStyles;

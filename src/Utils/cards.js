@@ -1,6 +1,3 @@
-import * as pinkCoreCards from './pinkMovement.js';
-import * as blueCoreCards from './blueMovement.js';
-
 export const deck = ['boar', 'eel', 'mantis', 'ox', 'horse', 'cobra'];
 
 export const cards = {
@@ -18,25 +15,6 @@ export const cards = {
 				[0, -1],
 			],
 		},
-		move: (player, piece, coordinates) => {
-			if (piece && piece[0] === player[0]) return false;
-			if (player === 'blue') {
-				if (
-					blueCoreCards.blueForwardOne(coordinates) ||
-					blueCoreCards.blueLateralOne(coordinates)
-				)
-					return true;
-				else return false;
-			} else if (
-				pinkCoreCards.pinkForwardOne(coordinates) ||
-				pinkCoreCards.pinkLateralOne(coordinates)
-			)
-				return true;
-			else {
-				return false;
-			}
-		},
-
 		rule: `Move forward, left, or right.`,
 	},
 
@@ -53,24 +31,6 @@ export const cards = {
 				[1, 1],
 				[-1, 1],
 			],
-		},
-		move: (player, piece, coordinates) => {
-			if (piece && piece[0] === player[0]) return false;
-			if (player === 'blue') {
-				if (
-					blueCoreCards.blueRightOne(coordinates) ||
-					blueCoreCards.blueLeftOneForwardOne(coordinates) ||
-					blueCoreCards.blueLeftOneBackwardOne(coordinates)
-				)
-					return true;
-				else return false;
-			} else if (
-				pinkCoreCards.pinkRightOne(coordinates) ||
-				pinkCoreCards.pinkLeftOneForwardOne(coordinates) ||
-				pinkCoreCards.pinkLeftOneBackwardOne(coordinates)
-			)
-				return true;
-			else return false;
 		},
 		rule: `Move to the right, or diagonally left.`,
 	},
@@ -89,26 +49,6 @@ export const cards = {
 				[-1, -1],
 			],
 		},
-
-		move: (player, piece, coordinates) => {
-			if (piece && piece[0] === player[0]) return false;
-
-			if (player === 'blue') {
-				if (
-					blueCoreCards.blueBackwardOne(coordinates) ||
-					blueCoreCards.blueLeftOneForwardOne(coordinates) ||
-					blueCoreCards.blueRightOneForwardOne(coordinates)
-				)
-					return true;
-				else return false;
-			} else if (
-				pinkCoreCards.pinkBackwardOne(coordinates) ||
-				pinkCoreCards.pinkLeftOneForwardOne(coordinates) ||
-				pinkCoreCards.pinkRightOneForwardOne(coordinates)
-			)
-				return true;
-			else return false;
-		},
 		rule: `Move back, or diagonally forward.`,
 	},
 
@@ -125,26 +65,6 @@ export const cards = {
 				[0, -1],
 				[1, 0],
 			],
-		},
-
-		move: (player, piece, coordinates) => {
-			if (piece && piece[0] === player[0]) return false;
-
-			if (player === 'blue') {
-				if (
-					blueCoreCards.blueForwardOne(coordinates) ||
-					blueCoreCards.blueRightOne(coordinates) ||
-					blueCoreCards.blueBackwardOne(coordinates)
-				)
-					return true;
-				else return false;
-			} else if (
-				pinkCoreCards.pinkForwardOne(coordinates) ||
-				pinkCoreCards.pinkRightOne(coordinates) ||
-				pinkCoreCards.pinkBackwardOne(coordinates)
-			)
-				return true;
-			else return false;
 		},
 		rule: `Move forward, right or backward.`,
 	},
@@ -164,25 +84,6 @@ export const cards = {
 			],
 		},
 
-		move: (player, piece, coordinates) => {
-			if (piece && piece[0] === player[0]) return false;
-
-			if (player === 'blue') {
-				if (
-					blueCoreCards.blueLeftOne(coordinates) ||
-					blueCoreCards.blueRightOneForwardOne(coordinates) ||
-					blueCoreCards.blueRightOneBackwardOne(coordinates)
-				)
-					return true;
-				else return false;
-			} else if (
-				pinkCoreCards.pinkLeftOne(coordinates) ||
-				pinkCoreCards.pinkRightOneForwardOne(coordinates) ||
-				pinkCoreCards.pinkRightOneBackwardOne(coordinates)
-			)
-				return true;
-			else return false;
-		},
 		rule: 'Move left, or diagonally right.',
 	},
 
@@ -199,26 +100,6 @@ export const cards = {
 				[0, 1], //left
 				[1, 0], //backward
 			],
-		},
-
-		move: (player, piece, coordinates) => {
-			if (piece && piece[0] === player[0]) return false;
-
-			if (player === 'blue') {
-				if (
-					blueCoreCards.blueForwardOne(coordinates) ||
-					blueCoreCards.blueLeftOne(coordinates) ||
-					blueCoreCards.blueBackwardOne(coordinates)
-				)
-					return true;
-				else return false;
-			} else if (
-				pinkCoreCards.pinkForwardOne(coordinates) ||
-				pinkCoreCards.pinkLeftOne(coordinates) ||
-				pinkCoreCards.pinkBackwardOne(coordinates)
-			)
-				return true;
-			else return false;
 		},
 		rule: `Move forward, left or backward.`,
 	},

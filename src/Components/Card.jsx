@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Pressable, Image, Text } from 'react-native';
-import {CardPanelStyles} from '../src/StyleSheets/CardPanelStyles';
-import { cards } from '../src/Utils/cards';
-import { Context } from '../src/Utils/context';
+import CardPanelStyles from '../StyleSheets/CardPanelStyles';
+//Utils
+import { cards } from '../Utils/cards';
+import { Context } from '../Utils/context';
 
 const Card = ({player, idx}) => {
   const { images, game, setGame } = useContext(Context);

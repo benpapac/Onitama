@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 
 let ScreenHeight = Dimensions.get('window').height;
 
-export const styles = StyleSheet.create({
+const AppStyles = StyleSheet.create({
 	background: {
 		height: '100%',
 		width: '100%',
@@ -52,3 +52,5 @@ export const styles = StyleSheet.create({
 		height: '6vw',
 	},
 });
+
+export default AppStyles;

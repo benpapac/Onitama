@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import {View, Text, FlatList, Pressable} from 'react-native';
-import { ImageBackground } from 'react-native-web';
+import React, { useContext,  } from 'react';
+import { View, Text, Pressable, ImageBackground } from 'react-native';
 import { RuleBookStyles } from '../StyleSheets/RuleBookStyles';
+//Utils
 import { cards } from '../Utils/cards';
-
 import { Context } from '../Utils/context';
 
 const RuleBook = () => {

@@ -1,4 +1,7 @@
+//Classes
 import Pawn from './class.Pawn.js';
+//Utils
+import deepEqual from '../deepEquals.js';
 
 export default class Player {
 	constructor(color, hand) {
@@ -30,7 +33,7 @@ export default class Player {
 	}
 
 	capture(piece) {
-		let newArr = this.capturedPieces.concat([piece]);
+		let newArr = this.capturedPieces.concat(piece);
 		this.capturedPieces = newArr;
 		return piece;
 	}
@@ -68,13 +71,14 @@ export default class Player {
 		let oppColor = currColor === 'p' ? 'b' : 'p';
 		let temple = currColor === 'p' ? [4, 2] : [0, 2];
 		let myKing = this.pieces.find((piece) => piece.name === `${currColor}king`);
-		let capturedKing = this.capturedPieces.find(
-			(pawn) => pawn.name === `${oppColor}king`
-		);
+		let capturedKing =
+			this.capturedPieces.find((pawn) => pawn.name === `${oppColor}king`) ||
+			null;
 
 		return (
-			capturedKing.name === 'pking' ||
-			(myKing.square[0] === temple[0] && myKing.square[1] === temple[1])
+			// (myKing.square[0] === temple[0] && myKing.square[1] === temple[1])
+			deepEqual(myKing.square, temple) ||
+			(capturedKing && capturedKing.name === `${oppColor}king`)
 		);
 	}
 }

@@ -1,28 +1,35 @@
-import React, { useContext } from 'react';
-import { Context } from '../Utils/context';
-import { BoardStyles } from '../StyleSheets/BoardStyles';
-
+import { useContext } from 'react';
 import { Pressable, Image } from 'react-native';
-import { chooseNewSquare } from '../Utils/dispatch';
+import BoardStyles from '../StyleSheets/BoardStyles';
+//Utils
+import { Context } from '../Utils/context';
 
-const Pawn = ({colIdx, rowIdx}) => {
-    const {images, gameState, dispatch} = useContext(Context);
+const Pawn = ({pawn}) => {
+    const { game, setGame, images } = useContext(Context);
 
-    const getImage = (colIdx, rowIdx) => {
-        let piece = gameState.board[colIdx][rowIdx] || 'empty';
-        // need to include color  for kings
-        if(!piece) return '';
-        return piece[1] === 'K' ? images[piece] :  images[ piece[0] ]
+    const compareToCurrPlayer = () => {
+        if(pawn.color === game.currentPlayer.color){
+          return game.choosePiece(pawn);
+        } else {
+          return game.chooseSquare(pawn.square);
+        }
     }
+
+    const getName = ()=>{
+        if(!pawn) return '';
+        if(pawn.name.includes('king')) {
+            return images[pawn.name];
+        } else {
+            return images[pawn.name[0] ];
+        }
+    }
+
     return (
-        <>
-         <Pressable 
-            style={BoardStyles.pawn} 
-            onPress={()=>{dispatch(chooseNewSquare(gameState.board[colIdx][rowIdx], `${gameState.cols[colIdx]}${rowIdx}`, gameState.current, gameState.target))}}
+        <Pressable 
+            onPress={() => setGame( compareToCurrPlayer() )}
             >
-            <Image source={ getImage(colIdx, rowIdx)}  style={BoardStyles.pawn}/>
-        </Pressable>       
-        </>
+            <Image source={ getName() } style={BoardStyles.pawn}  />
+        </Pressable> 
     );
 };
 

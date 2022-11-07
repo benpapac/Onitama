@@ -1,4 +1,4 @@
-import { deepEqual } from '../../../test/test.deepEquals.js';
+import deepEqual from '../deepEquals.js';
 import { cards, deck } from '../cards.js';
 import Player from './class.Player.js';
 
@@ -17,18 +17,13 @@ export default class Game {
 		this.threats = [];
 	}
 
-	get capturedPiece() {
-		let oppPlayer = (this.currentPlayer.color === 'pink'
-			? this.bluePlayer
-			: this.pinkPlayer);
+	get threatenedPiece() {
+		let threatenedPiece = this.nextPlayer.pieces.find((piece) => {
+			return deepEqual(piece.square, this.chosenSquare);
+		});
 
-		let capturedPiece = oppPlayer.pieces.find((piece) =>
-			deepEqual(piece.square, this.chosenSquare)
-		);
-
-		console.log('captured piece: ', capturedPiece);
-
-		return capturedPiece;
+		if (threatenedPiece === undefined) return null;
+		return threatenedPiece;
 	}
 
 	get nextPlayer() {
@@ -37,6 +32,17 @@ export default class Game {
 		} else {
 			return this.pinkPlayer;
 		}
+	}
+
+	capturePiece() {
+		let clone = new Game();
+		clone.clone(this);
+
+		let deadPiece = this.threatenedPiece;
+		clone.currentPlayer.capture(deadPiece);
+		clone.nextPlayer.deleteCapturedPiece(deadPiece);
+
+		return clone;
 	}
 
 	chooseCard(card) {

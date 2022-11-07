@@ -44,7 +44,7 @@ describe('The Player class ', () => {
 	it('4. should be able to capture opposing pieces', (done) => {
 		player.capture(OPP_PAWN);
 		expect(player.capturedPieces).to.be.instanceof(Array);
-		expect(player.capturedPieces[0]).to.equal(OPP_PAWN);
+		expect(player.capturedPieces[0]).to.deep.equal(OPP_PAWN);
 
 		player.capture(OPP_KING);
 		expect(player.capturedPieces).to.deep.equal(CAPTURED_PIECES);

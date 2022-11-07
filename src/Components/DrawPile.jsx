@@ -4,12 +4,12 @@ import { Context } from '../Utils/context';
 import { CardPanelStyles } from '../StyleSheets/CardPanelStyles';
 
 const DrawPile = () => {
-    const {gameState, images} = useContext(Context);
+    const {game, images} = useContext(Context);
     return (
         <View style={CardPanelStyles.drawPile}>
-             <Image title={gameState.cards.gameCards[0]} 
+             <Image title={game.drawPile[0]} 
                     style={CardPanelStyles.image} 
-                    source={{uri: images[gameState.cards.gameCards[0]]}}
+                    source={{uri: images[game.drawPile[0]]}}
                     />
         </View>
     );
