@@ -86,7 +86,6 @@ export default class Game {
 		clone.clone(this);
 
 		clone.threats = threats;
-		console.log('new threats: ', clone.threats);
 		return clone;
 	}
 
@@ -107,11 +106,9 @@ export default class Game {
 		clone.clone(this);
 		clone.chosenPiece.move(clone.chosenSquare);
 
-		if (this.capturedPiece) {
-			clone.currentPlayer.capture(this.capturedPiece);
-			clone.nextPlayer.deleteCapturedPiece(this.capturedPiece);
+		if (this.threatenedPiece) {
+			clone = clone.capturePiece();
 		}
-
 		return clone;
 	}
 
