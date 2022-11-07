@@ -7,7 +7,6 @@ import CardPanel from './CardPanel';
 //Utils
 import deepEqual from '../Utils/deepEquals';
 import BOARD from '../Utils/board';
-import { cards } from '../Utils/cards';
 import { Context } from '../Utils/context';
 
 const Board = () => {
@@ -20,11 +19,6 @@ const Board = () => {
             console.log('nothing to render.');
             return null;
         }
-        if(!game.threats.length ){
-            let changes = cards[game.chosenCard].changes[game.currentPlayer.color];
-            console.log('creating threats...', changes, game.chosenPiece)
-            setGame( game.createThreats(changes, game.chosenPiece.square) );
-        }
 
         console.log(game.threats, game.chosenSquare);
         if(deepEqual(game.threats, game.chosenSquare)){
@@ -33,7 +27,6 @@ const Board = () => {
             setGame( game.startNewTurn() );
         }
     }
-   
 
     useEffect(()=>{
         if(!initiated) {

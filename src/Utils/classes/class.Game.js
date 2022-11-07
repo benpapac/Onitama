@@ -14,16 +14,6 @@ export default class Game {
 		this.chosenPiece = null;
 		this.chosenSquare = [];
 		this.currentPlayer = this.pinkPlayer;
-		this.threats = [];
-	}
-
-	get threatenedPiece() {
-		let threatenedPiece = this.nextPlayer.pieces.find((piece) => {
-			return deepEqual(piece.square, this.chosenSquare);
-		});
-
-		if (threatenedPiece === undefined) return null;
-		return threatenedPiece;
 	}
 
 	get nextPlayer() {
@@ -32,6 +22,41 @@ export default class Game {
 		} else {
 			return this.pinkPlayer;
 		}
+	}
+
+	get threatenedPiece() {
+		if(!this.chosenSquare) return false;
+		let threatenedPiece = this.nextPlayer.pieces.find((piece) => {
+			return deepEqual(piece.square, this.chosenSquare);
+		});
+		console.log('threatened piece: ', threatenedPiece);
+		if (!threatenedPiece) return false;
+		return threatenedPiece;
+	}
+
+	get threats() {
+		if(!this.chosenCard) return false;
+		let changes = cards[this.chosenCard].changes[this.currentPlayer.color];
+		let square = this.chosenPiece.square;
+		let threats = changes.map((change) => {
+			let threat = change.map((coord, idx) => (coord += square[idx]));
+			return threat;
+		});
+		//first, remove squares that are out of bounds.
+		threats = threats.filter((threat) => {
+			return threat[0] > -1 && threat[0] < 5 && threat[1] > -1 && threat[1] < 5;
+		});
+
+		//then, remove squares that conflict with pieces on the same team.
+		let currentSquares = this.currentPlayer.pieces.map((piece) => piece.square);
+		threats = threats.filter((threat) => {
+			let filter = currentSquares.filter((square) => deepEqual(threat, square));
+			if (filter.length < 0) return false;
+			else return true;
+		});
+
+		if (!threats) return null;
+		else return threats;
 	}
 
 	capturePiece() {
@@ -70,23 +95,6 @@ export default class Game {
 		let keys = Object.keys(instance);
 		keys.forEach((key) => (this[key] = instance[key]));
 		return this;
-	}
-
-	createThreats(changes, square) {
-		let threats = changes.map((change) => {
-			let threat = change.map((coord, idx) => (coord += square[idx]));
-			return threat;
-		});
-
-		threats = threats.filter((threat) => {
-			return threat[0] > -1 && threat[0] < 5 && threat[1] > -1 && threat[1] < 5;
-		});
-
-		let clone = new Game();
-		clone.clone(this);
-
-		clone.threats = threats;
-		return clone;
 	}
 
 	dealCards() {
@@ -166,7 +174,6 @@ export default class Game {
 		clone.chosenSquare = [];
 		clone.chosenCard = '';
 		clone.chosenPiece = null;
-		clone.threats = [];
 		return clone;
 	}
 }

@@ -72,29 +72,31 @@ describe('The Game ', () => {
 		done();
 	});
 
+	const PINK_KING = game.pinkPlayer.pieces.find(
+		(piece) => piece.name === 'pking'
+	);
 	it('6. should track the chosen piece', (done) => {
-		const BLUE_KING = game.bluePlayer.pieces.find(
-			(piece) => piece.name === 'bking'
-		);
-		game = game.choosePiece(BLUE_KING);
+		game = game.choosePiece(PINK_KING);
 		expect(game.chosenPiece).to.deep.equal(
-			BLUE_PLAYER.pieces.find((piece) => piece.name === 'bking')
+			PINK_PLAYER.pieces.find((piece) => piece.name === 'pking')
 		);
 		done();
 	});
 
 	it('7. should create and track threats for all pawns', (done) => {
 		let game2 = new Game();
+		game2.setUpBoard();
 		const CARD = game.chosenCard;
-		const COLOR = PINK_PLAYER.color;
+		const COLOR = game2.currentPlayer.color;
 		const CHANGES = cards[CARD].changes[COLOR];
+
+		game2 = game2.chooseCard(CARD);
+		game2 = game2.choosePiece(PINK_KING);
+
 		expect(CHANGES[0]).to.be.instanceof(Array);
-
-		let pKing = new Pawn('pink', [0, 2], 'pking');
-		game2 = game2.createThreats(CHANGES, pKing.square);
-
-		const KING = game.pinkPlayer.pieces.find((piece) => piece.name === 'pking');
-		game = game.createThreats(CHANGES, KING.square);
+		expect(game.currentPlayer.color).to.equal(game2.currentPlayer.color);
+		expect(game.chosenCard).to.equal(game2.chosenCard);
+		expect(game.chosenPiece.square).to.deep.equal(game2.chosenPiece.square);
 		expect(game.threats).to.deep.equal(game2.threats);
 		done();
 	});
@@ -151,24 +153,21 @@ describe('The Game ', () => {
 		let square = [0, 2];
 		game = game.choosePiece(PAWN_B5);
 		game = game.chooseSquare(square);
-		game = game.createThreats([[-4, -2]], game.chosenPiece.square);
-		game = game.movePiece();
 
 		expect(game.chosenSquare).to.deep.equal(square);
-		expect(game.chosenPiece.square).to.deep.equal(square);
-		expect(game.threatenedPiece.square).to.deep.equal(square);
-
-		let deadPawn = game.threatenedPiece;
-		expect(deadPawn.name).to.equal('pking');
-
 		expect(game.threatenedPiece).to.deep.equal(
 			game.nextPlayer.pieces.find((piece) => {
 				return deepEqual(piece.square, game.chosenSquare);
 			})
 		);
+		expect(game.threatenedPiece.square).to.deep.equal(square);
 
-		game = game.capturePiece();
-		expect(game.threatenedPiece).to.equal(null);
+		let deadPawn = game.threatenedPiece;
+		expect(deadPawn.name).to.equal('pking');
+
+		game = game.movePiece();
+
+		expect(game.threatenedPiece).to.equal(false);
 
 		let testKing = new Pawn('pink', [0, 2], 'pking');
 

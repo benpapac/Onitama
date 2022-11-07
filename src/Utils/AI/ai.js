@@ -5,7 +5,7 @@ import { cards } from '../cards';
 
 export const getAllThreats = (clone) => {
 	let threats = [];
-	
+
 	let color = clone.currentPlayer.color;
 	const pieces = clone.currentPlayer.pieces;
 	const hand = clone.currentPlayer.hand;
@@ -18,11 +18,11 @@ export const getAllThreats = (clone) => {
 			res = clone.createThreats(changes, square);
 			accum = accum.concat(...res);
 			return accum;
-		},[]);
+		}, []);
 
 		accum = accum.concat(...newThreats);
 		return accum;
-	},[]);
+	}, []);
 
 	return threats;
 };
@@ -41,10 +41,12 @@ export const getEval = (clone) => {
 	const allThreats = getAllThreats(clone);
 	const mobilityValue = allThreats.length;
 
-	let oppKing = clone.nextPlayer.pieces.find(piece => piece.name.includes('king'));
+	let oppKing = clone.nextPlayer.pieces.find((piece) =>
+		piece.name.includes('king')
+	);
 	const kingThreats = getThreats(allThreats, oppKing.square);
 
-	let oppTemple = clone.currentPlayer.color === 'pink' ? [4,2] : [0,2];
+	let oppTemple = clone.currentPlayer.color === 'pink' ? [4, 2] : [0, 2];
 	const templeThreats = getThreats(allThreats, oppTemple);
 
 	return {

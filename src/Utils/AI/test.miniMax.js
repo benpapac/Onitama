@@ -1,7 +1,6 @@
 import Game from '../classes/class.Game';
 import { getEval } from './ai';
 
-
 export const evaluate = (clone) => {
 	let pinkEval = getEval(clone, 'pink');
 	let blueEval = getEval(clone, 'blue');
@@ -17,9 +16,9 @@ export const evaluate = (clone) => {
 
 const miniMax = (game, currentPlayer = game.currentPlayer, depth) => {
 	let clone = new Game();
-    clone.clone(game);
+	clone.clone(game);
 
-	if (depth === 0 || clone.pinkPlayer.wins ||clone.bluePlayer.wins) {
+	if (depth === 0 || clone.pinkPlayer.wins || clone.bluePlayer.wins) {
 		let evaluation = evaluate(clone).evaluation;
 		return { evaluation: evaluation };
 	}
