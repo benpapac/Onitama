@@ -17,23 +17,24 @@ const Board = () => {
     const { game, setGame, chosenCard, setChosenCard, chosenSquare, setChosenSquare, chosenPiece, setChosenPiece } = useContext(Context);
     const [threats, setThreats] = useState([]);
     const [switched, setSwitched] = useState(false);
+    const [depth, setDepth] = useState(3);
 
     const aiTurn =  () => {
         if (game.currentPlayer.color === 'blue') {
             console.log('taking ai turn...');
 
-            let bestMove = miniMax(game, 1);
+            let bestMove = miniMax(game, depth);
              setChosenCard(bestMove.bestMove.card);
 
              let clone = makeClone(game);
             let pieceIndex = clone.currentPlayer.pieces.findIndex(piece => piece.name === bestMove.bestMove.piece.name);
             let piece = clone.currentPlayer.pieces[pieceIndex];
 
-            console.log(createThreats(game, bestMove.bestMove.card, piece.name));
-		    console.log('Moving: ', piece.name, 'to', bestMove.bestMove.square);
             piece.move(bestMove.bestMove.square);
             clone.capturePiece(bestMove.bestMove.square);
-            clone.startNewTurn();
+            clone.startNewTurn(bestMove.bestMove.card);
+            console.log('blue hand: ', clone.bluePlayer.hand);
+
             setGame(clone);
             setSwitched(true);
         } 
@@ -54,7 +55,7 @@ const Board = () => {
             resetState();
             return null;
         }
-        else if( game.currentPlayer.color === 'blue'){
+        else if( !game.gameOver && game.currentPlayer.color === 'blue'){
             aiTurn();
             return null;
         }
@@ -65,9 +66,11 @@ const Board = () => {
 
             let pieceIndex = clone.currentPlayer.pieces.findIndex(piece => piece.name === chosenPiece);
             let piece = clone.currentPlayer.pieces[pieceIndex];
+
             piece.move(chosenSquare);
             clone.capturePiece(chosenSquare);
-            clone.startNewTurn();
+            clone.startNewTurn(chosenCard);
+            
             setGame(clone);
             setSwitched(true);
         }  else if(chosenCard && chosenPiece){

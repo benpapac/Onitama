@@ -47,6 +47,7 @@ export default class Player {
 			}
 		});
 		this.hand = newHand;
+		return this.hand;
 	}
 
 	discard(chosenCard) {

@@ -121,10 +121,11 @@ export default class Game {
 		return gameDeck;
 	}
 
-	startNewTurn() {
+	startNewTurn(chosenCard) {
+		let player = this.currentPlayer.color === 'pink' ? 'pinkPlayer' : 'bluePlayer';
 		let drawnCard = this.drawPile[0];
-		this.drawPile[0] = this.chosenCard;
-		this.currentPlayer.drawCard(this.chosenCard, drawnCard);
+		this.drawPile[0] = chosenCard;
+		this[player].drawCard(chosenCard, drawnCard);
 
 		this.currentPlayer = this.nextPlayer;
 		return this.currentPlayer;
