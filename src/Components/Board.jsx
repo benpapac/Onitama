@@ -32,6 +32,7 @@ const Board = () => {
             console.log(createThreats(game, bestMove.bestMove.card, piece.name));
 		    console.log('Moving: ', piece.name, 'to', bestMove.bestMove.square);
             piece.move(bestMove.bestMove.square);
+            clone.capturePiece(bestMove.bestMove.square);
             clone.startNewTurn();
             setGame(clone);
             setSwitched(true);
@@ -65,7 +66,7 @@ const Board = () => {
             let pieceIndex = clone.currentPlayer.pieces.findIndex(piece => piece.name === chosenPiece);
             let piece = clone.currentPlayer.pieces[pieceIndex];
             piece.move(chosenSquare);
-
+            clone.capturePiece(chosenSquare);
             clone.startNewTurn();
             setGame(clone);
             setSwitched(true);

@@ -12,11 +12,9 @@ const createThreats = (game, chosenCard, chosenPiece) => {
 		return threat;
 	});
 	//first, remove squares that are out of bounds.
-	console.log('threats before filtering...', threats);
 	let inBounds = threats.filter((threat) => {
 		return threat[0] > -1 && threat[0] < 5 && threat[1] > -1 && threat[1] < 5;
 	});
-	console.log('threats after out of bounds: ', inBounds);
 
 	//then, remove squares that conflict with pieces on the same team.
 	// FLAG: currentPlayer could be the error here.
@@ -27,7 +25,6 @@ const createThreats = (game, chosenCard, chosenPiece) => {
 	let legalThreats = inBounds.filter(
 		(threat) => !deepEqual(currentSquares, threat)
 	);
-	console.log('threats after same team...', legalThreats);
 
 	if (!legalThreats.length) return [];
 	else return legalThreats;

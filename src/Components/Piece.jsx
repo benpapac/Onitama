@@ -8,14 +8,15 @@ import makeClone from '../Utils/clone';
 const Piece = ({ pawn }) => {
     const { game, setChosenSquare, setChosenPiece, images } = useContext(Context);
 
-    const compareToCurrPlayer = () => {
+    const compareToCurrPlayer = async () => {
 
         if (pawn.color === game.currentPlayer.color) {
-            setChosenPiece(pawn.name);
+            await setChosenSquare([]);
+            await setChosenPiece(pawn.name);
             return pawn;
         } else {
             setChosenSquare(pawn.square);
-            return square;
+            return pawn.square;
         }
     }
 

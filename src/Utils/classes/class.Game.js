@@ -26,17 +26,50 @@ export default class Game {
 		}
 	}
 
-	get threatenedPiece() {
-		if (!this.chosenSquare) return false;
-		let threatenedPiece = this.nextPlayer.pieces.find((piece) => {
-			return deepEqual(piece.square, this.chosenSquare);
-		});
-		if (!threatenedPiece) return false;
-		return threatenedPiece;
+	 get gameOver() {
+
+		let pinkKingIndex = this.pinkPlayer.pieces.findIndex(
+			(piece) => piece.name === 'pking'
+		);
+		let pinkKing = this.pinkPlayer.pieces[pinkKingIndex];
+
+		if(!pinkKing){
+			return {winner: 'blue', way: 'stone'};
+		}
+
+		let blueKingIndex = this.bluePlayer.pieces.findIndex(
+			(piece) => piece.name === 'bking'
+		);
+
+		let blueKing = this.bluePlayer.pieces[blueKingIndex];
+		if(!blueKing){
+			return { winner: 'pink', way: 'stone' };
+		}
+
+		let pinkTemple = [0, 2];
+		let blueTemple = [4, 2];
+
+
+		if (deepEqual(pinkKing.square, blueTemple) ) {
+			return {winner: 'pink', way: 'water'};
+		} else if (deepEqual(blueKing.square, pinkTemple) ) {
+			return { winner: 'blue', way: 'water' };
+		} else {
+			return false;
+		}
 	}
 
-	capturePiece() {
-		let deadPiece = this.threatenedPiece;
+	capturePiece(square) {
+		let deadPieceIndex = this.nextPlayer.pieces.findIndex((piece) => {
+			return deepEqual(piece.square, square);
+		});
+		console.log('chosenSquare: ', square, 'dead piece index: ', deadPieceIndex);
+		let deadPiece = this.nextPlayer.pieces[deadPieceIndex];
+
+		console.log('deadPiece: ', deadPiece);
+		if (!deadPiece) {
+			return null;
+		}
 		this.currentPlayer.capture(deadPiece);
 		this.nextPlayer.deleteCapturedPiece(deadPiece);
 

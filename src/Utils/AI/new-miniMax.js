@@ -59,7 +59,7 @@ const getAllMoves = (game) => {
 			let threats = createThreats(game, card, piece.name);
 			// responsible for looking at all threats, and filtering out the invalid ones.
 
-			if(!threats.length){
+			if (!threats.length) {
 				return [];
 			}
 			let cardMoves = threats.reduce((accum, threat) => {
@@ -83,7 +83,7 @@ const getAllMoves = (game) => {
 };
 
 const getBestMove = (storedMove, depth, allMoves, operation, val, game) => {
-	if(!allMoves.length) {
+	if (!allMoves.length) {
 		return { bestMove: storedMove, evaluation: val };
 	}
 	let bestMove = allMoves.reduce(

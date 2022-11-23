@@ -36,17 +36,11 @@ export default function App() {
 			clone.setUpBoard();
 			setGame(clone);
 			setInitiated(true);
-		}
-
-		if (game.pinkPlayer.wins) {
-			setWinner('pink');
-			setWinCondition('TBD');
+		} else if (game.gameOver) {
+			setWinner(game.gameOver.winner);
+			setWinCondition(game.gameOver.way);
 			setGameOver(true);
-		} else if (game.bluePlayer.wins) {
-			setWinner('blue');
-			setWinCondition('TBD');
-			setGameOver(true);
-		}
+		} 
 	}, [game.currentPlayer]);
 	return (
 		<Context.Provider

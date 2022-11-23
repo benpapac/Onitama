@@ -59,24 +59,4 @@ export default class Player {
 		let disCard = this.hand.find((card) => card === chosenCard);
 		return disCard;
 	}
-
-	get wins() {
-		let currColor = this.color.substring(0, 1);
-		let oppColor = currColor === 'p' ? 'b' : 'p';
-		let temple = currColor === 'p' ? [4, 2] : [0, 2];
-		let myKing = this.pieces.find((piece) => piece.name === `${currColor}king`);
-		let capturedKing =
-			this.capturedPieces.find((pawn) => pawn.name === `${oppColor}king`) ||
-			null;
-
-		if (!myKing) {
-			return false;
-		}
-
-		return (
-			// (myKing.square[0] === temple[0] && myKing.square[1] === temple[1])
-			deepEqual(myKing.square, temple) ||
-			(capturedKing && capturedKing.name === `${oppColor}king`)
-		);
-	}
 }
