@@ -1,6 +1,8 @@
 import deepEqual from '../deepEquals.js';
 import { cards, deck } from '../cards.js';
 import Player from './class.Player.js';
+import Piece from './class.Piece.js';
+import deepCopy from '../deepCopy.js';
 
 //it would be lovey to reimagine these class methods in a declarative way.
 // that way, I could simply setGame(game.<method>()), and get the new state!
@@ -25,77 +27,36 @@ export default class Game {
 	}
 
 	get threatenedPiece() {
-		if(!this.chosenSquare) return false;
+		if (!this.chosenSquare) return false;
 		let threatenedPiece = this.nextPlayer.pieces.find((piece) => {
 			return deepEqual(piece.square, this.chosenSquare);
 		});
-		console.log('threatened piece: ', threatenedPiece);
 		if (!threatenedPiece) return false;
 		return threatenedPiece;
 	}
 
-	get threats() {
-		if(!this.chosenCard) return false;
-		let changes = cards[this.chosenCard].changes[this.currentPlayer.color];
-		let square = this.chosenPiece.square;
-		let threats = changes.map((change) => {
-			let threat = change.map((coord, idx) => (coord += square[idx]));
-			return threat;
-		});
-		//first, remove squares that are out of bounds.
-		threats = threats.filter((threat) => {
-			return threat[0] > -1 && threat[0] < 5 && threat[1] > -1 && threat[1] < 5;
-		});
-
-		//then, remove squares that conflict with pieces on the same team.
-		let currentSquares = this.currentPlayer.pieces.map((piece) => piece.square);
-		threats = threats.filter((threat) => {
-			let filter = currentSquares.filter((square) => deepEqual(threat, square));
-			if (filter.length < 0) return false;
-			else return true;
-		});
-
-		if (!threats) return null;
-		else return threats;
-	}
-
 	capturePiece() {
-		let clone = new Game();
-		clone.clone(this);
-
 		let deadPiece = this.threatenedPiece;
-		clone.currentPlayer.capture(deadPiece);
-		clone.nextPlayer.deleteCapturedPiece(deadPiece);
+		this.currentPlayer.capture(deadPiece);
+		this.nextPlayer.deleteCapturedPiece(deadPiece);
 
-		return clone;
+		return deadPiece;
 	}
 
-	chooseCard(card) {
-		let clone = new Game();
-		clone.clone(this);
-		clone.chosenCard = card;
-		return clone;
-	}
+	// chooseCard(card) {
+	// 	this.chosenCard = card;
+	// 	return card;
+	// }
 
-	chooseSquare(square) {
-		let clone = new Game();
-		clone.clone(this);
-		clone.chosenSquare = square;
-		return clone;
-	}
+	// chooseSquare(square) {
+	// 	this.chosenSquare = square;
+	// 	return square;
+	// }
 
-	choosePiece(piece) {
-		let clone = new Game();
-		clone.clone(this);
-		clone.chosenPiece = piece;
-		return clone;
-	}
-
-	clone(instance) {
-		let keys = Object.keys(instance);
-		keys.forEach((key) => (this[key] = instance[key]));
-		return this;
-	}
+	// choosePiece(piece) {
+	// 	this.chosenPiece = piece;
+	// 	return piece;
+	// }
 
 	dealCards() {
 		let hand1 = this.drawPile.slice(3);
@@ -107,17 +68,6 @@ export default class Game {
 		this.drawPile = this.drawPile.slice(0, 1);
 
 		return this.drawPile;
-	}
-
-	movePiece() {
-		let clone = new Game();
-		clone.clone(this);
-		clone.chosenPiece.move(clone.chosenSquare);
-
-		if (this.threatenedPiece) {
-			clone = clone.capturePiece();
-		}
-		return clone;
 	}
 
 	pawnAt(square) {
@@ -133,14 +83,12 @@ export default class Game {
 	}
 
 	setUpBoard() {
-		let clone = new Game();
-		clone.clone(this);
-		clone.pinkPlayer.createPieces();
-		clone.bluePlayer.createPieces();
+		this.pinkPlayer.createPieces();
+		this.bluePlayer.createPieces();
 
-		clone.shuffleCards();
-		clone.dealCards();
-		return clone;
+		this.shuffleCards();
+		this.dealCards();
+		return this.drawPile;
 	}
 
 	shuffleCards() {
@@ -160,20 +108,15 @@ export default class Game {
 		}
 
 		this.drawPile = gameDeck;
+		return gameDeck;
 	}
 
 	startNewTurn() {
-		let clone = new Game();
-		clone.clone(this);
+		let drawnCard = this.drawPile[0];
+		this.drawPile[0] = this.chosenCard;
+		this.currentPlayer.drawCard(this.chosenCard, drawnCard);
 
-		let drawnCard = clone.drawPile[0];
-		clone.drawPile[0] = clone.chosenCard;
-		clone.currentPlayer.drawCard(clone.chosenCard, drawnCard);
-
-		clone.currentPlayer = clone.nextPlayer;
-		clone.chosenSquare = [];
-		clone.chosenCard = '';
-		clone.chosenPiece = null;
-		return clone;
+		this.currentPlayer = this.nextPlayer;
+		return this.currentPlayer;
 	}
 }

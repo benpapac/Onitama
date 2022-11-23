@@ -1,2 +1,3 @@
-export const deepCopy = (arr) =>
+const deepCopy = (arr) =>
 	arr.map((el) => (Array.isArray(el) ? deepCopy(el) : el));
+export default deepCopy;

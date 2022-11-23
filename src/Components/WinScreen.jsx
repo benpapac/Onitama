@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import WinScreenStyles from '../StyleSheets/WinScreenStyles.js';
 //Utils
 import { Context } from '../Utils/context.js';
+import Board from './Board.jsx';
 
 const WinScreen = ({winner, winCondition}) => {
     const {gameState, templeBackground} = useContext(Context);

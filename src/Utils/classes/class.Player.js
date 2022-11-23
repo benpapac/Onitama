@@ -1,5 +1,5 @@
 //Classes
-import Pawn from './class.Pawn.js';
+import Pawn from './class.Piece.js';
 //Utils
 import deepEqual from '../deepEquals.js';
 
@@ -38,12 +38,6 @@ export default class Player {
 		return piece;
 	}
 
-	clone(instance) {
-		let keys = Object.keys(instance);
-		keys.forEach((key) => (this[key] = instance[key]));
-		return this;
-	}
-
 	deleteCapturedPiece(piece) {
 		let pieces = this.pieces.filter((el) => el.name !== piece.name);
 		this.pieces = pieces;
@@ -74,6 +68,10 @@ export default class Player {
 		let capturedKing =
 			this.capturedPieces.find((pawn) => pawn.name === `${oppColor}king`) ||
 			null;
+
+		if (!myKing) {
+			return false;
+		}
 
 		return (
 			// (myKing.square[0] === temple[0] && myKing.square[1] === temple[1])

@@ -2,22 +2,19 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ImageBackground, Pressable } from 'react-native';
 import BoardStyles from '../StyleSheets/BoardStyles';
 //Components
-import Pawn from './Pawn.jsx';
+import Piece from './Piece.jsx';
 //Utils
+import makeClone from '../Utils/clone';
 import { Context } from '../Utils/context';
 
 const Square = ({square}) => {
-    const { game, setGame, images } = useContext(Context);
+    const { game, setChosenSquare, images } = useContext(Context);
     const [pawn, setPawn] = useState(game.pawnAt(square));
-    const [pawnComponent, setPawnComponent] = useState(null);
+
+
 
     useEffect(()=>{
         setPawn(game.pawnAt(square));
-        if(pawn) {
-            setPawnComponent(<Pawn pawn={pawn} />);
-        } else {
-            setPawnComponent(null);
-        }
     }, [game]);
 
 
@@ -26,10 +23,10 @@ const Square = ({square}) => {
             key={`${square}`} 
             title={`${square}`}
             nativeID={`${square}`}
-            onPress={()=> setGame( game.chooseSquare(square) ) } 
+            onPress={()=> setChosenSquare(square) } 
             >
              <ImageBackground style={BoardStyles.square} source={ images.square }>
-                        { pawn && <Pawn pawn={pawn} /> }
+                        { pawn && <Piece pawn={pawn} /> }
             </ImageBackground>
         </Pressable>
     );

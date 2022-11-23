@@ -14,29 +14,6 @@ export const evaluate = (gameCopy) => {
 	return { evaluation: value };
 };
 
-export const copyMoveRes = (move) => {
-	let keys = Object.keys(move);
-	let copy = {};
-	keys.forEach((key) => {
-		if (key === 'winner') {
-			copy[key] = move[key];
-		} else if (key === 'cards') {
-			copy[key] = {
-				pink: deepCopy(move[key].pink),
-				blue: deepCopy(move[key].blue),
-				gameCards: deepCopy(move[key].gameCards),
-			};
-		} else if (key === 'current' || key === 'target')
-			copy[key] = {
-				square: move[key].square,
-				piece: move[key].piece,
-				player: move[key].player,
-			};
-		else copy[key] = deepCopy(move[key]);
-	});
-	return copy;
-};
-
 const findWinningMove = (move) => {
 	if (move.winner === 'blue')
 		return {
@@ -78,6 +55,7 @@ const findBestMove = (gameCopy, currentPlayer, depth) => {
 };
 
 export const miniMax = (gameState, currentPlayer, depth) => {
+
 	let gameCopy = {
 		board: deepCopy(gameState.board),
 		cols: deepCopy(gameState.cols),

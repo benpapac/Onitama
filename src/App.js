@@ -19,11 +19,25 @@ import AppStyles from './StyleSheets/AppStyles.js';
 import { Context } from './Utils/context';
 
 export default function App() {
+	const [chosenCard, setChosenCard] = useState();
+	const [chosenPiece, setChosenPiece] = useState('');
+	const [chosenSquare, setChosenSquare] = useState([]);
+
 	const [game, setGame] = useState(new Game());
 	const [gameOver, setGameOver] = useState(false);
 	const [rules, setRules] = useState(false);
+	const [winner, setWinner] = useState('');
+	const [winCondition, setWinCondition] = useState('');
+	const [initiated, setInitiated] = useState(false);
 
 	useEffect(() => {
+		if (!initiated) {
+			let clone = new Game();
+			clone.setUpBoard();
+			setGame(clone);
+			setInitiated(true);
+		}
+
 		if (game.pinkPlayer.wins) {
 			setWinner('pink');
 			setWinCondition('TBD');
@@ -39,15 +53,18 @@ export default function App() {
 			value={{
 				game: game,
 				setGame: setGame,
+				chosenPiece: chosenPiece,
+				setChosenPiece: setChosenPiece,
+				chosenCard: chosenCard,
+				setChosenCard: setChosenCard,
+				chosenSquare: chosenSquare,
+				setChosenSquare: setChosenSquare,
 				images: images,
 			}}>
 			<View style={AppStyles.container}>
-				{rules ? <RuleBook /> : null}
-				{gameOver ? (
-					<WinScreen winner={'pink'} winCondition={'stone'} />
-				) : (
-					<Board />
-				)}
+				{rules && <RuleBook />}
+				{gameOver && <WinScreen winner={winner} winCondition={winCondition} />}
+				<Board />
 			</View>
 		</Context.Provider>
 	);

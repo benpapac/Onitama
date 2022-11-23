@@ -1,42 +1,89 @@
-import {useContext, useEffect, useState} from 'react';
-import { View } from 'react-native-web';
+import { useContext, useEffect, useState } from 'react';
+import { View } from 'react-native';
 import BoardStyles from '../StyleSheets/BoardStyles';
 //Components
 import Square from './Square';
 import CardPanel from './CardPanel';
 //Utils
+import makeClone from '../Utils/clone';
 import deepEqual from '../Utils/deepEquals';
 import BOARD from '../Utils/board';
 import { Context } from '../Utils/context';
+import miniMax from '../Utils/AI/new-miniMax';
+import createThreats from '../Utils/createThreats';
+import deepCopy from '../Utils/deepCopy';
 
 const Board = () => {
-    const { game, setGame } = useContext(Context);
-    const [ initiated, setInitiated] = useState(false);
+    const { game, setGame, chosenCard, setChosenCard, chosenSquare, setChosenSquare, chosenPiece, setChosenPiece } = useContext(Context);
+    const [threats, setThreats] = useState([]);
+    const [switched, setSwitched] = useState(false);
 
-    const render = () =>{
-        console.log('rendering...',game.currentPlayer);
-        if(!game.chosenSquare || !game.chosenCard || !game.chosenPiece) {
-            console.log('nothing to render.');
+    const aiTurn =  () => {
+        if (game.currentPlayer.color === 'blue') {
+            console.log('taking ai turn...');
+
+            let bestMove = miniMax(game, 1);
+             setChosenCard(bestMove.bestMove.card);
+
+             let clone = makeClone(game);
+            let pieceIndex = clone.currentPlayer.pieces.findIndex(piece => piece.name === bestMove.bestMove.piece.name);
+            let piece = clone.currentPlayer.pieces[pieceIndex];
+
+            console.log(createThreats(game, bestMove.bestMove.card, piece.name));
+		    console.log('Moving: ', piece.name, 'to', bestMove.bestMove.square);
+            piece.move(bestMove.bestMove.square);
+            clone.startNewTurn();
+            setGame(clone);
+            setSwitched(true);
+        } 
+        return null;
+    }
+
+    const resetState = () => {
+        setChosenCard('');
+        setChosenPiece('');
+        setChosenSquare([]);
+        setSwitched(false);
+    }
+
+    const render = async () => {
+        console.log('rendering...')
+
+        if(switched){
+            resetState();
+            return null;
+        }
+        else if( game.currentPlayer.color === 'blue'){
+            aiTurn();
             return null;
         }
 
-        console.log(game.threats, game.chosenSquare);
-        if(deepEqual(game.threats, game.chosenSquare)){
+        else if (threats.length && deepEqual(threats, chosenSquare)) {
             console.log('moving...')
-            setGame( game.movePiece() );
-            setGame( game.startNewTurn() );
+            let clone = makeClone(game);
+
+            let pieceIndex = clone.currentPlayer.pieces.findIndex(piece => piece.name === chosenPiece);
+            let piece = clone.currentPlayer.pieces[pieceIndex];
+            piece.move(chosenSquare);
+
+            clone.startNewTurn();
+            setGame(clone);
+            setSwitched(true);
+        }  else if(chosenCard && chosenPiece){
+            setThreats(createThreats(game, chosenCard, chosenPiece));
+            return null;
+        } else {
+            console.log('nothing to render.');
+            return null;
         }
     }
 
-    useEffect(()=>{
-        if(!initiated) {
-            setGame( game.setUpBoard() );
-            setInitiated(true);
-        }
-        render();
-    }, [game.chosenSquare, game.chosenCard, game.chosenPiece]);
 
-    if(!game) return (<h1>Loading...</h1>)
+    useEffect(() => {
+        render();
+    }, [chosenSquare, chosenCard, chosenPiece, switched]);
+
+    if (!game) return (<h1>Loading...</h1>)
 
     return (
         game &&
@@ -44,11 +91,11 @@ const Board = () => {
             <CardPanel player={'pinkPlayer'} />
 
             <View style={BoardStyles.board}>
-                { BOARD.map( (col) => col.map( (square) =>  
-                    <Square square={square} />  
+                {BOARD.map((col) => col.map((square) =>
+                    <Square key={`${square}`} square={square} />
                 ))}
             </View>
-            
+
             <CardPanel player={'bluePlayer'} />
         </View>
     )
@@ -74,4 +121,4 @@ const Board = () => {
 
 //  });
 
- export default Board;
+export default Board;

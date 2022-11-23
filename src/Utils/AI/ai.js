@@ -1,22 +1,17 @@
 import deepEqual from '../deepEquals';
-import { moveIsValid, rotateCards } from '../dispatch';
-import { deepCopy } from './deepCopy';
 import { cards } from '../cards';
+import createThreats from '../createThreats';
 
-export const getAllThreats = (clone) => {
+export const getAllThreats = (game) => {
 	let threats = [];
 
-	let color = clone.currentPlayer.color;
-	const pieces = clone.currentPlayer.pieces;
-	const hand = clone.currentPlayer.hand;
+	const pieces = game.currentPlayer.pieces;
+	const hand = game.currentPlayer.hand;
 
 	threats = pieces.reduce((accum, piece) => {
-		let square = piece.square;
-
 		let newThreats = hand.reduce((accum, card) => {
-			let changes = cards[card].changes[color];
-			res = clone.createThreats(changes, square);
-			accum = accum.concat(...res);
+			let threats = createThreats(game, card, piece.name);
+			accum = accum.concat(...threats);
 			return accum;
 		}, []);
 
@@ -31,29 +26,29 @@ export const getThreats = (threats, target) => {
 	return threats.filter((threat) => deepEqual(threat, target)).length;
 };
 
-export const getEval = (clone) => {
-	const pieces = clone.currentPlayer.pieces;
+export const getEval = (game) => {
+	const pieces = game.currentPlayer.pieces;
 	const pawnCount = pieces.filter(
 		(piece) => !piece.name.includes('king')
 	).length;
 	const kingCount = pieces.length - pawnCount;
 
-	const allThreats = getAllThreats(clone);
+	const allThreats = getAllThreats(game);
 	const mobilityValue = allThreats.length;
 
-	let oppKing = clone.nextPlayer.pieces.find((piece) =>
+	let oppKing = game.nextPlayer.pieces.find((piece) =>
 		piece.name.includes('king')
 	);
-	const kingThreats = getThreats(allThreats, oppKing.square);
+	const kingThreats = oppKing ? getThreats(allThreats, oppKing.square) : 1000;
 
-	let oppTemple = clone.currentPlayer.color === 'pink' ? [4, 2] : [0, 2];
+	let oppTemple = game.currentPlayer.color === 'pink' ? [4, 2] : [0, 2];
 	const templeThreats = getThreats(allThreats, oppTemple);
 
 	return {
 		pawnCount: pawnCount,
 		kingCount: kingCount,
-		kingThreat: kingThreats,
-		templeThreat: templeThreats,
+		kingThreats: kingThreats,
+		templeThreats: templeThreats,
 		mobilityValue: mobilityValue,
 	};
 };
