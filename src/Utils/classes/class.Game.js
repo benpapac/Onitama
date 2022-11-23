@@ -23,35 +23,35 @@ export default class Game {
 		}
 	}
 
+	wayOfStone(color) {
+		let opp = color === 'p' ? 'bluePlayer' : 'pinkPlayer';
+		let oppKing = color === 'p' ? 'bking' : 'pking';
+
+		return !this[opp].pieces.find((piece) => piece.name === oppKing);
+	}
+
+	wayOfWater(color) {
+		let temple = color === 'p' ? [4, 2] : [0, 2];
+		let player = color === 'p' ? 'pinkPlayer' : 'bluePlayer';
+
+		let kingIndex = this[player].pieces.findIndex(
+			(piece) => piece.name === `${color}king`
+		);
+		let king = this[player].pieces[kingIndex];
+
+		return deepEqual(king.square, temple);
+	}
+
 	get gameOver() {
-		let pinkKingIndex = this.pinkPlayer.pieces.findIndex(
-			(piece) => piece.name === 'pking'
-		);
-		let pinkKing = this.pinkPlayer.pieces[pinkKingIndex];
-
-		if (!pinkKing) {
-			return { winner: 'blue', way: 'stone' };
-		}
-
-		let blueKingIndex = this.bluePlayer.pieces.findIndex(
-			(piece) => piece.name === 'bking'
-		);
-
-		let blueKing = this.bluePlayer.pieces[blueKingIndex];
-		if (!blueKing) {
-			return { winner: 'pink', way: 'stone' };
-		}
-
-		let pinkTemple = [0, 2];
-		let blueTemple = [4, 2];
-
-		if (deepEqual(pinkKing.square, blueTemple)) {
-			return { winner: 'pink', way: 'water' };
-		} else if (deepEqual(blueKing.square, pinkTemple)) {
-			return { winner: 'blue', way: 'water' };
-		} else {
-			return false;
-		}
+		if (this.wayOfStone('p')) {
+			return { winner: 'pink', way: 'Stone' };
+		} else if (this.wayOfStone('b')) {
+			return { winner: 'blue', way: 'Stone' };
+		} else if (this.wayOfWater('p')) {
+			return { winner: 'pink', way: 'Water' };
+		} else if (this.wayOfWater('b')) {
+			return { winner: 'pink', way: 'Water' };
+		} else return false;
 	}
 
 	capturePiece(square) {
@@ -59,7 +59,7 @@ export default class Game {
 		let deadPieceIndex = this.nextPlayer.pieces.findIndex((piece) => {
 			return deepEqual(piece.square, square);
 		});
-		
+
 		if (deadPieceIndex > -1) {
 			let deadPiece = this.nextPlayer.pieces[deadPieceIndex];
 			this.nextPlayer.deleteCapturedPiece(deadPiece);
