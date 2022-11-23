@@ -40,7 +40,7 @@ export default function App() {
 			setWinner(game.gameOver.winner);
 			setWinCondition(game.gameOver.way);
 			setGameOver(true);
-		} 
+		}
 	}, [game.currentPlayer]);
 	return (
 		<Context.Provider

@@ -12,9 +12,6 @@ export default class Game {
 		this.pinkPlayer = new Player('pink');
 		this.bluePlayer = new Player('blue');
 		this.drawPile = [];
-		this.chosenCard = '';
-		this.chosenPiece = null;
-		this.chosenSquare = [];
 		this.currentPlayer = this.pinkPlayer;
 	}
 
@@ -26,15 +23,14 @@ export default class Game {
 		}
 	}
 
-	 get gameOver() {
-
+	get gameOver() {
 		let pinkKingIndex = this.pinkPlayer.pieces.findIndex(
 			(piece) => piece.name === 'pking'
 		);
 		let pinkKing = this.pinkPlayer.pieces[pinkKingIndex];
 
-		if(!pinkKing){
-			return {winner: 'blue', way: 'stone'};
+		if (!pinkKing) {
+			return { winner: 'blue', way: 'stone' };
 		}
 
 		let blueKingIndex = this.bluePlayer.pieces.findIndex(
@@ -42,17 +38,16 @@ export default class Game {
 		);
 
 		let blueKing = this.bluePlayer.pieces[blueKingIndex];
-		if(!blueKing){
+		if (!blueKing) {
 			return { winner: 'pink', way: 'stone' };
 		}
 
 		let pinkTemple = [0, 2];
 		let blueTemple = [4, 2];
 
-
-		if (deepEqual(pinkKing.square, blueTemple) ) {
-			return {winner: 'pink', way: 'water'};
-		} else if (deepEqual(blueKing.square, pinkTemple) ) {
+		if (deepEqual(pinkKing.square, blueTemple)) {
+			return { winner: 'pink', way: 'water' };
+		} else if (deepEqual(blueKing.square, pinkTemple)) {
 			return { winner: 'blue', way: 'water' };
 		} else {
 			return false;
@@ -60,36 +55,18 @@ export default class Game {
 	}
 
 	capturePiece(square) {
+		let deadPiece = false;
 		let deadPieceIndex = this.nextPlayer.pieces.findIndex((piece) => {
 			return deepEqual(piece.square, square);
 		});
-		console.log('chosenSquare: ', square, 'dead piece index: ', deadPieceIndex);
-		let deadPiece = this.nextPlayer.pieces[deadPieceIndex];
-
-		console.log('deadPiece: ', deadPiece);
-		if (!deadPiece) {
-			return null;
+		
+		if (deadPieceIndex > -1) {
+			let deadPiece = this.nextPlayer.pieces[deadPieceIndex];
+			this.nextPlayer.deleteCapturedPiece(deadPiece);
 		}
-		this.currentPlayer.capture(deadPiece);
-		this.nextPlayer.deleteCapturedPiece(deadPiece);
 
 		return deadPiece;
 	}
-
-	// chooseCard(card) {
-	// 	this.chosenCard = card;
-	// 	return card;
-	// }
-
-	// chooseSquare(square) {
-	// 	this.chosenSquare = square;
-	// 	return square;
-	// }
-
-	// choosePiece(piece) {
-	// 	this.chosenPiece = piece;
-	// 	return piece;
-	// }
 
 	dealCards() {
 		let hand1 = this.drawPile.slice(3);

@@ -32,12 +32,6 @@ export default class Player {
 		return this.pieces;
 	}
 
-	capture(piece) {
-		let newArr = this.capturedPieces.concat(piece);
-		this.capturedPieces = newArr;
-		return piece;
-	}
-
 	deleteCapturedPiece(piece) {
 		let pieces = this.pieces.filter((el) => el.name !== piece.name);
 		this.pieces = pieces;
