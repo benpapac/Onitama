@@ -55,7 +55,6 @@ const findBestMove = (gameCopy, currentPlayer, depth) => {
 };
 
 export const miniMax = (gameState, currentPlayer, depth) => {
-
 	let gameCopy = {
 		board: deepCopy(gameState.board),
 		cols: deepCopy(gameState.cols),

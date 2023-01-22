@@ -1,7 +1,7 @@
 export default class Piece {
-	constructor(color, square, name) {
+	constructor(owner, square, name) {
 		this.name = name;
-		this.color = color;
+		this.owner = owner;
 		this.square = square;
 		this.captured = false;
 	}

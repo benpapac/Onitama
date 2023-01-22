@@ -1,7 +1,7 @@
 import Game from '../classes/class.Game';
 import makeClone from '../clone';
 import deepEqual from '../deepEquals';
-import { getAllThreats, getEval } from './ai';
+import { getEval } from './ai';
 import createThreats from '../createThreats';
 
 /*
@@ -27,12 +27,12 @@ I don't need to return an entire board.
 
 const value = (pinkEval, blueEval) => {
 	return (
-		pinkEval.pawnCount -
-		blueEval.pawnCount +
-		200 * (pinkEval.kingCount - blueEval.kingCount) +
+		3 * (pinkEval.pawnCount - blueEval.pawnCount) +
+		(pinkEval.kingVal - blueEval.kingVal) +
+		2 * (pinkEval.centerThreats - blueEval.centerThreats) +
 		2 * (pinkEval.kingThreats - blueEval.kingThreats) +
-		10 * (pinkEval.templeThreats - blueEval.templeThreats) +
-		(pinkEval.mobilityValue - blueEval.mobilityValue)
+		2 * (pinkEval.templeThreats - blueEval.templeThreats) +
+		0.5 * (pinkEval.mobilityValue - blueEval.mobilityValue)
 	);
 };
 
@@ -41,73 +41,77 @@ const evaluate = (game) => {
 		return false;
 	}
 	let clone = makeClone(game);
-	let currentEval = getEval(clone);
-
-	clone.startNewTurn();
-	let nextEval = getEval(clone);
-
-	return value(currentEval, nextEval);
+	let pinkEval = getEval(clone, 'pinkPlayer', 'bluePlayer');
+	let blueEval = getEval(clone, 'bluePlayer', 'pinkPlayer');
+	return value(pinkEval, blueEval);
 };
 
-const findWinningMove = (game) => {
-	return game.bluePlayer.wins;
+const preserveState = (game, piece) => {
+	return {
+		drawPile: game.drawPile,
+		hand: game[game.currentPlayer].hand,
+		currentPlayer: game.currentPlayer,
+		square: piece.square,
+	};
 };
 
-const getAllMoves = (game) => {
-	let allMoves = game.currentPlayer.pieces.reduce((accum, piece) => {
-		let pieceMoves = game.currentPlayer.hand.reduce((accum, card) => {
-			let threats = createThreats(game, card, piece.name);
-			// responsible for looking at all threats, and filtering out the invalid ones.
+//side effects
+const resetState = (game, piece, preservedState) => {
+	game.currentPlayer = preservedState.currentPlayer;
+	game.drawPile = preservedState.drawPile;
+	game[game.currentPlayer].hand = preservedState.hand;
+	piece.move(preservedState.square);
+};
 
-			if (!threats.length) {
-				return [];
+const getBestEval = (game, operation, val, depth) => {
+	let bestEval = {
+		bestMove: {},
+		evaluation: val,
+	};
+
+	// iterate through pieces ( max 5)
+	for (let i = 0; i < game[game.currentPlayer].pieces.length; i++) {
+		game.chosenPiece = game[game.currentPlayer].pieces[i].name;
+		// iterate through cards (always 2)
+		for (let j = 0; j < game[game.currentPlayer].pieces.length; j++) {
+			game.chosenCard = game[game.currentPlayer].hand[i];
+
+			if (!game.threats.length) {
+				continue;
 			}
-			let cardMoves = threats.reduce((accum, threat) => {
+
+			for (let k = 0; k < game.threats.length; k++) {
+				let clone = makeClone(game);
+				let piece = clone[game.currentPlayer].pieces[i];
+				let preservedState = preserveState(game, piece);
+
 				let move = {
-					card: card,
-					piece: piece,
-					square: threat,
+					piece: game.chosenPiece,
+					card: game.chosenCard,
+					threat: game.threats[k],
 				};
 
-				accum = accum.concat(move);
-				return accum;
-			}, []);
-			accum = accum.concat(cardMoves);
-			return accum;
-		}, []);
+				piece.move(game.threats[k]);
+			
+				clone.startNewTurn();
+				let evaluation = miniMax(game, depth - 1, move).evaluation; // recursive call
+				resetState(clone, piece, preservedState);
 
-		accum = accum.concat(pieceMoves);
-		return accum;
-	}, []);
-	return allMoves;
-};
+				// console.log(move, evaluation);
 
-const getBestMove = (storedMove, depth, allMoves, operation, val, game) => {
-	if (!allMoves.length) {
-		return { bestMove: storedMove, evaluation: val };
-	}
-	let bestMove = allMoves.reduce(
-		(accum, move) => {
-			let pieceIndex = game.currentPlayer.pieces.findIndex(
-				(piece) => piece.name === move.piece.name
-			);
-			let piece = game.currentPlayer.pieces[pieceIndex];
-			let oldSquare = piece.square;
-			piece.move(move.square);
+				let newEval = operation(bestEval.evaluation, evaluation);
 
-			let evaluation = miniMax(game, depth - 1, move).evaluation; // recursive call
-			piece.move(oldSquare);
-			let bestEval = operation(accum.evaluation, evaluation);
-			if (bestEval === evaluation) {
-				return { bestMove: move, evaluation: evaluation };
-			} else {
-				return accum;
+				if (newEval === evaluation) {
+					bestEval = {
+						bestMove: move,
+						evaluation: evaluation,
+					};
+				}
 			}
-		},
-		{ bestMove: storedMove, evaluation: val }
-	);
+		}
+	}
 
-	return bestMove;
+	return bestEval;
 };
 
 const miniMax = (game, depth, move = {}) => {
@@ -115,19 +119,16 @@ const miniMax = (game, depth, move = {}) => {
 	// once you identify the best move, THEN apply those changes to the game, before passing up.
 
 	//edge cases.
-	if (depth === 0 || game.pinkPlayer.wins || game.bluePlayer.wins) {
+	console.log('game over? ', game.gameOver);
+	if (depth === 0 || game.gameOver) {
 		return { bestMove: move, evaluation: evaluate(game) };
 	}
 
-	let color = game.currentPlayer.color;
-	let operation = color === 'pink' ? Math.max : Math.min;
-	let val = color === 'pink' ? -Infinity : Infinity;
+	let operation = game.currentPlayer === 'pinkPlayer' ? Math.max : Math.min;
+	let val = game.currentPlayer === 'pinkPlayer' ? -Infinity : Infinity;
 
-	//findBestMove recursively seeks the best position through miniMax, to a given depth.
-	let clone = makeClone(game);
-	let allMoves = getAllMoves(clone);
-
-	return getBestMove(move, depth, allMoves, operation, val, clone);
+	//getBestEval recursively seeks the best position through miniMax, to a given depth.
+	return getBestEval(game, operation, val, depth, move);
 };
 
 export default miniMax;

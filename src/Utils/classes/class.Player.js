@@ -14,6 +14,7 @@ export default class Player {
 	createPieces() {
 		let pieces = new Array(5).fill({});
 		let color = this.color.substring(0, 1);
+		let owner = color === 'p' ? 'pinkPlayer' : 'bluePlayer';
 		let name = '';
 		let x = color === 'p' ? 0 : 4;
 
@@ -25,7 +26,7 @@ export default class Player {
 			}
 
 			let square = [x, i];
-			return new Pawn(this.color, square, name);
+			return new Pawn(owner, square, name);
 		});
 
 		this.pieces = pieces;

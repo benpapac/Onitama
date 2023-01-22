@@ -4,12 +4,12 @@ export const cards = {
 	boar: {
 		name: 'boar',
 		changes: {
-			pink: [
+			pinkPlayer: [
 				[0, -1],
 				[1, 0],
 				[0, 1],
 			],
-			blue: [
+			bluePlayer: [
 				[0, 1],
 				[-1, 0],
 				[0, -1],
@@ -21,12 +21,12 @@ export const cards = {
 	eel: {
 		name: 'eel',
 		changes: {
-			pink: [
+			pinkPlayer: [
 				[0, 1],
 				[-1, -1],
 				[1, -1],
 			],
-			blue: [
+			bluePlayer: [
 				[0, -1],
 				[1, 1],
 				[-1, 1],
@@ -38,12 +38,12 @@ export const cards = {
 	mantis: {
 		name: 'mantis',
 		changes: {
-			pink: [
+			pinkPlayer: [
 				[-1, 0],
 				[1, -1],
 				[1, 1],
 			],
-			blue: [
+			bluePlayer: [
 				[1, 0],
 				[-1, 1],
 				[-1, -1],
@@ -55,12 +55,12 @@ export const cards = {
 	ox: {
 		name: 'ox',
 		changes: {
-			pink: [
+			pinkPlayer: [
 				[1, 0],
 				[0, 1],
 				[-1, 0],
 			],
-			blue: [
+			bluePlayer: [
 				[-1, 0],
 				[0, -1],
 				[1, 0],
@@ -72,12 +72,12 @@ export const cards = {
 	cobra: {
 		name: 'cobra',
 		changes: {
-			pink: [
+			pinkPlayer: [
 				[0, -1], //left
 				[-1, 1], //for+right
 				[1, 1], //back+right
 			],
-			blue: [
+			bluePlayer: [
 				[0, 1], //left
 				[-1, -1], //forw+right
 				[1, -1], //back+right
@@ -90,12 +90,12 @@ export const cards = {
 	horse: {
 		name: 'horse',
 		changes: {
-			pink: [
+			pinkPlayer: [
 				[1, 0], //forward
 				[0, -1], //left
 				[-1, 0], //back
 			],
-			blue: [
+			bluePlayer: [
 				[-1, 0], //forward
 				[0, 1], //left
 				[1, 0], //backward

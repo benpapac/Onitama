@@ -1,10 +1,10 @@
 import { cards } from './cards.js';
 import deepEqual from './deepEquals.js';
 
-const createThreats = (game, chosenCard, chosenPiece) => {
-	let changes = cards[chosenCard].changes[game.currentPlayer.color];
-	let piece = game.currentPlayer.pieces.find(
-		(piece) => piece.name === chosenPiece
+const createThreats = (game, card, pieceName) => {
+	let changes = cards[card].changes[game.currentPlayer];
+	let piece = game[game.currentPlayer].pieces.find(
+		(piece) => piece.name === pieceName
 	);
 	let square = piece.square;
 	let threats = changes.map((change) => {
@@ -17,10 +17,9 @@ const createThreats = (game, chosenCard, chosenPiece) => {
 	});
 
 	//then, remove squares that conflict with pieces on the same team.
-	// FLAG: currentPlayer could be the error here.
-
-	let currentSquares = game.currentPlayer.pieces.map((piece) => piece.square);
-	// console.log('current squares: ', currentSquares);
+	let currentSquares = game[game.currentPlayer].pieces.map(
+		(piece) => piece.square
+	);
 
 	let legalThreats = inBounds.filter(
 		(threat) => !deepEqual(currentSquares, threat)

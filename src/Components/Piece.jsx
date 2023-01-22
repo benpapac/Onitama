@@ -6,18 +6,21 @@ import { Context } from '../Utils/context';
 import makeClone from '../Utils/clone';
 
 const Piece = ({ pawn }) => {
-    const { game, setChosenSquare, setChosenPiece, images } = useContext(Context);
+    const { game, setGame, images } = useContext(Context);
+const compareToCurrPlayer = async () => {
+    console.log(pawn.owner, game.currentPlayer);
+    let clone = makeClone(game);
 
-    const compareToCurrPlayer = async () => {
-
-        if (pawn.color === game.currentPlayer.color) {
-            await setChosenSquare([]);
-            await setChosenPiece(pawn.name);
-            return pawn;
+        if (pawn.owner === game.currentPlayer) {
+            console.log('choosing piece...');
+            clone.chosenPiece = pawn.name;
+            clone.chosenSquare = [];
         } else {
-            setChosenSquare(pawn.square);
-            return pawn.square;
+            clone.chosenSquare = pawn.square;
         }
+        setGame(clone);
+        console.log(clone.chosenPiece);
+        return pawn;
     }
 
     const getName = () => {

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import { View } from 'react-native';
 
 //components
@@ -19,10 +19,7 @@ import AppStyles from './StyleSheets/AppStyles.js';
 import { Context } from './Utils/context';
 
 export default function App() {
-	const [chosenCard, setChosenCard] = useState();
-	const [chosenPiece, setChosenPiece] = useState('');
-	const [chosenSquare, setChosenSquare] = useState([]);
-
+	//TODO: refactor most state into a useReducer Hook. This will make code more maintainable.
 	const [game, setGame] = useState(new Game());
 	const [gameOver, setGameOver] = useState(false);
 	const [rules, setRules] = useState(false);
@@ -35,6 +32,7 @@ export default function App() {
 			let clone = new Game();
 			clone.setUpBoard();
 			setGame(clone);
+			//this could yield a bug, by decoupling currentPlayer from game.pinkPlayer. We will see.
 			setInitiated(true);
 		} else if (game.gameOver) {
 			setWinner(game.gameOver.winner);
@@ -47,12 +45,6 @@ export default function App() {
 			value={{
 				game: game,
 				setGame: setGame,
-				chosenPiece: chosenPiece,
-				setChosenPiece: setChosenPiece,
-				chosenCard: chosenCard,
-				setChosenCard: setChosenCard,
-				chosenSquare: chosenSquare,
-				setChosenSquare: setChosenSquare,
 				images: images,
 			}}>
 			<View style={AppStyles.container}>
