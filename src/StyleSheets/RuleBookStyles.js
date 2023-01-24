@@ -32,6 +32,7 @@ const RuleBookStyles = {
 	cardBackground: {
 		height: '30vh',
 		width: '20vh',
+		resizeMode: 'contain',
 	},
 
 	button: {

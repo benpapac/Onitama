@@ -46,11 +46,11 @@ export default function App() {
 				game: game,
 				setGame: setGame,
 				images: images,
+				setRules: setRules,
 			}}>
 			<View style={AppStyles.container}>
-				{rules && <RuleBook />}
+				{rules ? <RuleBook /> : <Board />}
 				{gameOver && <WinScreen winner={winner} winCondition={winCondition} />}
-				<Board />
 			</View>
 		</Context.Provider>
 	);

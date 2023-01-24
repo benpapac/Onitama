@@ -1,6 +1,6 @@
 import React, { useContext,  } from 'react';
-import { View, Text, Pressable, ImageBackground } from 'react-native';
-import { RuleBookStyles } from '../StyleSheets/RuleBookStyles';
+import { View, Text, Button, ImageBackground } from 'react-native';
+import RuleBookStyles from '../StyleSheets/RuleBookStyles';
 //Utils
 import { cards } from '../Utils/cards';
 import { Context } from '../Utils/context';
@@ -55,9 +55,9 @@ const RuleBook = () => {
                 {DATA && DATA.map(card => renderCard(card) )}
                 </View>
 
-                <Pressable  style={RuleBookStyles.button} onPress={()=> setRules(!rules)}>
-                    <Text>Back to the game.</Text>
-                </Pressable>
+                <Button  style={RuleBookStyles.button} onPress={()=> setRules(false)}
+                title='Back to the game'>
+                </Button>
             </View>
     );
 };

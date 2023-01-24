@@ -13,9 +13,10 @@ import { aiTurn } from '../Utils/AI/ai';
 import createThreats from '../Utils/createThreats';
 import DrawPile from './DrawPile';
 import ErrorBoundary from '../Utils/ErrorBoundary';
+import { Button } from 'react-native-web';
 
 const Board = () => {
-    const { game, setGame } = useContext(Context);
+    const { game, setGame, setRules } = useContext(Context);
 
     const [depth, setDepth] = useState(3);
 
@@ -69,7 +70,7 @@ const Board = () => {
 
                 <CardPanel player={'bluePlayer'} />
             </View>
-
+            <Button onPress={()=> setRules(true)} title={'See Rules'} accessibilityLabel='Open the rule book.' ></Button>
             <DrawPile />
         </>
     )

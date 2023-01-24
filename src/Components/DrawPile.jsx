@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import { Context } from '../Utils/context';
 import CardPanelStyles from '../StyleSheets/CardPanelStyles';
 
@@ -12,6 +12,7 @@ const DrawPile = () => {
                     style={CardPanelStyles.image} 
                     source={{uri: images[game.drawPile[0]]}}
                     />
+            <Text>Next Card.</Text>
         </View>
     );
 };

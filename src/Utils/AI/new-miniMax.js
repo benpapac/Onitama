@@ -92,7 +92,7 @@ const getBestEval = (game, operation, val, depth) => {
 				};
 
 				piece.move(game.threats[k]);
-			
+
 				clone.startNewTurn();
 				let evaluation = miniMax(game, depth - 1, move).evaluation; // recursive call
 				resetState(clone, piece, preservedState);

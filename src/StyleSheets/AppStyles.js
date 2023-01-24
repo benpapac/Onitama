@@ -20,7 +20,7 @@ const AppStyles = StyleSheet.create({
 	header: {
 		paddingVertical: '5vh',
 		marginBottom: '5vh',
-		backgroundColor: 'rgba(0,0,0,0.6)',
+		// backgroundColor: 'rgba(0,0,0,0.6)',
 
 		width: '100vw',
 		height: '20vh',

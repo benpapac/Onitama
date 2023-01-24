@@ -21,16 +21,16 @@ const Card = ({player, idx}) => {
         <Pressable 
         role={`${player.color}Card`} 
         nativeID={game[player].hand[idx]} 
-        style={{...CardPanelStyles.image, backgroundImage: images[game[player].hand[idx]]}} 
+        style={CardPanelStyles.image} 
         onPress={handlePress} 
         >
-                        <Image title={game[player].hand[idx]} 
-                    style={CardPanelStyles.image} 
-                    source={{uri: images[game[player].hand[idx]]}}
-                    />
-                  <Text> { cards[ game[player].hand[idx] ].rule }</Text>
+          <Image title={game[player].hand[idx]} 
+          style={CardPanelStyles.image} 
+          source={{uri: images[game[player].hand[idx]]}}
+          />
+          <Text style={CardPanelStyles.rule}> { cards[ game[player].hand[idx] ].rule }</Text>
 
-                </Pressable>
+        </Pressable>
     );
 };
 
