@@ -1,8 +1,8 @@
-import Game from '../classes/class.Game';
-import makeClone from '../clone';
-import deepEqual from '../deepEquals';
-import { getEval } from './ai';
-import createThreats from '../createThreats';
+import Game from '../classes/class.Game.js';
+import makeClone from '../clone.js';
+import deepEqual from '../deepEquals.js';
+import { getEval } from './ai.js';
+import createThreats from '../createThreats.js';
 
 /*
 I want to grab a piece and look at each of the possible moves for that piece.

@@ -1,8 +1,8 @@
-import deepEqual from '../deepEquals';
-import createThreats from '../createThreats';
+import deepEqual from '../deepEquals.js';
+import createThreats from '../createThreats.js';
 import miniMax from './new-miniMax.js';
 
-import makeClone from '../clone';
+import makeClone from '../clone.js';
 
 const getAllThreats = (game) => {
 	let threats = [];

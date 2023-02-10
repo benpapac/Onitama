@@ -3,20 +3,20 @@ import { useState, useEffect, useReducer } from 'react';
 import { View } from 'react-native';
 
 //components
-import WinScreen from './Components/WinScreen';
-import RuleBook from './Components/RuleBook';
-import Board from './Components/Board';
-import DrawPile from './Components/DrawPile';
+import WinScreen from './Components/WinScreen.jsx';
+import RuleBook from './Components/RuleBook.jsx';
+import Board from './Components/Board.jsx';
+import DrawPile from './Components/DrawPile.jsx';
 
 //Utils
-import images from './Utils/images';
-import Game from './Utils/classes/class.Game';
+import images from './Utils/images.js';
+import Game from './Utils/classes/class.Game.js';
 
 //styles
 import AppStyles from './StyleSheets/AppStyles.js';
 
 //hooks
-import { Context } from './Utils/context';
+import { Context } from './Utils/context.js';
 
 export default function App() {
 	//TODO: refactor most state into a useReducer Hook. This will make code more maintainable.
