@@ -30,22 +30,6 @@ const player2 = {
 	cards: [],
 };
 
-// ARRAYS //
-const rowsArray = ['one', 'two', 'three', 'four', 'five'];
-const columnsArray = ['A', 'B', 'C', 'D', 'E'];
-
-const pawnNamesArray = [
-	'pink-pawn-A',
-	'pink-pawn-B',
-	'pink-pawn-Sage',
-	'pink-pawn-D',
-	'pink-pawn-E',
-	'blue-pawn-A',
-	'blue-pawn-B',
-	'blue-pawn-Sage',
-	'blue-pawn-D',
-	'blue-pawn-E',
-];
 const movementCardsArray = ['boar', 'mantis', 'ox', 'eel', 'cobra', 'horse'];
 
 // MOVEMENT CARDS //
@@ -204,7 +188,7 @@ const movementCards = {
 };
 
 //cached DOM references
-const board = document.querySelector(`.board`);
+const board = document.querySelector(`#board`);
 const message = document.querySelector('#message');
 
 //Modals and buttons
@@ -277,7 +261,6 @@ function startGame() {
 	//update State Variables and render()
 
 	winner = false;
-	gameOver = false;
 	turn = 1;
 	currentPlayer = player1;
 	opponent = player2;
@@ -300,7 +283,7 @@ function startGame() {
 	assignPlayCards();
 	showCards();
 	render();
-	// aboutModal.style.display = 'flex';
+	
 	endModal.style.display = 'none';
 }
 
@@ -311,7 +294,7 @@ function render() {
 	oldSquare.removeChild(activePawn);
 	newSquare.appendChild(activePawn);
 
-	if (gameOver) {
+	if (winner) {
 		removeShadows();
 		deletePawns();
 		makePawns();
@@ -342,28 +325,22 @@ function newTurn() {
 }
 function getWinner(targetPawn) {
 	// if either sage is gone, end game.
-	if (targetPawn.id === pawnsList.pinkPawnSage.id) {
+	if (targetPawn.id === 'pink-pawn-Sage') {
 		winner = player1;
 		return (gameOver = true);
 	}
 
-	if (targetPawn.id === pawnsList.bluePawnSage.id) {
+	if (targetPawn.id === 'blue-pawn-Sage') {
 		winner = player2;
 		return (gameOver = true);
 	}
 
-	if (
-		activePawn.id === pawnsList.bluePawnSage.id &&
-		newSquare.id === 'pink-temple'
-	) {
+	if (activePawn.id === 'blue-pawn-Sage' && newSquare.id === 'pink-temple') {
 		winner = player1;
 		return (gameOver = true);
 	}
 
-	if (
-		activePawn.id === pawnsList.pinkPawnSage.id &&
-		newSquare.id === 'blue-temple'
-	) {
+	if (activePawn.id === 'pink-pawn-Sage' && newSquare.id === 'blue-temple') {
 		winner = player2;
 		return (gameOver = true);
 	}
@@ -378,12 +355,12 @@ function randomCard() {
 
 // Core Card Mechanics //
 function getPlayCards() {
-	let cardArray = [];
+	let deck = new Set();
 	for (let i = 0; i < 5; i++) {
 		let newCard = randomCard();
-		if (!cardArray.includes(newCard)) {
+		if (!deck.has(newCard)) {
 			playCardsArray.push(newCard);
-			cardArray.push(newCard);
+			deck.add(newCard);
 		} else {
 			i--;
 		}
@@ -394,15 +371,14 @@ function assignPlayCards() {
 	for (let i = 0; i < 2; i++) {
 		player1.cards.push(playCardsArray.pop());
 		player2.cards.push(playCardsArray.pop());
-
-		currentCards = player1.cards;
-		opponentCards = player2.cards;
 	}
+
+	currentCards = player1.cards;
+	opponentCards = player2.cards;
 }
 
 // ALL CALLBACK HANDLERS ON eventHandlers.js //
 function handleClick(event) {
-	console.log(event);
 	if (pickMode) handlePick(event);
 	else {
 		handleMove(event);
@@ -414,7 +390,7 @@ function handleMenu(event) {
 	if (!event.target.classList.contains('card')) return;
 	let cardChoice = parseInt(event.target.dataset.number) - 1;
 	chosenCard = currentCards[parseInt(cardChoice)].move;
-	console.log(`Active pawn: ${activePawn}`);
+	
 	removeShadows();
 	if (activePawn) {
 		glowShadowSquares();
@@ -463,55 +439,56 @@ function prepBlurb(cardChoice) {
 }
 
 function showCards() {
-	cardOne.innerText = currentCards[0].name;
-	cardOne.style.backgroundImage = `url(${currentCards[0].link})`;
-	cardOne.style.backgroundSize = 'cover';
+	currentCards.forEach((card, idx) => {
+		const node = document.querySelector(`#move-card-${idx + 1}`);
+		node.innerText = card.name;
+		node.style.backgroundImage = `url(${card.link})`;
+		node.style.backgroundSize = 'cover';
+	});
 
-	cardTwo.innerText = currentCards[1].name;
-	cardTwo.style.backgroundImage = `url(${currentCards[1].link})`;
-	cardTwo.style.backgroundSize = 'cover';
-
-	cardThree.innerText = opponentCards[0].name;
-	cardThree.style.backgroundImage = `url(${opponentCards[0].link})`;
-	cardThree.style.backgroundSize = 'cover';
-
-	cardFour.innerText = opponentCards[1].name;
-	cardFour.style.backgroundImage = `url(${opponentCards[1].link})`;
-	cardFour.style.backgroundSize = 'cover';
+	opponentCards.forEach((card, idx) => {
+		const node = document.querySelector(`#move-card-${idx + 3}`);
+		node.innerText = card.name;
+		node.style.backgroundImage = `url(${card.link})`;
+		node.style.backgroundSize = 'cover';
+	});
 }
 
 /// MAKE AND DELETE PAWNS ///
 function deletePawns() {
-	let deadArray = [];
-	for (let i = 0; i < pawnNamesArray.length; i++) {
-		let deadPawn = document.querySelector(`#${pawnNamesArray[i]}`);
-		deadArray.push(deadPawn);
+	for (let i = 0; i < 5; i++) {
+		let deadPinkPawn = document.querySelector(`#pink-pawn-${i === 2 ? 'Sage' : columns[i]}`);
+		let deadBluePawn = document.querySelector(`#blue-pawn-${i === 2 ? 'Sage' : columns[i]}`);
+
+		
+		if (deadPinkPawn !== null) {
+			deadPinkPawn.remove();
+		}
+
+		if (deadBluePawn !== null) {
+			deadBluePawn.remove();
+		}
 	}
-	deadArray.forEach((element) => {
-		ghostPawn = element;
-		if (ghostPawn === null) return;
-		ghostPawn.remove();
-	});
 }
 
 function makePawns() {
-	for (let column = 0; column < columnsArray.length; column++) {
+	for (let column = 0; column < columns.length; column++) {
 		let pinkSquare = document.querySelector(
-			`[data-row= ${rowsArray[4]}] [data-column= ${columnsArray[column]}]`
+			`[data-row= ${rows[4]}] [data-column= ${columns[column]}]`
 		);
 		let blueSquare = document.querySelector(
-			`[data-row= ${rowsArray[0]}] [data-column= ${columnsArray[column]}]`
+			`[data-row= ${rows[0]}] [data-column= ${columns[column]}]`
 		);
 
 		let pinkPawn = document.createElement('a');
 		pinkPawn.classList.add('pink-pawn');
 		pinkPawn.classList.add('pawn');
-		pinkPawn.id = pawnNamesArray[column];
+		pinkPawn.id = `pink-pawn-${column === 2 ? 'Sage' : columns[column]}`;
 
 		let bluePawn = document.createElement('a');
 		bluePawn.classList.add('blue-pawn');
 		bluePawn.classList.add('pawn');
-		bluePawn.id = pawnNamesArray[column + 5];
+		bluePawn.id = `blue-pawn-${column === 2 ? 'Sage' : columns[column]}`;
 
 		pinkSquare.appendChild(pinkPawn);
 		blueSquare.appendChild(bluePawn);

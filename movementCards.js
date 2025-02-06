@@ -4,7 +4,7 @@ const blueCoreCards = {
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === -1 &&
 			Math.abs(
-				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+				columns.indexOf(oldColumn) - columns.indexOf(newColumn)
 			) === 0
 		) {
 			return true;
@@ -16,7 +16,7 @@ const blueCoreCards = {
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			Math.abs(
-				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+				columns.indexOf(oldColumn) - columns.indexOf(newColumn)
 			) === 0
 		) {
 			return true;
@@ -29,7 +29,7 @@ const blueCoreCards = {
 			Math.abs(
 				parseInt(oldRow) - parseInt(newRow) === 0 &&
 					Math.abs(
-						columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+						columns.indexOf(oldColumn) - columns.indexOf(newColumn)
 					) === 1
 			)
 		) {
@@ -42,7 +42,7 @@ const blueCoreCards = {
 			opponent === player2 &&
 			Math.abs(
 				parseInt(oldRow) - parseInt(newRow) === 0 &&
-					columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) ===
+					columns.indexOf(oldColumn) - columns.indexOf(newColumn) ===
 						1
 			)
 		) {
@@ -55,7 +55,7 @@ const blueCoreCards = {
 			opponent === player2 &&
 			Math.abs(
 				parseInt(oldRow) - parseInt(newRow) === 0 &&
-					columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) ===
+					columns.indexOf(oldColumn) - columns.indexOf(newColumn) ===
 						-1
 			)
 		) {
@@ -67,7 +67,7 @@ const blueCoreCards = {
 		if (
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === -1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 1
+			columns.indexOf(oldColumn) - columns.indexOf(newColumn) === 1
 		) {
 			return true;
 		} else return false;
@@ -77,7 +77,7 @@ const blueCoreCards = {
 		if (
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === -1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -1
+			columns.indexOf(oldColumn) - columns.indexOf(newColumn) === -1
 		) {
 			return true;
 		} else return false;
@@ -86,7 +86,7 @@ const blueCoreCards = {
 		if (
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 1
+			columns.indexOf(oldColumn) - columns.indexOf(newColumn) === 1
 		) {
 			return true;
 		} else return false;
@@ -95,7 +95,7 @@ const blueCoreCards = {
 		if (
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -1
+			columns.indexOf(oldColumn) - columns.indexOf(newColumn) === -1
 		) {
 			return true;
 		} else return false;
@@ -106,7 +106,7 @@ const blueCoreCards = {
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === -2 &&
 			Math.abs(
-				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+				columns.indexOf(oldColumn) - columns.indexOf(newColumn)
 			) === 0
 		) {
 			return true;
@@ -118,7 +118,7 @@ const blueCoreCards = {
 			Math.abs(
 				parseInt(oldRow) - parseInt(newRow) === 0 &&
 					Math.abs(
-						columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+						columns.indexOf(oldColumn) - columns.indexOf(newColumn)
 					) === 2
 			)
 		) {
@@ -130,7 +130,7 @@ const blueCoreCards = {
 		if (
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === -1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -2
+			columns.indexOf(oldColumn) - columns.indexOf(newColumn) === -2
 		) {
 			return true;
 		} else return false;
@@ -139,7 +139,7 @@ const blueCoreCards = {
 		if (
 			opponent === player2 &&
 			parseInt(oldRow) - parseInt(newRow) === -1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 2
+			columns.indexOf(oldColumn) - columns.indexOf(newColumn) === 2
 		) {
 			return true;
 		} else return false;
@@ -152,7 +152,7 @@ const pinkCoreCards = {
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
 			Math.abs(
-				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+				columns.indexOf(oldColumn) - columns.indexOf(newColumn)
 			) === 0
 		) {
 			return true;
@@ -164,7 +164,7 @@ const pinkCoreCards = {
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === -1 &&
 			Math.abs(
-				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+				columns.indexOf(oldColumn) - columns.indexOf(newColumn)
 			) === 0
 		) {
 			return true;
@@ -177,7 +177,7 @@ const pinkCoreCards = {
 			Math.abs(
 				parseInt(oldRow) - parseInt(newRow) === 0 &&
 					Math.abs(
-						columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+						columns.indexOf(oldColumn) - columns.indexOf(newColumn)
 					) === 1
 			)
 		) {
@@ -190,7 +190,7 @@ const pinkCoreCards = {
 			opponent === player1 &&
 			Math.abs(
 				parseInt(oldRow) - parseInt(newRow) === 0 &&
-					columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) ===
+					columns.indexOf(oldColumn) - columns.indexOf(newColumn) ===
 						1
 			)
 		) {
@@ -203,7 +203,7 @@ const pinkCoreCards = {
 			opponent === player1 &&
 			Math.abs(
 				parseInt(oldRow) - parseInt(newRow) === 0 &&
-					columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) ===
+					columns.indexOf(oldColumn) - columns.indexOf(newColumn) ===
 						-1
 			)
 		) {
@@ -215,7 +215,7 @@ const pinkCoreCards = {
 		if (
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 1
+			columns.indexOf(oldColumn) - columns.indexOf(newColumn) === 1
 		) {
 			return true;
 		} else return false;
@@ -225,7 +225,7 @@ const pinkCoreCards = {
 		if (
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -1
+			columns.indexOf(oldColumn) - columns.indexOf(newColumn) === -1
 		)
 			return true;
 		else return false;
@@ -234,7 +234,7 @@ const pinkCoreCards = {
 		if (
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === -1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 1
+			columns.indexOf(oldColumn) - columns.indexOf(newColumn) === 1
 		) {
 			return true;
 		} else return false;
@@ -243,7 +243,7 @@ const pinkCoreCards = {
 		if (
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === -1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -1
+			columns.indexOf(oldColumn) - columns.indexOf(newColumn) === -1
 		) {
 			return true;
 		} else return false;
@@ -254,7 +254,7 @@ const pinkCoreCards = {
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 2 &&
 			Math.abs(
-				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+				columns.indexOf(oldColumn) - columns.indexOf(newColumn)
 			) === 0
 		) {
 			return true;
@@ -266,7 +266,7 @@ const pinkCoreCards = {
 			Math.abs(
 				parseInt(oldRow) - parseInt(newRow) === 0 &&
 					Math.abs(
-						columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+						columns.indexOf(oldColumn) - columns.indexOf(newColumn)
 					) === 2
 			)
 		) {
@@ -278,7 +278,7 @@ const pinkCoreCards = {
 		if (
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === -2
+			columns.indexOf(oldColumn) - columns.indexOf(newColumn) === -2
 		) {
 			return true;
 		} else return false;
@@ -287,7 +287,7 @@ const pinkCoreCards = {
 		if (
 			opponent === player1 &&
 			parseInt(oldRow) - parseInt(newRow) === 1 &&
-			columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn) === 2
+			columns.indexOf(oldColumn) - columns.indexOf(newColumn) === 2
 		) {
 			return true;
 		} else return false;

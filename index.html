@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <header class="about">
+    <header>
         <h1 id="headline">Onitama</h1>
             <h3>Programmed by <a href="https://www.linkedin.com/in/benpapac/" alt="Ben's LinkedIn Page">Benjamin Papac</a> </h3>
             <button class="button" id="about-button">About the Game</button>
@@ -38,13 +38,12 @@
             </div>
         </div>
         <div class="modal" id="end-modal">
-            <div class="modal-textbox">
                 <h3 id="message">DISPLAY WINNER HERE</h3>
                 <p>Congratulations! If you had fun, you can buy a copy of Onitama on the 
                     <a href="https://www.arcanewonders.com/product/onitama/">Arcane Wonders Website.</a> or anywhere online. Again, I don't get a commission. Please play as much as you like. There are tons of variations, so each game will feel unique!
                 </p>
                 <button class="button" id="reset-button">Play Again</button>
-            </div>
+
         </div>
     </header>
     <main>
@@ -52,52 +51,16 @@
         <menu class="menu" id="opponent-menu">
             <h3>Opponent's<br />Cards</h3>
             <div class="card" id="move-card-3" data-number="3">MOVE CARD 3</div>
-            <div class="card" id="move-card-4" data-number="4"> MOVE CARD 4</div>
+            <div class="card" id="move-card-4" data-number="4">MOVE CARD 4</div>
         </menu>
-        <div class="board">
-            <div class="row five" data-row="five">
-                <div class="square" id="five-A" data-row="5" data-column="A"></div>
-                <div class="square" id="five-B" data-row="5" data-column="B"></div>
-                <div class="square" id="pink-temple" data-row="5" data-column="C"></div>
-                <div class="square" id="five-D" data-row="5" data-column="D"></div>
-                <div class="square" id="five-E" data-row="5" data-column="E"></div>
-            </div>
-            <div class="row four" data-row="four">
-                <div class="square" id="four-A" data-row="4" data-column="A"></div>
-                <div class="square" id="four-B" data-row="4" data-column="B"></div>
-                <div class="square" id="four-C" data-row="4" data-column="C"></div>
-                <div class="square" id="four-D" data-row="4" data-column="D"></div>
-                <div class="square" id="four-E" data-row="4" data-column="E"></div>
-            </div>
-            <div class="row three" data-row="three">
-                <div class="square" id="three-A" data-row="3" data-column="A"></div>
-                <div class="square" id="three-B" data-row="3" data-column="B"></div>
-                <div class="square" id="three-C" data-row="3" data-column="C"></div>
-                <div class="square" id="three-D" data-row="3" data-column="D"></div>
-                <div class="square" id="three-E" data-row="3" data-column="E"></div>
-            </div>
 
-            <div class="row two" data-row="two">
-                <div class="square" id="two-A" data-row="2" data-column="A"></div>
-                <div class="square" id="two-B" data-row="2" data-column="B"></div>
-                <div class="square" id="two-C" data-row="2" data-column="C"></div>
-                <div class="square" id="two-D" data-row="2" data-column="D"></div>
-                <div class="square" id="two-E" data-row="2" data-column="E"></div>
-            </div>
-
-            <div class="row one" data-row="one">
-                <div class="square" id="one-A" data-row="1" data-column="A"></div>
-                <div class="square" id="one-B" data-row="1" data-column="B"></div>
-                <div class="square" id="blue-temple" data-row="1" data-column="C"></div>
-                <div class="square" id="one-D" data-row="1" data-column="D"></div>
-                <div class="square" id="one-E" data-row="1" data-column="E"></div>
-            </div>
+        <div id="board">
         </div>
 
         <menu class="menu" id="move-menu">
             <h3>Your Cards</h3>
-            <div class="card" id="move-card-1" data-number="1"> MOVE CARD 1</div>
-            <div class="card" id="move-card-2" data-number="2"> MOVE CARD 2</div>
+            <div class="card" id="move-card-1" data-number="1">MOVE CARD 1</div>
+            <div class="card" id="move-card-2" data-number="2">MOVE CARD 2</div>
         </menu>
     </main>
 
@@ -115,6 +78,7 @@
 
 
 
+    <script src="./board.js"></script>
     <script src="./script.js"></script>
     <script src="./movement.js"></script>
     <script src="./movementCards.js"></script>

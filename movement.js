@@ -18,7 +18,7 @@ SQUARES: 103 - 145
 */
 
 function updateMovementStates(event) {
-	oldSquare = event.path[1];
+	oldSquare = event.target.parentNode;
 	oldRow = oldSquare.dataset.row;
 	oldColumn = oldSquare.dataset.column;
 	activePawn = document.querySelector(`#${event.target.id}`);
@@ -31,7 +31,7 @@ function checkMove() {
 		opponent === player2 &&
 		(parseInt(oldRow) - parseInt(newRow) !== -1 ||
 			Math.abs(
-				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+				columns.indexOf(oldColumn) - columns.indexOf(newColumn)
 			) > 1)
 	)
 		return;
@@ -40,7 +40,7 @@ function checkMove() {
 		opponent === player1 &&
 		(parseInt(oldRow) - parseInt(newRow) !== 1 ||
 			Math.abs(
-				columnsArray.indexOf(oldColumn) - columnsArray.indexOf(newColumn)
+				columns.indexOf(oldColumn) - columns.indexOf(newColumn)
 			) > 1)
 	)
 		return;
@@ -57,20 +57,6 @@ function resetMovementStates() {
 }
 
 //// PAWNS ////
-
-const pawnsList = {
-	pinkPawnA: document.querySelector(`#${pawnNamesArray[0]}`),
-	pinkPawnB: document.querySelector(`#${pawnNamesArray[1]}`),
-	pinkPawnSage: document.querySelector(`#${pawnNamesArray[2]}`),
-	pinkPawnD: document.querySelector(`#${pawnNamesArray[3]}`),
-	pinkPawnE: document.querySelector(`#${pawnNamesArray[4]}`),
-
-	bluePawnA: document.querySelector(`#${pawnNamesArray[5]}`),
-	bluePawnB: document.querySelector(`#${pawnNamesArray[6]}`),
-	bluePawnSage: document.querySelector(`#${pawnNamesArray[7]}`),
-	bluePawnD: document.querySelector(`#${pawnNamesArray[8]}`),
-	bluePawnE: document.querySelector(`#${pawnNamesArray[9]}`),
-};
 
 function checkPawn() {
 	if (!targetPawn.classList.contains(`${opponent.class}`)) return;
@@ -98,7 +84,7 @@ function takePawn() {
 
 function getNewSquare(event) {
 	if (event.target.classList.contains('square')) newSquare = event.target;
-	if (event.target.classList.contains('pawn')) newSquare = event.path[1];
+	if (event.target.classList.contains('pawn')) newSquare = event.target.parentNode;
 	newRow = newSquare.dataset.row;
 	newColumn = newSquare.dataset.column;
 }
@@ -111,13 +97,12 @@ function getShadowSquare() {
 }
 
 function glowShadowSquares() {
-	console.log(`we're in glow`);
 	let goodShadow = false;
 
-	for (let i = 0; i < rowsArray.length; i++) {
-		for (let j = 0; j < columnsArray.length; j++) {
+	for (let i = 0; i < rows.length; i++) {
+		for (let j = 0; j < columns.length; j++) {
 			shadowSquare = document.querySelector(
-				`[data-row= ${rowsArray[i]}] [data-column= ${columnsArray[j]}]`
+				`[data-row= ${rows[i]}] [data-column= ${columns[j]}]`
 			);
 			getShadowSquare(shadowSquare);
 			goodShadow = chosenCard();
@@ -127,10 +112,10 @@ function glowShadowSquares() {
 }
 
 function removeShadows() {
-	for (let i = 0; i < rowsArray.length; i++) {
-		for (let j = 0; j < columnsArray.length; j++) {
+	for (let i = 0; i < rows.length; i++) {
+		for (let j = 0; j < columns.length; j++) {
 			shadowSquare = document.querySelector(
-				`[data-row= ${rowsArray[i]}] [data-column= ${columnsArray[j]}]`
+				`[data-row= ${rows[i]}] [data-column= ${columns[j]}]`
 			);
 			if (shadowSquare.dataset.type === 'shadow') {
 				shadowSquare.dataset.type = '';
